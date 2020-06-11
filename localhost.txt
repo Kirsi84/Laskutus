@@ -1,0 +1,16 @@
+Toimii hakemistorakenteella: htdocs\Laskutus:
+
+http://localhost/images/football.png
+
+
+http://localhost/
+
+http://localhost/index.php
+
+xamp:ssa
+==========
+
+#DocumentRoot "C:/xampp/htdocs"
+#<Directory "C:/xampp/htdocs">
+DocumentRoot "C:/xampp/htdocs/Laskutus"
+<Directory "C:/xampp/htdocs/Laskutus">
