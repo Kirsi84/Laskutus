@@ -43,7 +43,7 @@ if (isset($_POST["upload"])) {
                 "message" => "File Validation Success."                
             );
                      
-            include 'getCustomers.php';
+            include 'customers.php';
             
         } else {
             $response = array(

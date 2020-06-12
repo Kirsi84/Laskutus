@@ -2,8 +2,9 @@
 <?php
     include 'head.php';
 ?>
-<body class="bodyWide">
+<body>
     <div class="main">
+      
         <?php
             include 'navbar.php';
         ?>
@@ -15,7 +16,14 @@
     $name          = trim(strip_tags( $_POST['name']));
     $duedate       = trim(strip_tags( $_POST['duedate']));
     $accountnumber = trim(strip_tags( $_POST['accountnumber']));
-    $message       = trim(strip_tags( $_POST['message']));   
+    $message       = trim(strip_tags( $_POST['message']));  
+   
+    require_once "referenceNumber.php";
+    $lasku = rand();  
+    echo "laskurand: " . $lasku;
+    $suomiviite = SuomalainenViite::luo($lasku);
+    echo "Suomi: {$suomiviite}\n";
+      
 ?>
   
     <label for  ="name" class="lbTitleBlock">Laskun lähettäjä:</label>
@@ -25,8 +33,12 @@
     <input type ="date" id="duedate" name="duedate" class="txtBoxBlock" required value="<?php echo $duedate;?>">
       
     <label for  ="accountnumber" class="lbTitleBlock">Tilinumero:</label>
-    <input type ="test" id="accountnumber" name="accountnumber" class="txtBoxBlock" required value="<?php echo $accountnumber;?>">
-       
+    <input type ="text" id="accountnumber" name="accountnumber" class="txtBoxBlock" required value="<?php echo $accountnumber;?>">
+
+
+    <label for  ="refnumber" class="lbTitleBlock">Viitenumero:</label>
+    <input type ="text" id="refnumber" name="refnumber" class="txtBoxBlock" required value="<?php echo $suomiviite;?>">
+
     <label for  ="message" class="lbTitleBlock">Laskun viesti:</label>  
     <textarea id="message" name="message" rows="2" cols="40"><?php echo $message;?></textarea>
 
@@ -37,17 +49,26 @@
         if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {
 ?>
 <table class="tutorial-table" width="100%" border="1" cellspacing="0">
+<tr>
+        <th>Sukunimi</th>
+        <th>Etunimi</th>
+        <th>Osoite</th>
+        <th>Postinumero</th>
+        <th>Postitoimipaikka</th>
+        <th>Sähköpostiosoite</th>
+    </tr>
 <?php
     $i = 0;
     while (($row = fgetcsv($fp)) !== false) {
+
         $class ="";
         if($i==0) {
            $class = "header";
         }
         ?>
     <tr>
-            <td class="<?php echo $class; ?>"><?php echo $row[0]; ?></td>
             <td class="<?php echo $class; ?>"><?php echo $row[1]; ?></td>
+            <td class="<?php echo $class; ?>"><?php echo $row[0]; ?></td>
             <td class="<?php echo $class; ?>"><?php echo $row[2]; ?></td>
             <td class="<?php echo $class; ?>"><?php echo $row[3]; ?></td>
             <td class="<?php echo $class; ?>"><?php echo $row[4]; ?></td>

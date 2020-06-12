@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<!--
-
--->
+<!-- Error page -->
 
 <html>
     <head>
@@ -24,8 +22,6 @@
                 <legend>Virhe tietojen käsittelyssä</legend>
                 
                 <?php 
-                  //  echo "session status: " . session_status(); //todo:
-
                    if(isset($_GET['Message'])){
                         echo $_GET['Message'];
                     }        
