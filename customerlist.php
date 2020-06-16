@@ -9,46 +9,8 @@
             include 'navbar.php';
         ?>
     </div>
-    <br>
-
-
+ 
 <?php
-    $name          = trim(strip_tags( $_POST['name']));
-    $duedate       = trim(strip_tags( $_POST['duedate']));
-    $accountnumber = trim(strip_tags( $_POST['accountnumber']));
-    $message       = trim(strip_tags( $_POST['message']));  
-   
-    require_once "referenceNumber.php";
-    $lasku = rand();  
-    // echo "laskurand: " . $lasku;
-    $suomiviite = SuomalainenViite::luo($lasku);
-   // echo "Suomi: {$suomiviite}\n";
-      
-?>
-<!-- <div class="sidebyside"> -->
-    <div>
-
-    <fieldset class="sidebyside">
-        <label for  ="name" class="lbTitle">Laskun lähettäjä:</label>
-        <input type ="text" id="name" name="name" class="txtBox" required value="<?php echo $name;?>">
-    
-        <label for  ="duedate" class="lbTitle">Eräpäivä:</label>
-        <input type ="date" id="duedate" name="duedate" class="txtBox" required value="<?php echo $duedate;?>">
-        
-        <label for  ="accountnumber" class="lbTitle">Tilinumero:</label>
-        <input type ="text" id="accountnumber" name="accountnumber" class="txtBox" required value="<?php echo $accountnumber;?>">
-
-        <label for  ="refnumber" class="lbTitle">Viitenumero:</label>
-        <input type ="text" id="refnumber" name="refnumber" class="txtBox" required value="<?php echo $suomiviite;?>">
-    </fieldset>
-
-    <fieldset class="sidebyside">
-        <label for  ="message" class="lbTitle">Laskun viesti:</label>  
-        <textarea id="message" name="message" rows="2" cols="40"><?php echo $message;?></textarea>
-    </fieldset>
-</div>
-<?php
-
 
     if(!empty(isset($_POST["upload"]))) {
         if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {

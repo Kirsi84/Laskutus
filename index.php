@@ -4,11 +4,19 @@
 ?>
 
 <body>
+    <?php
+        include 'navbar.php';
+    ?>
     <div class="main">
-        <?php
-            include 'navbar.php';
-        ?>
+      
     </div>
+    <?php
+        // define variables and set to empty values
+        // $nameErr =  "";
+        // $name =  "";
+      //  include_once 'resetData.php';
+    ?>
+   
     <br>
 
     <!-- <h2>PHP Image Upload with Size Type Dimension Validation</h2> -->
@@ -19,35 +27,40 @@
             <legend>Laskuttajan tiedot</legend>
 
             <label for  ="name" class="lbTitle">Laskun lähettäjä:</label>
-            <input type ="text" id="name" name="name" class="txtBox" required><br><br>
+            <input type ="text" id="name" name="name" class="txtBox" required> 
+  
+            <br>
 
             <label for  ="duedate" class="lbTitle">Eräpäivä:</label>
-            <input type ="date"  id="duedate" name="duedate" class="txtBox" required><br><br>
+            <input type ="date"  id="duedate" name="duedate" class="txtBox" required><br>
 
             <label for  ="accountnumber" class="lbTitle">Tilinumero:</label>
-            <input type ="text" id="accountnumber" name="accountnumber" class="txtBox" required><br><br>
+            <input type ="text" id="accountnumber" name="accountnumber" class="txtBox" required><br>
 
             <label for  ="message" class="lbTitle">Laskun viesti:</label>
             <textarea id="message" name="message" rows="4" cols="54" required></textarea>
                  
             <br>
-            <!--                
-            <label for  ="button" class="lbTitle"></label>
-            <input type="submit" name="button" id="btn-submit" value="Tallenna"> 
-            -->
+           
         </fieldset>
        
-        <div class="form-row">
-            <div>Laskutettavat asiakkaat:</div>
+        <fieldset>
+            <legend>Laskutettavat asiakkaat:</legend>
+     
             <div>
                 <input type="file" class="file-input" name="file-input">
+                
+                <input  type="submit" id="btn-submit" name="upload" value="Lataa tiedosto">
             </div>
-        </div>
+           
 
-        <div class="button-row">
+           
+        </fieldset>
+
+        <!-- <div class="button-row">
             <input type="submit" id="btn-submit" name="upload"
-                value="Upload">
-        </div>
+                value="Lataa tiedosto">
+        </div> -->
     </form>
 
     <?php if(!empty($response)) { ?>
@@ -57,9 +70,11 @@
     <?php }?>
 
 
-    <!-- <?php
-      //  include 'upload.php';
-     ?> -->
+    <?php
+           if(isset($_GET['Message'])){
+            echo $_GET['Message'];
+        }       
+     ?> 
 
 <footer>
   <p>Footer</p>

@@ -15,7 +15,7 @@ if (isset($_POST["upload"])) {
                 "type" => "error",
                 "message" => "Invalid CSV: File must have .csv extension."
             );
-            echo $result;
+           //todo: echo $result;
         } // Validate file size
     else if (($_FILES["file-input"]["size"] > 2000000)) {
             $response = array(
@@ -40,11 +40,8 @@ if (isset($_POST["upload"])) {
         if (count($lengthArray) == 1) {
             $response = array(
                 "type" => "success",
-                "message" => "File Validation Success."                
+                "message" => "File Validation Success."
             );
-                     
-            include 'customers.php';
-            
         } else {
             $response = array(
                 "type" => "error",
@@ -53,6 +50,5 @@ if (isset($_POST["upload"])) {
         }
     }
 }
-
 
 ?>
