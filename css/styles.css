@@ -1,16 +1,16 @@
 html{
-    /* background-color: mintcream; */
-    background-color: lightblue;
-    font-family: Arial, Helvetica, sans-serif;
+    
+    font-family: Arial, Helvetica, sans-serif;   
 }
-
 
 body{
     margin:0;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: 18px;
+    padding-right: 18px;
     font-family: Arial;
-  
+    margin-top: 0;
+   
+    background-image: url("koivut.jpg");  
 }
 
   /* Style the hamburger menu */
@@ -53,20 +53,34 @@ body{
   
   /* Main content */
   .main {
-    margin-top: 40px; /* Add a top margin to avoid content overlay */
-  } 
+/* Add a top margin to avoid content overlay */
+    /* margin-top: 40px;  */
+    background-color: #ADD8E6;
+    /* width: 50%; */
+   /* margin-bottom: 0; */
+  }
 
+  .maindiv{
+    padding-top: 30px;
+  } 
 /* The navigation bar end */
 
 fieldset {
     background-color: lightblue;
     padding-top: 20px;    
-    padding-bottom: 20px; 
-   
+    padding-bottom: 20px;
+    /* width: 50%; */
+    height: auto;
+    /* margin-top: 30px;
+    */
+    /* width:  550px; */
 }
 
+
 legend {
-    font-size: x-large;
+    font-size: large;
+    margin-left: 28px;
+    color: darkblue;
 }
 
 table {
@@ -92,9 +106,6 @@ th, td {
     border-collapse: collapse;
 }
 
-tr:nth-child(even) {
-    background-color: antiquewhite;
-}
 
 
 select {
@@ -106,71 +117,112 @@ select {
 /* classes */
 
 .lbTitle {
-    width:150px;
+    width:130px;
     display: inline-block;
     height: 25px;
-    padding-left: 10px; 
+    /* padding-left: 10px;  */
+    margin-left: 28px;
     
 }
 
-.lbTitleMin {
+/* .lbTitleMin {
     width:80px;
     display: inline-block;
     height: 25px;
     padding-left: 35px;
     
-}
+} */
 
 .txtBox {
-    width:400px ;
+    width:250px ;
     display: inline-block;
     height: 25px;
-    margin-left: 10px;
+    /* margin-left: 10px; */
     margin-right: 10px;
+    margin-left: 25px;
+}
+
+
+#duedate{
+    width: 133px;
+    height: 24px;
+    /* margin-left: 0px;*/
+} 
+
+#accountnumber {
+    width:130px ;
+    display: inline-block;
+    height: 22px;
+    /* margin-left: 0px; */
+   
+}
+
+#refnumber {
+    background-color:#E8F0FE; 
+    border-style: solid; 
+    border-width: 0px; 
+    width: 254px;
 }
 
 
 textarea{
-    resize: none;
-    width:402px ;
+    resize: both;
+    width:252px ;
  
     height: 90;
     vertical-align: top;
-    margin-left: 10px;
+    margin-left: 25px; 
  
 }
 
 
-.sidebyside{
+/* price update */
+.textareaItem{    
+    border: 2px solid;
+    padding: 20px; 
+    width: 300px;
+    resize: both;
+    overflow: auto; 
+}
+
+.textareagrid{    
+    border: 1px solid;
+    /* padding: 20px;  */
+    width: 300px;
+    resize: both;
+    overflow: auto; 
+}
+
+.lomake {
+    max-width:600px;
+    
+} 
+
+
+/* .sidebyside{
     float: left;  
     margin: 0;
+    margin-top: 0;
     margin-bottom: 10px;
     padding: 0;
+    padding-top: 10px;
     box-sizing: border-box;
     height: 180px;
     width: 50%;
     overflow: auto;
    
-}  
+}   */
 
-#duedate{
-    width: 140px;
-    height: 27px;
-    margin-left: 10px;
+
+.table {
+    /* width:100%;    
+    border-spacing: 0px;
+    border-collapse: collapse; */
+
+    border-spacing: 30px;
+    border-collapse: separate;
+
 }
-
-#accountnumber {
-    width:130px ;
-    display: inline-block;
-    height: 25px;
-   
-}
-
-#refnumber {
-    background-color:#E8F0FE;   
-}
-
-
 
 /* Page content */
 .content {
@@ -197,6 +249,7 @@ textarea{
 #frm-upload{
     padding: 0px;
     background-color: lightblue;
+   
 }
 
 .form-row {
@@ -209,7 +262,7 @@ textarea{
     /* padding-top: 100px; */
     border-top: #8aacb7 1px solid;
 }
-
+/* 
 #btn-submit {
     padding: 10px 40px;
     background: #586e75;
@@ -220,22 +273,39 @@ textarea{
 
 #btn-submit:hover {
     box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}  */
+
+
+.btn-submit {
+    padding: 10px 40px;
+    background: #586e75;
+    border: #485c61 1px solid;
+    color: #FFF;
+    border-radius: 2px;
+    margin-left: 30px;
+}
+
+.btn-submit:hover {
+    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 } 
 
 .file-input {
     background: #FFF;
     padding: 5px;
+  
     padding-right: 17px;
     margin-top: 5px;
-    margin-left: 10px;
+    margin-left: 28px;
     border-radius: 2px;
     border: #8aacb7 1px solid;
 }
 
 .response {
-    padding: 10px;
+    /* padding-left: 22px; */
     margin-top: 10px;
     border-radius: 2px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 
 .error {
@@ -341,5 +411,74 @@ footer {
     text-align: center;
     color: white;
   } 
+
+/* grid style */
+#container{
+    margin-top: 0 px;
+    
+    overflow:auto;
+    background-color: #c5f3c3;
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 95%;
+
+}
+table.gridtable {
+    margin: 0 auto;
+    width: 100%;
+   
+    overflow:auto;
+    font-family: helvetica, arial, sans-serif;
+    font-size:14px;
+    color:#333333;
+    
+    border-width: 1 px;
+    border-color: #666666;
+    border-collapse: collapse;
+    text-align: center;
+   
+    border-spacing: 30px;
+    
+}
+
+table.gridtable th {
+    border-width:1px ; 
+    padding: 8px;
+    border-style:solid;
+    border-color: #666666;
+    /* background-color: #F6B4A5; */
+    background-color: blue;
+    color: aliceblue;
+} 
+
+
+table.gridtable td {
+    border-width:1px ; 
+    padding: 8px;
+    border-style:solid;
+    border-color: #666666;   
+}
+
+tr:hover {
+    background-color:#82f0cb
+}
+
+tr:nth-child(even) {
+    /* background-color: antiquewhite; */
+    background-color: #a2d0c8;
+}
+
+#price {
+   
+    /* width: auto; */
+    width: 80px;
+    /* border-width:1px ;  */
+    /* padding: 8px; */
+    /* border-style:solid;
+    border-color: #666666;    */
+
+}
+
 
 

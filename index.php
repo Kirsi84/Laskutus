@@ -1,85 +1,96 @@
-<html>
 <?php
-    include 'head.php';
+    // file upload
+    include 'upload.php';
+
+    // define variables and set to empty values
+    include 'checkData.php';
 ?>
 
-<body>
+<!DOCTYPE html>
+<html>
+
     <?php
-        include 'navbar.php';
+        include 'head.php';
     ?>
-    <div class="main">
-      
-    </div>
-    <?php
-        // define variables and set to empty values
-        // $nameErr =  "";
-        // $name =  "";
-      //  include_once 'resetData.php';
-    ?>
-   
-    <br>
+    <body>  
+        <div class="main">
+            <?php   
+               include 'navbar.php';
+            ?>
+             
+    
+            <form id="frm-upload" action="" method="post"
+                enctype="multipart/form-data">
+                        
+                <fieldset>
+                    <div class="maindiv">
+                        <legend>1. Laskuttajan tiedot</legend>             
 
-    <!-- <h2>PHP Image Upload with Size Type Dimension Validation</h2> -->
-    <form id="frm-upload" action="upload.php" name='indexform'
-        method="post" enctype="multipart/form-data">
+                        <br>
 
-        <fieldset>
-            <legend>Laskuttajan tiedot</legend>
+                        <label for  ="name" class="lbTitle">Laskun lähettäjä:</label>
+                        <input type ="text" id="name" name="name" class="txtBox" required value="<?php echo $name;?>">
+                        <br>
 
-            <label for  ="name" class="lbTitle">Laskun lähettäjä:</label>
-            <input type ="text" id="name" name="name" class="txtBox" required> 
-  
-            <br>
+                        <label for  ="duedate" class="lbTitle">Eräpäivä:</label>
+                        <input type ="date" id="duedate" name="duedate" class="txtBox" required value="<?php echo $duedate;?>">
+                        <br>
 
-            <label for  ="duedate" class="lbTitle">Eräpäivä:</label>
-            <input type ="date"  id="duedate" name="duedate" class="txtBox" required><br>
+                        <!-- value of maxlength of iban account is 18 -->
+                        <label for  ="accountnumber" class="lbTitle">Tilinumero:</label>
+                        <input type ="text" id="accountnumber" name="accountnumber" class="txtBox"
+                            placeholder="IBAN tilinro" maxlength="18" required value="<?php echo $accountnumber;?>">
+                        <br>
 
-            <label for  ="accountnumber" class="lbTitle">Tilinumero:</label>
-            <input type ="text" id="accountnumber" name="accountnumber" class="txtBox" required><br>
+                        <label for  ="message" class="lbTitle">Laskun viesti:</label>  
+                        <textarea id="message" name="message" rows="2" cols="40"><?php echo $message;?></textarea>
+                        <br>
 
-            <label for  ="message" class="lbTitle">Laskun viesti:</label>
-            <textarea id="message" name="message" rows="4" cols="54" required></textarea>
-                 
-            <br>
-           
-        </fieldset>
-       
-        <fieldset>
-            <legend>Laskutettavat asiakkaat:</legend>
-     
-            <div>
-                <input type="file" class="file-input" name="file-input">
-                
-                <input  type="submit" id="btn-submit" name="upload" value="Lataa tiedosto">
-            </div>
-           
+                        <label for  ="refnumber" class="lbTitle">Viitenumero:</label>
+                        <input type ="text" id="refnumber" name="refnumber" class="txtBox" readonly
+                            value="<?php echo $refnumber;?>">
+                        <br>
+                        
+                        <label for  ="error" class="lbTitle"></label>
+                        <input type ="text" id="errorInput" name="error"  class="txtBox" readonly
+                            value="<?php echo $checkDataErr;?>">
 
-           
-        </fieldset>
+                    </div>
+                </fieldset>
+            
+                <fieldset>
+                    <div>
+                        <legend>2. Valitse ja lataa asiakastiedosto (csv):</legend>       
+                        <br>
+                      
+                        <input type="file" class="file-input" name="file-input" value="<?php echo $fileinput;?>">
+                        
+                        <input type="submit" class="btn-submit" id="upload" name="upload"
+                             value="Lataa tiedosto">
 
-        <!-- <div class="button-row">
-            <input type="submit" id="btn-submit" name="upload"
-                value="Lataa tiedosto">
-        </div> -->
-    </form>
+                        <?php if(!empty($response)) { ?>
+                        <div class="response <?php echo $response["type"]; ?>
+                            ">
+                        <?php echo $response["message"]; ?>
+                    </div>
+               
+                    <?php }?>
+                    
+                    </div>
+              
+                </fieldset>
+        
+            </form>
 
-    <?php if(!empty($response)) { ?>
-    <div class="response <?php echo $response["type"]; ?>">    
-        <?php echo $response["message"]; ?>
-    </div>
-    <?php }?>
+            <?php if(!empty($response)) { ?>
+              
+                <?php      
+                    if ($response["type"] == "success") {
+                            include 'customers.php';
+                    }                    
+                ?>
+            <?php }?>
 
-
-    <?php
-           if(isset($_GET['Message'])){
-            echo $_GET['Message'];
-        }       
-     ?> 
-
-<footer>
-  <p>Footer</p>
-</footer>
-
-</body>
+        </div> 
+    </body>
 </html>
-

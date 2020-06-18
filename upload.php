@@ -1,4 +1,7 @@
 <?php
+header('Content-Type: text/html; charset=UTF-8');
+// include("logWriting.php");
+
 if (isset($_POST["upload"])) {
     
     // Get file extension
@@ -28,7 +31,11 @@ if (isset($_POST["upload"])) {
         
         $row = 1;
         if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {
-            while (($data = fgetcsv($fp, 1000, ",")) !== FALSE) {
+
+           // utf8_encode(fgets($file));
+           while (($data = fgetcsv($fp, 1000, ",")) !== FALSE) {
+                $data = array_map("utf8_encode", $data); //added
+               
                 $lengthArray[] = count($data);
                 $row ++;
             }

@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   else {
     $accountnumber = test_input($_POST["accountnumber"]);  
     if (checkIBAN($accountnumber) == false) {     
-      $checkDataErr =  "Virheellinen tilinumero!";
+      $checkDataErr =  "Virheellinen tilinumero, tarkista tiedot!";
     }
   }
   if (empty($_POST["message"])) {
@@ -64,10 +64,11 @@ function checkIBAN($iban)
     }
 }
 
-   
-
+ 
 function test_input($data) {
   $data = trim($data);
+  $data = strip_tags($data);
+
   $data = stripslashes($data);
   $data = htmlspecialchars($data);
   return $data;
