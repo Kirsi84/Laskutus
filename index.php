@@ -1,9 +1,18 @@
 <?php
+
+    // Start the session
+    session_start();
+
     // file upload
     include 'upload.php';
 
     // define variables and set to empty values
     include 'checkData.php';
+
+    if (isset($_POST["upload"])) {
+      require_once "getReferenceNumber.php";
+      $_SESSION["refnumber"] =  $refnumber;
+    }
 ?>
 
 <!DOCTYPE html>
@@ -16,8 +25,7 @@
         <div class="main">
             <?php   
                include 'navbar.php';
-            ?>
-             
+            ?>             
     
             <form id="frm-upload" action="" method="post"
                 enctype="multipart/form-data">
@@ -86,7 +94,15 @@
               
                 <?php      
                     if ($response["type"] == "success") {
-                            include 'customers.php';
+                     
+                        $_SESSION["name"]          = $_POST['name'];
+                        $_SESSION["duedate"]       = $_POST['duedate'];
+                        $_SESSION["accountnumber"] = $_POST['accountnumber'];
+                        $_SESSION["message"]       = $_POST['message'];
+                     
+                        echo "Session variables are set:" . $_SESSION["refnumber"] ;
+
+                        include 'customers.php';
                     }                    
                 ?>
             <?php }?>

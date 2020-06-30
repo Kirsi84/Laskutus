@@ -3,7 +3,7 @@ header('Content-Type: text/html; charset=UTF-8');
 // include("logWriting.php");
 
 if (isset($_POST["upload"])) {
-    
+  
     // Get file extension
     $file_extension = pathinfo($_FILES["file-input"]["name"], PATHINFO_EXTENSION);
     // Validate file input to check if is not empty
@@ -40,15 +40,17 @@ if (isset($_POST["upload"])) {
                 $row ++;
             }
             fclose($fp);
-        }
-            
+        }            
+        
         $lengthArray = array_unique($lengthArray);
         
+        // everything is ok
         if (count($lengthArray) == 1) {
             $response = array(
                 "type" => "success",
                 "message" => "File Validation Success."
             );
+          
         } else {
             $response = array(
                 "type" => "error",

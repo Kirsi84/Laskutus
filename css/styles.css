@@ -10,7 +10,7 @@ body{
     font-family: Arial;
     margin-top: 0;
    
-    background-image: url("koivut.jpg");  
+    background-image: url("images/koivut.jpg");  
 }
 
   /* Style the hamburger menu */
@@ -53,11 +53,7 @@ body{
   
   /* Main content */
   .main {
-/* Add a top margin to avoid content overlay */
-    /* margin-top: 40px;  */
-    background-color: #ADD8E6;
-    /* width: 50%; */
-   /* margin-bottom: 0; */
+    background-color: #ADD8E6;  
   }
 
   .maindiv{
@@ -69,11 +65,8 @@ fieldset {
     background-color: lightblue;
     padding-top: 20px;    
     padding-bottom: 20px;
-    /* width: 50%; */
-    height: auto;
-    /* margin-top: 30px;
-    */
-    /* width:  550px; */
+   
+    height: auto;  
 }
 
 
@@ -90,10 +83,10 @@ table {
     border: 1px solid black;   
 }
 
-.titlerow {
+/* .titlerow {
     background-color: blue;
     color: #FFFFFF;
-}
+} */
 
 th, td {
     padding: 15px;
@@ -106,13 +99,12 @@ th, td {
     border-collapse: collapse;
 }
 
-
-
+/* 
 select {
  
     height: 26px;
     margin-right: 25px;
-}
+} */
 
 /* classes */
 
@@ -125,19 +117,11 @@ select {
     
 }
 
-/* .lbTitleMin {
-    width:80px;
-    display: inline-block;
-    height: 25px;
-    padding-left: 35px;
-    
-} */
-
 .txtBox {
     width:250px ;
     display: inline-block;
     height: 25px;
-    /* margin-left: 10px; */
+   
     margin-right: 10px;
     margin-left: 25px;
 }
@@ -146,14 +130,14 @@ select {
 #duedate{
     width: 133px;
     height: 24px;
-    /* margin-left: 0px;*/
+    
 } 
 
 #accountnumber {
     width:130px ;
     display: inline-block;
     height: 22px;
-    /* margin-left: 0px; */
+   
    
 }
 
@@ -174,7 +158,6 @@ textarea{
     margin-left: 25px; 
  
 }
-
 
 /* price update */
 .textareaItem{    
@@ -198,30 +181,10 @@ textarea{
     
 } 
 
-
-/* .sidebyside{
-    float: left;  
-    margin: 0;
-    margin-top: 0;
-    margin-bottom: 10px;
-    padding: 0;
-    padding-top: 10px;
-    box-sizing: border-box;
-    height: 180px;
-    width: 50%;
-    overflow: auto;
-   
-}   */
-
-
 .table {
-    /* width:100%;    
-    border-spacing: 0px;
-    border-collapse: collapse; */
-
+  
     border-spacing: 30px;
     border-collapse: separate;
-
 }
 
 /* Page content */
@@ -244,12 +207,9 @@ textarea{
 
 /*   file processing*/ 
 
-
-
 #frm-upload{
     padding: 0px;
-    background-color: lightblue;
-   
+    background-color: lightblue;   
 }
 
 .form-row {
@@ -262,19 +222,6 @@ textarea{
     /* padding-top: 100px; */
     border-top: #8aacb7 1px solid;
 }
-/* 
-#btn-submit {
-    padding: 10px 40px;
-    background: #586e75;
-    border: #485c61 1px solid;
-    color: #FFF;
-    border-radius: 2px;
-}
-
-#btn-submit:hover {
-    box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
-}  */
-
 
 .btn-submit {
     padding: 10px 40px;
@@ -293,6 +240,7 @@ textarea{
     background: #FFF;
     padding: 5px;
   
+    height: 26px;
     padding-right: 17px;
     margin-top: 5px;
     margin-left: 28px;
@@ -301,11 +249,12 @@ textarea{
 }
 
 .response {
-    /* padding-left: 22px; */
+    display: inline-block;
     margin-top: 10px;
     border-radius: 2px;
     margin-left: 30px;
     margin-right: 30px;
+    height: 20px;
 }
 
 .error {
@@ -317,14 +266,12 @@ textarea{
     color: #FF0000;
     background-color: lightblue;
     border-style: none ;
-
 }
 
 .success {
     background: #c5f3c3;
     border: #bbe6ba 1px solid;
 }
-
 
 /*style2*/
 #frmContact {
@@ -385,15 +332,18 @@ textarea{
 .btnAction:focus {
 	outline:none;
 }
+
 .column-right
 {
     margin-right: 6px;
 }
+
 .contact-row
 {
     display: inline-block;
     width: 32%;
 }
+
 @media all and (max-width: 550px) {
     .contact-row {
         display: block;
@@ -465,20 +415,36 @@ tr:hover {
 }
 
 tr:nth-child(even) {
-    /* background-color: antiquewhite; */
     background-color: #a2d0c8;
 }
 
-#price {
-   
-    /* width: auto; */
-    width: 80px;
-    /* border-width:1px ;  */
-    /* padding: 8px; */
-    /* border-style:solid;
-    border-color: #666666;    */
-
+#price {    
+    width: 80px;   
 }
 
+/*customers */
+
+#customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #customers tr:hover {background-color: #ddd;}
+  
+  #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+  }
 
 

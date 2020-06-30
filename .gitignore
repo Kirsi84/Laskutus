@@ -1,2 +1,7 @@
 # files not send to github
 /logs
+/Testitiedostot
+/output
+contact.php
+contact_mail.php
+/phpmailer

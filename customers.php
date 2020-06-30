@@ -21,9 +21,8 @@
         if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {
 ?>
 
-<!-- <br> -->
 
-<form action="price.php" method="post">
+<form action="invoices.php" method="post">
 
     <fieldset>
         <div>
@@ -32,7 +31,7 @@
 
         <br> 
 
-        <input type="submit" class="btn-submit" id="btn-billing" name="btn-billing" 
+        <input type="submit" class="btn-submit" id="btn-invoices" name="btn-billbtn-invoices" 
             value="Muodosta laskut">
 
         <br>
@@ -62,53 +61,62 @@
                 $class = "header";
                 }
                 ?>
-
-                <!-- <tr class="datarow"> -->
-                <tr class="datarow" onclick="getSelectedRow(this)">
+              
+               
+                <tr name="datarow" class="datarow">
                             
-                    <td><?php echo $row[1]; ?></td>
-                    <td><?php echo $row[0]; ?></td>
-                    <td><?php echo $row[2]; ?></td>
-                    <td><?php echo $row[3]; ?></td>
-                    <td><?php echo $row[4]; ?></td>
-                    <td><?php echo $row[5]; ?></td>
+                    <td>                    
+                        <input type="text" name="lname[]" class="textinput" readonly value="<?php echo $row[1]; ?>"                    
+                   </td>
+
+                    <td>
+                        <input type="text" name="fname[]" class="textinput" readonly value="<?php echo $row[0]; ?>"                 
+                    </td>
+
+                    <td>
+                        <input type="text" name="address[]" class="textinput" readonly value="<?php echo $row[2]; ?>"                
+                   </td>
+
+                    <td>
+                        <input type="text" name="postcode[]" class="textinput" readonly value="<?php echo $row[3]; ?>" 
+                    </td>
+
+                    <td>                   
+                        <input type="text" name="postaldistrict[]" class="textinput" readonly value="<?php echo $row[4]; ?>"               
+                    </td> 
+
+                    <td>                    
+                        <input type="text" name="email[]" class="textinput" readonly value="<?php echo $row[5]; ?>"             
+                    </td>
                     
                     <td> 
-                        <input type="number" step="any" id="price" name="price">
+                        <input type="number" step="any" id="price" name="price[]">
                     </td>
 
                     <td> 
-                        <textarea  name="usermessage" class="textareagrid"></textarea>
+                        <!-- <textarea id="usermessage" name="usermessage[]" class="textareagrid"></textarea>-->
+                        <textarea id="usermessage" name="usermessage[]"></textarea> 
                     </td>
                 </tr>
             <?php
                 $i ++;
             }
         
+            // echo "test: " . $i;
+
             fclose($fp);
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();              
+            }
+            $_SESSION["customercount"]  = $i; //number of customers
+
             ?>
             </tbody>
             </table>
         </div>
 
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>  -->
-
-        <!-- <script>
-        $(document).ready(function ()) {
-            // click on
-            $("#tableMain tbody tr").click(function () {
         
-                var tabledata = $this.children("td").map(function() {
-                return $(this).text(); 
-                }).get;
-
-                alert("jep");
-                var td=tableData[0];
-                alert (td);
-            });
-        });
-        </script>  -->
-
         <?php
             $response = array("type" => "success", "message" => "CSV is converted to HTML successfully");
             } else {
@@ -127,15 +135,92 @@
         </fieldset>
 </form>
 
-<script>
-   function getSelectedRow(x) { 
-       // console.log("jep");
-     //  alert("Row index is: " + x.rowIndex);
-       document.getElementById("ind").innerHTML = x.rowIndex;
-    //    return x.rowIndex;
-   }
-</script>
 
+
+<table id="customers">
+  <tr>   
+    <th>Sukunimi</th>
+    <th>Etunimi</th> 
+    <th>Osoite</th>
+    <th>Postinumero</th>
+    <th>Postitoimipaikka</th>
+    <th>Sähköpostiosoite</th>      
+    <th>Hinta €</th>
+    <th>Lisäviesti laskulle</th>    
+  </tr>
+
+  
+  <?php
+
+
+if(!empty(isset($_POST["upload"]))) {
+    if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {
+            $i = 0;
+            while (($row = fgetcsv($fp)) !== false) {
+
+                $class ="";
+                if($i==0) {
+                $class = "header";
+                }
+                ?>
+              
+              
+                <tr>
+                            
+                    <td>                    
+                        <input type="text" name="lname[]" readonly value="<?php echo $row[1]; ?>"                    
+                    </td>
+
+                    <td>
+                        <input type="text" name="fname[]"  readonly value="<?php echo $row[0]; ?>"                 
+                    </td>
+
+                    <td>
+                        <input type="text" name="address[]"  readonly value="<?php echo $row[2]; ?>"                
+                    </td>
+
+                    <td>
+                        <input type="text" name="postcode[]"  readonly value="<?php echo $row[3]; ?>" 
+                    </td>
+
+                    <td>                   
+                        <input type="text" name="postaldistrict[]" class="textinput" readonly value="<?php echo $row[4]; ?>"               
+                    </td> 
+
+                    <td>                    
+                        <input type="text" name="email[]"  readonly value="<?php echo $row[5]; ?>"             
+                    </td>
+                    
+                    <td> 
+                        <input type="number" step="any" id="price" name="price[]">
+                    </td>
+
+                    <td> 
+                         <textarea id="usermessage" name="usermessage[]"></textarea> 
+                    </td>
+                </tr>
+            <?php
+                $i ++;
+            }
+        
+           
+            fclose($fp);
+
+            if (session_status() == PHP_SESSION_NONE) {
+                session_start();              
+            }
+            $_SESSION["customercount"]  = $i; //number of customers
+
+        }}
+            ?>
+   
+  
+ 
+</table>
 </div>
+
+
+
+
 </body>
 </html>

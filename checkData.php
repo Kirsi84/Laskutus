@@ -1,8 +1,9 @@
 <?php
-// define variables and set to empty values
+
 // include "logWriting.php";
 // log_writing("test1");
 
+// define variables and set to empty values
 $nameErr = $duedateErr = $accountnumberErr = $messageErr = $refnumberErr = "" ;
 $name = $duedate = $accountnumber = $message = $refnumber = "";
 
@@ -37,17 +38,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   } else {
     $message = test_input($_POST["message"]);
   }
- 
-  include "makeRefNumber.php";
   
 }
-
-// function  generateErrorMessage($check) {
-//   $checkDataErr = $check . " Tarkista tiedot!";
-//   return $checkDataErr;
-// }
-
-
 
 //todo:
 // Kansainvälinen IBAN-muotoinen tilinumero muodostuu kotimaisesta tilinumerosta,
@@ -63,7 +55,6 @@ function checkIBAN($iban)
         return false;
     }
 }
-
  
 function test_input($data) {
   $data = trim($data);
