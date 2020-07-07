@@ -11,11 +11,12 @@ if (session_status() == PHP_SESSION_NONE) {
     session_start();              
 }
 $customercount = 0;
+$vendorname = "";
 if (isset($_SESSION['customercount']))  {     
     $customercount = $_SESSION['customercount'] ; 
 }
-if (isset($_SESSION['name']))  {     
-    $vendor = $_SESSION['name'];
+if (isset($_SESSION['vendorname']))  {     
+    $vendorname = $_SESSION['vendorname'];
 } 
 
 $html = "";
@@ -70,8 +71,8 @@ function checkData($data) {
 
  
 function gethtmldata($i) {
-    $vendor         = "";
-    $duedate       = "";
+    $vendorname     = "";
+    $duedate        = "";
     $accountnumber  = "";
     $refnumber      = "";
     $message        = ""; 
@@ -86,8 +87,8 @@ function gethtmldata($i) {
     $usermessage = "";
 
     // vendor data
-    if (isset($_SESSION['name']))  {     
-        $vendor = checkData($_SESSION['name']);
+    if (isset($_SESSION['vendorname']))  {     
+        $vendorname = checkData($_SESSION['vendorname']);
     }    
     if (isset($_SESSION['duedate']))  {     
         $duedate = date("d.m.Y", strtotime($_SESSION['duedate']));
@@ -152,7 +153,7 @@ function gethtmldata($i) {
 <table width="100%">
 <tr>
     <td width="50%" style="color:#0000BB; ">
-        <span style="font-weight: bold; font-size: 14pt;">' .$vendor . '</span>
+        <span style="font-weight: bold; font-size: 14pt;">' .$vendorname . '</span>
         <br />
     </td>
     <td width="50%" style="text-align: right;">LASKU<br />
@@ -250,15 +251,15 @@ mpdf-->
 }
 
 function gethtmltotal($customercount) {
-    $vendor         = "";
+    $vendorname         = "";
     $duedate       = "";
     $accountnumber  = "";
     $refnumber      = "";
     $message        = ""; 
      
     // vendor data
-    if (isset($_SESSION['name']))  {     
-        $vendor = $_SESSION['name'];
+    if (isset($_SESSION['vendorname']))  {     
+        $vendor = $_SESSION['vendorname'];
     }    
     if (isset($_SESSION['duedate']))  {     
         $duedate = date("d.m.Y", strtotime($_SESSION['duedate']));

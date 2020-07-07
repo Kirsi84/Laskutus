@@ -4,17 +4,17 @@
 // log_writing("test1");
 
 // define variables and set to empty values
-$nameErr = $duedateErr = $accountnumberErr = $messageErr = $refnumberErr = "" ;
-$name = $duedate = $accountnumber = $message = $refnumber = "";
+$vendornameErr = $duedateErr = $accountnumberErr = $messageErr = $refnumberErr = "" ;
+$vendorname = $duedate = $accountnumber = $message = $refnumber = "";
 
 $checkDataErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-  if (empty($_POST["name"])) {   
+  if (empty($_POST["vendorname"])) {   
     $checkDataErr = "Laskun lähettäjä on pakollinen!";
     
   } else {
-    $name = test_input($_POST["name"]);   
+    $vendorname = test_input($_POST["vendorname"]);   
   }
 
   if (empty($_POST["duedate"])) {   

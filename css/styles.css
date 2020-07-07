@@ -5,12 +5,13 @@ html{
 
 body{
     margin:0;
-    padding-left: 18px;
-    padding-right: 18px;
+    /* padding-left: 18px; */
+    /* padding-right: 18px; */
     font-family: Arial;
     margin-top: 0;
+    background-color: mintcream;
    
-    background-image: url("images/koivut.jpg");  
+    /* background-image: url("/images/koivut.jpg");   */
 }
 
   /* Style the hamburger menu */
@@ -21,6 +22,11 @@ body{
     right: 0;
     top: 0;
   }
+
+  #home {
+    font-size:24px
+  }
+
     
  /* The navigation bar start*/
  .navbar {
@@ -42,6 +48,7 @@ body{
     padding: 14px 16px;
       
     text-decoration: none;
+   
   }
   
   /* Change background on mouse-over */
@@ -53,7 +60,11 @@ body{
   
   /* Main content */
   .main {
-    background-color: #ADD8E6;  
+    /* background-color: #ADD8E6; */
+
+    background-color: mintcream;
+    /* background-color: lightblue; */
+    display: block;
   }
 
   .maindiv{
@@ -61,20 +72,56 @@ body{
   } 
 /* The navigation bar end */
 
+.form-create{
+    padding-top: 20px;
+}
+
 fieldset {
+
+
+  
+
     background-color: lightblue;
-    padding-top: 20px;    
+    padding-top: 30px;    
     padding-bottom: 20px;
+    
+    margin-left: 20px;
+    margin-top: 20px;
    
     height: auto;  
 }
 
+.fieldset-create {
+    background-color: lightskyblue;
+
+    padding-top: 30px;    
+    padding-bottom: 20px;
+    padding-left: 20px;
+    margin-right: 20px;
+   
+    height: auto; 
+    max-width: 500px;
+    width: auto;
+   
+}
 
 legend {
     font-size: large;
     margin-left: 28px;
     color: darkblue;
 }
+
+.div-create {
+    margin-left: 20px;
+}
+
+/* .flex-container {
+    display: flex;
+   
+  } */
+
+
+
 
 table {
     font-family: arial, sans-serif;
@@ -106,6 +153,16 @@ select {
     margin-right: 25px;
 } */
 
+
+
+.label {
+    width:114px;
+    display: inline-block;
+    height: 25px;
+    /* padding-left: 10px;  */
+    /* margin-left: 28px; */
+    
+}
 /* classes */
 
 .lbTitle {
@@ -120,33 +177,45 @@ select {
 .txtBox {
     width:250px ;
     display: inline-block;
-    height: 25px;
-   
-    margin-right: 10px;
-    margin-left: 25px;
+    height: 25px;   
+    margin-right: 10px;    
 }
 
+
+.txtBox-read {
+    background-color:#E8F0FE;   
+    border-width: 0px; 
+    width: 254px;
+    height: 29px;
+    display: inline-block;   
+    margin-right: 10px;
+}
+
+select {
+    width: 258px ;
+    height: 31px;
+}
 
 #duedate{
-    width: 133px;
-    height: 24px;
-    
-} 
+    width: 135px;
+    height: 24px;    
+}  
 
 #accountnumber {
-    width:130px ;
+    width:132px ;
     display: inline-block;
-    height: 22px;
+    height: 25px; 
    
-   
-}
-
+} 
+/* 
 #refnumber {
     background-color:#E8F0FE; 
     border-style: solid; 
     border-width: 0px; 
     width: 254px;
-}
+    height: 31px;
+} */
+
 
 
 textarea{
@@ -155,7 +224,7 @@ textarea{
  
     height: 90;
     vertical-align: top;
-    margin-left: 25px; 
+    /* margin-left: 25px;  */
  
 }
 
@@ -180,12 +249,12 @@ textarea{
     max-width:600px;
     
 } 
-
+/* 
 .table {
   
     border-spacing: 30px;
     border-collapse: separate;
-}
+} */
 
 /* Page content */
 .content {
@@ -206,11 +275,11 @@ textarea{
 
 
 /*   file processing*/ 
-
+/* 
 #frm-upload{
     padding: 0px;
     background-color: lightblue;   
-}
+} */
 
 .form-row {
     padding: 20px;
@@ -229,7 +298,9 @@ textarea{
     border: #485c61 1px solid;
     color: #FFF;
     border-radius: 2px;
-    margin-left: 30px;
+    width: 138px;
+    height: 35px;  
+    text-align: center; 
 }
 
 .btn-submit:hover {
@@ -243,7 +314,7 @@ textarea{
     height: 26px;
     padding-right: 17px;
     margin-top: 5px;
-    margin-left: 28px;
+    /* margin-left: 28px; */
     border-radius: 2px;
     border: #8aacb7 1px solid;
 }
@@ -252,26 +323,27 @@ textarea{
     display: inline-block;
     margin-top: 10px;
     border-radius: 2px;
-    margin-left: 30px;
+    /* margin-left: 30px; */
     margin-right: 30px;
     height: 20px;
 }
-
+/* 
 .error {
     background: #fdcdcd;
     border: #ecc0c1 1px solid;
-}
+} */
 
-#errorInput {
+#checkDataErr {
     color: #FF0000;
-    background-color: lightblue;
+   
+    background-color: lightskyblue;
     border-style: none ;
 }
 
-.success {
+/* .success {
     background: #c5f3c3;
     border: #bbe6ba 1px solid;
-}
+} */
 
 /*style2*/
 #frmContact {

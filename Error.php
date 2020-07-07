@@ -18,7 +18,7 @@
      
         <form> 
 
-            <fieldset>
+            <fieldset class="fieldset-create">
                 <legend>Virhe tietojen käsittelyssä</legend>
                 
                 <?php 

@@ -1,12 +1,14 @@
 <?php
-    header('Content-Type: text/html; charset=UTF-8');
+    //  header('Content-Type: text/html; charset=UTF-8');
 ?>
 <!DOCTYPE html>
 
 <html>
 <?php
-    include 'head.php';
+     include 'head.php';
 ?>
+
+
 <body>
 
     <div class="main">
@@ -24,18 +26,16 @@
 
 <form action="invoices.php" method="post">
 
-    <fieldset>
-        <div>
-
-        <legend>3. Laskujen muodostus: hinta- ja lisäviestin syöttö tarvittaessa</legend>      
-
-        <br> 
+    <fieldset class="fieldset-create">
+       
+        <legend>3. Laskujen ja yhteenvedon muodostus: hinta- ja lisäviestin syöttö tarvittaessa</legend>      
+        
 
         <input type="submit" class="btn-submit" id="btn-invoices" name="btn-billbtn-invoices" 
             value="Muodosta laskut">
 
-        <br>
-        <br>
+        
+        <br>  <br>
 
         <div class="container" id ="container">
         <table class="gridtable" id="tableMain">
@@ -102,8 +102,7 @@
                 $i ++;
             }
         
-            // echo "test: " . $i;
-
+          
             fclose($fp);
 
             if (session_status() == PHP_SESSION_NONE) {
@@ -131,96 +130,11 @@
             <?php echo $response["message"]; ?>
         </div>
         <?php } ?>
-        </div>
+      
         </fieldset>
 </form>
 
-
-
-<table id="customers">
-  <tr>   
-    <th>Sukunimi</th>
-    <th>Etunimi</th> 
-    <th>Osoite</th>
-    <th>Postinumero</th>
-    <th>Postitoimipaikka</th>
-    <th>Sähköpostiosoite</th>      
-    <th>Hinta €</th>
-    <th>Lisäviesti laskulle</th>    
-  </tr>
-
-  
-  <?php
-
-
-if(!empty(isset($_POST["upload"]))) {
-    if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {
-            $i = 0;
-            while (($row = fgetcsv($fp)) !== false) {
-
-                $class ="";
-                if($i==0) {
-                $class = "header";
-                }
-                ?>
-              
-              
-                <tr>
-                            
-                    <td>                    
-                        <input type="text" name="lname[]" readonly value="<?php echo $row[1]; ?>"                    
-                    </td>
-
-                    <td>
-                        <input type="text" name="fname[]"  readonly value="<?php echo $row[0]; ?>"                 
-                    </td>
-
-                    <td>
-                        <input type="text" name="address[]"  readonly value="<?php echo $row[2]; ?>"                
-                    </td>
-
-                    <td>
-                        <input type="text" name="postcode[]"  readonly value="<?php echo $row[3]; ?>" 
-                    </td>
-
-                    <td>                   
-                        <input type="text" name="postaldistrict[]" class="textinput" readonly value="<?php echo $row[4]; ?>"               
-                    </td> 
-
-                    <td>                    
-                        <input type="text" name="email[]"  readonly value="<?php echo $row[5]; ?>"             
-                    </td>
-                    
-                    <td> 
-                        <input type="number" step="any" id="price" name="price[]">
-                    </td>
-
-                    <td> 
-                         <textarea id="usermessage" name="usermessage[]"></textarea> 
-                    </td>
-                </tr>
-            <?php
-                $i ++;
-            }
-        
-           
-            fclose($fp);
-
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();              
-            }
-            $_SESSION["customercount"]  = $i; //number of customers
-
-        }}
-            ?>
-   
-  
- 
-</table>
 </div>
-
-
-
 
 </body>
 </html>
