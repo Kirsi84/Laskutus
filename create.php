@@ -21,7 +21,7 @@
 
         <div>
         
-            <fieldset class="fieldset-create">            
+            <fieldset>            
 
                 <legend>Asetustietojen lisäys</legend>   
 

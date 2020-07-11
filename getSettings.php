@@ -6,7 +6,7 @@
     // );
    
     include "logWriting.php";
-    include "settingsFilePath.php";
+    include "getFilePath.php";
 
     if (session_status() == PHP_SESSION_NONE) {
         session_start();              
@@ -16,7 +16,7 @@
 
     try {
      
-        $filepath = getSettingsFilepath();
+        $filepath = getDefaultFilepath();
         $key = 1;
         if (file_exists($filepath)) {
             $file = fopen($filepath,"r");

@@ -1,15 +1,23 @@
 <?php
 
 // include "logWriting.php";
-// log_writing("test1");
+
 
 // define variables and set to empty values
 $vendornameErr = $duedateErr = $accountnumberErr = $messageErr = $refnumberErr = "" ;
 $vendorname = $duedate = $accountnumber = $message = $refnumber = "";
-
+$vendordata = 0;
 $checkDataErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+  //todo:
+  if (empty($_POST["vendordata"])) {   
+    $vendordata = 0;    
+  } else {
+    $vendordata = test_input($_POST["vendordata"]);   
+  }
+
   if (empty($_POST["vendorname"])) {   
     $checkDataErr = "Laskun lähettäjä on pakollinen!";
     

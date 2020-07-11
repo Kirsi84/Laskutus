@@ -4,15 +4,7 @@
     session_start();
 
     // file upload
-    include 'uploadSettings.php';
-
-    // define variables and set to empty values
-    // include 'checkData.php';
-
-    // if (isset($_POST["upload"])) {
-    //   require_once "getReferenceNumber.php";
-    //   $_SESSION["refnumber"] =  $refnumber;
-    // }
+    include 'updateSettings.php';
 
     function resetSession(){
         // remove all session variables
@@ -21,14 +13,9 @@
 
     function resetFormData() {
         resetSession();
-        
-        // $vendorname  = "";
-        // $accountnumber = "";
-        // $duedate = "";
-        // $message = "";
-        // $refnumber = "";
+       
     }
-
+   // include 'logWriting.php';
 
 ?>
 
@@ -45,72 +32,43 @@
             <?php   
                include 'navbar.php';
             ?>  
+            <br><br><br>
 
-            <form id="frm-upload" action="" method="post"
-                enctype="multipart/form-data">
+            <!-- <form id="frm-settings" action="delete.php" method="post"> -->
+            <form id="frm-settings">
     
+            <fieldset class="fieldset-create">      
+                              
+                <p><a href="create.php">Lisää</a></p>
                 
-                    <div>
-                    <br> <br> <br>
-                    <p><a href="create.php">Lisää laskuttajatieto</a></p>
-                   
+                <legend>Asetustiedot - laskun lähettäjän vakiotiedot</legend>      
+                <br> 
+                <label for  ="filepath" >Asetustiedoston oletustiedostopolku työasemassa:</label>
+                <br> <br>  
+                <input type ="text" id="filepath" name="filepath" class="txtBox-read"  readonly
+                    value="<?php echo getDefaultFilepath(); ?>">
 
-                        <legend>2. Valitse ja lataa asiakastiedosto (csv):</legend>       
-                        <br>
-                      
-                        <input type="file" class="file-input" name="file-input" value="<?php echo $fileinput;?>">
-                        
-                        <input type="submit" class="btn-submit" id="upload" name="upload"
-                             value="Lataa tiedosto">
+                <br><br>
+   
+                <div class="container" id ="container">
+                <table class="gridtable" id="settingsTable">
+                    <thead>
+                        <tr class="tableheader">      
+                            <th>Parametri</th>
+                            <th>Laskuttajan nimi</th> 
+                            <th>Laskuttajan tilinumero</th> 
+                            <th></th>                                 
+                        </tr>
+                    <thead>
 
-                        <?php if(!empty($response)) { ?>
-                        <div class="response <?php echo $response["type"]; ?>
-                            ">
-                        <?php echo $response["message"]; ?>
-                    </div>
-               
-                    <?php }?>
-                    
-                    </div>
-              
-              
+                    <tbody>
 
-                  <?php if(!empty($response)) {
-                if ($response["type"] == "success") {   
-                    if(!empty(isset($_POST["upload"]))) {
-                        if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {
-            ?>
-
-             
-                    <div>
-
-                    <legend>Laskun lähettäjän tietojen tallennus tiedostoon</legend>      
-                    <br> 
-           
-                    <br>
-                    <br>
-
-                    <div class="container" id ="container">
-                    <table class="gridtable" id="tableMain">
-                        <thead>
-                            <tr class="tableheader">      
-                                <th>Parametri</th>
-                                <th>Laskuttajan nimi</th> 
-                                <th>Laskuttajan tilinumero</th>                            
-                            </tr>
-                        <thead>
-
-                        <tbody>
-                        <?php
-                            $i = 0;
-                            while (($row = fgetcsv($fp)) !== false) {
-
-                                $class ="";
-                                if($i==0) {
-                                    $class = "header";
-                                }
-                        ?>
-                         
+                    <?php   
+                        $ind = 0;              
+                        $settings = getAllSettings();
+                        if (count($settings) > 0) {
+                            foreach ($settings as $row) {                               
+                    ?>                         
                                 <tr name="datarow" class="datarow">
                                             
                                     <td>                    
@@ -122,39 +80,23 @@
                                     <td>
                                         <?php echo $row[2]; ?>                
                                     </td>
+                                    <td>  
+                                        <?php
+                                            echo "<a href=\"delete.php?ind=".$ind."\">Poista</a>";
+                                        ?>                                       
+                                    </td>
                             
                                 </tr>
-                        <?php
-                                $i ++;
+                    <?php    
+                                $ind = $ind + 1;                            
                             }
-                    
-                            fclose($fp);
-                       
-                        ?>
-                        </tbody>
-                    </table>
-                    </div>
-                    
-                    <?php
-                        $response = array("type" => "success", "message" => "CSV is converted to HTML successfully");
-                        } else {
-                            $response = array("type" => "error", "message" => "Unable to process CSV");
                         }
-                    }
                     ?>
-                    </div>
-                    <?php if(!empty($response)) { ?>
-                    <div class="response <?php echo $response["type"]; ?>
-                        ">
-                        <?php echo $response["message"]; ?>
-                    </div>
-                    <?php } ?>
-                    </div>
-            <?php
-                }                      
-            }
-            ?>
-            
+
+                    </tbody>
+                </table>
+                </div>
+            </fieldset>
             </form>   
         </div> 
     </body>

@@ -1,3 +1,7 @@
+
+<?php
+    include 'getFilePath.php';
+?>
 <!DOCTYPE html>
 <html>
 
@@ -10,13 +14,29 @@
             <?php   
                include 'navbar.php';
             ?> 
-            <fieldset class="fieldset-create">
-            <div class="maindiv">
-            <br>
-                Yhdistyksen laskujen muodostus
-            <br>
+            <br> <br><br>
+            <fieldset>
+          
+                <h2>Yhdistyksen laskujen muodostus</h2>
+                <ul>
+                    <li>Laskujen muodostus csv-tiedostosta</li>
+                    <li>Laskun hinnan ja lisätiedon syöttäminen tarvittaessa</li>
+                    <li>Pdf-laskujen muodostaminen</li>
+                    <li>Asetustietorivin lisääminen, tallennus työaseman
+                    asetustiedostoon ja poistaminen asetustiedoista</li>
+                    <li>Asetustiedosto tallennetaan työasemaan oletushakemistoon:
+                    <?php
+                        echo " " . getDefaultFilepath() . ".";
+                    ?>
+                    </li>
+                </ul> 
+
+                <br>
                 Versio 1.0 
-            </div> 
+                <br>
+                8.7.2020
+           
             </fieldset>
+        <div>
     </body>
 </html>

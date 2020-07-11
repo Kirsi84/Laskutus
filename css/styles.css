@@ -5,8 +5,7 @@ html{
 
 body{
     margin:0;
-    /* padding-left: 18px; */
-    /* padding-right: 18px; */
+   
     font-family: Arial;
     margin-top: 0;
     background-color: mintcream;
@@ -77,31 +76,19 @@ body{
 }
 
 fieldset {
-
-
-  
-
-    background-color: lightblue;
-    padding-top: 30px;    
-    padding-bottom: 20px;
-    
-    margin-left: 20px;
-    margin-top: 20px;
-   
-    height: auto;  
-}
-
-.fieldset-create {
     background-color: lightskyblue;
 
     padding-top: 30px;    
     padding-bottom: 20px;
     padding-left: 20px;
+
     margin-right: 20px;
+    margin-left: 20px;
+    margin-top: 20px; 
    
     height: auto; 
-    max-width: 500px;
     width: auto;
+    max-width: 500px;
    
 }
 
@@ -115,14 +102,6 @@ legend {
     margin-left: 20px;
 }
 
-/* .flex-container {
-    display: flex;
-   
-  } */
-
-
-
-
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -130,48 +109,26 @@ table {
     border: 1px solid black;   
 }
 
-/* .titlerow {
-    background-color: blue;
-    color: #FFFFFF;
-} */
-
 th, td {
-    padding: 15px;
-   
-    text-align: left;
+ 
     padding: 8px;
-    padding-left: 1px;
-
+    text-align: left;
+   
     border: 1px solid black;
     border-collapse: collapse;
 }
-
-/* 
-select {
- 
-    height: 26px;
-    margin-right: 25px;
-} */
-
-
 
 .label {
     width:114px;
     display: inline-block;
     height: 25px;
-    /* padding-left: 10px;  */
-    /* margin-left: 28px; */
-    
-}
-/* classes */
+ }
 
 .lbTitle {
     width:130px;
     display: inline-block;
     height: 25px;
-    /* padding-left: 10px;  */
     margin-left: 28px;
-    
 }
 
 .txtBox {
@@ -181,14 +138,13 @@ select {
     margin-right: 10px;    
 }
 
-
 .txtBox-read {
     background-color:#E8F0FE;   
     border-width: 0px; 
     width: 254px;
     height: 29px;
     display: inline-block;   
-    margin-right: 10px;
+    text-align: left;
 }
 
 select {
@@ -204,19 +160,8 @@ select {
 #accountnumber {
     width:132px ;
     display: inline-block;
-    height: 25px; 
-   
+    height: 25px;    
 } 
-/* 
-#refnumber {
-    background-color:#E8F0FE; 
-    border-style: solid; 
-    border-width: 0px; 
-    width: 254px;
-    height: 31px;
-} */
-
-
 
 textarea{
     resize: both;
@@ -224,8 +169,6 @@ textarea{
  
     height: 90;
     vertical-align: top;
-    /* margin-left: 25px;  */
- 
 }
 
 /* price update */
@@ -239,22 +182,14 @@ textarea{
 
 .textareagrid{    
     border: 1px solid;
-    /* padding: 20px;  */
     width: 300px;
     resize: both;
     overflow: auto; 
 }
 
 .lomake {
-    max-width:600px;
-    
+    max-width:600px;    
 } 
-/* 
-.table {
-  
-    border-spacing: 30px;
-    border-collapse: separate;
-} */
 
 /* Page content */
 .content {
@@ -274,12 +209,7 @@ textarea{
 }
 
 
-/*   file processing*/ 
-/* 
-#frm-upload{
-    padding: 0px;
-    background-color: lightblue;   
-} */
+/*   file processing*/
 
 .form-row {
     padding: 20px;
@@ -292,15 +222,14 @@ textarea{
     border-top: #8aacb7 1px solid;
 }
 
-.btn-submit {
-    padding: 10px 40px;
+.btn-submit {  
     background: #586e75;
     border: #485c61 1px solid;
     color: #FFF;
     border-radius: 2px;
     width: 138px;
     height: 35px;  
-    text-align: center; 
+    text-align: center;
 }
 
 .btn-submit:hover {
@@ -310,11 +239,10 @@ textarea{
 .file-input {
     background: #FFF;
     padding: 5px;
-  
-    height: 26px;
+    padding-bottom: 2px;
+    padding-top: 6px;  
+    height: 25px;
     padding-right: 17px;
-    margin-top: 5px;
-    /* margin-left: 28px; */
     border-radius: 2px;
     border: #8aacb7 1px solid;
 }
@@ -323,27 +251,15 @@ textarea{
     display: inline-block;
     margin-top: 10px;
     border-radius: 2px;
-    /* margin-left: 30px; */
     margin-right: 30px;
     height: 20px;
 }
-/* 
-.error {
-    background: #fdcdcd;
-    border: #ecc0c1 1px solid;
-} */
 
 #checkDataErr {
-    color: #FF0000;
-   
+    color: #FF0000;   
     background-color: lightskyblue;
     border-style: none ;
 }
-
-/* .success {
-    background: #c5f3c3;
-    border: #bbe6ba 1px solid;
-} */
 
 /*style2*/
 #frmContact {
@@ -443,7 +359,7 @@ footer {
 
     margin-left: auto;
     margin-right: auto;
-    width: 95%;
+    width: 100%;
 
 }
 table.gridtable {
@@ -466,18 +382,17 @@ table.gridtable {
 
 table.gridtable th {
     border-width:1px ; 
-    padding: 8px;
     border-style:solid;
     border-color: #666666;
     /* background-color: #F6B4A5; */
     background-color: blue;
+    
     color: aliceblue;
 } 
 
 
 table.gridtable td {
     border-width:1px ; 
-    padding: 8px;
     border-style:solid;
     border-color: #666666;   
 }
@@ -493,30 +408,3 @@ tr:nth-child(even) {
 #price {    
     width: 80px;   
 }
-
-/*customers */
-
-#customers {
-    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  #customers td, #customers th {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  #customers tr:nth-child(even){background-color: #f2f2f2;}
-  
-  #customers tr:hover {background-color: #ddd;}
-  
-  #customers th {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    text-align: left;
-    background-color: #4CAF50;
-    color: white;
-  }
-
-

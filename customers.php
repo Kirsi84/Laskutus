@@ -26,7 +26,7 @@
 
 <form action="invoices.php" method="post">
 
-    <fieldset class="fieldset-create">
+    <fieldset>
        
         <legend>3. Laskujen ja yhteenvedon muodostus: hinta- ja lisäviestin syöttö tarvittaessa</legend>      
         
@@ -35,10 +35,10 @@
             value="Muodosta laskut">
 
         
-        <br>  <br>
+        <br> <br>   
 
         <div class="container" id ="container">
-        <table class="gridtable" id="tableMain">
+        <table class="gridtable">
             <thead>
                 <tr class="tableheader">      
                     <th>Sukunimi</th>
@@ -65,8 +65,9 @@
                
                 <tr name="datarow" class="datarow">
                             
-                    <td>                    
-                        <input type="text" name="lname[]" class="textinput" readonly value="<?php echo $row[1]; ?>"                    
+                    <td>
+                        <input type="text" name="lname[]" class="textinput" readonly value="<?php echo $row[1]; ?>"                                    
+                      
                    </td>
 
                     <td>

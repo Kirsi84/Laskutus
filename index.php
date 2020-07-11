@@ -5,7 +5,7 @@
 
     // file upload
     include 'upload.php';
-
+  
     // define variables and set to empty values
     include 'checkData.php';
 
@@ -14,20 +14,13 @@
       $_SESSION["refnumber"] =  $refnumber;
     }
 
-    function resetSession(){
-        // remove all session variables
+      // remove all session variables
+    function resetSession(){      
        session_unset();
     }  
 
-    function resetFormData() {
-        resetSession();
-        
-        $vendorname  = "";
-        $accountnumber = "";
-        $duedate = "";
-        $message = "";
-        $refnumber = "";
-    }
+      //include "logWriting.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -42,7 +35,7 @@
                 function updateVendor() {                    
                     let sel = document.getElementById('vendordata');                   
                     let opt = sel.options[sel.selectedIndex]; 
-                    console.log("opt.value: " + opt.value);
+                    // console.log("opt.value: " + opt.value);
                     if (opt.value == 0) {
                         document.getElementById("vendorname").value = "";   
                         document.getElementById("accountnumber").value = ""; 
@@ -61,33 +54,34 @@
                include 'navbar.php';
             ?>    
 
-            <br><br><br>
+            <br><br>
 
             <form id="frm-upload" action="" class="form-create" method="post" 
                 enctype="multipart/form-data">
                         
-                <fieldset class="fieldset-create">                   
+                <fieldset>                   
                         <legend>1. Laskuttajan tiedot</legend>             
                                              
-                        <label for ="vendordata" class="label">Valitse:</label>
+                        <label for="vendordata" class="label">Valitse:</label>
                         <select id="vendordata" name="vendordata" onchange="updateVendor();">
                         <option value=0 selected>Valitse laskun lähettäjä ja tilinumero</option>"
                         <?PHP
                             include 'getSettings.php';                              
                            
-                            $max = count($vendors);
-                            for ($ind = 0; $ind <  $max; $ind++) {
-                                
-                                $vendorname = $vendors[$ind][1];  
-                                $accountnumber =  $vendors[$ind][2];  
-                                $vendordata = $vendorname . " | " .  $accountnumber;
-                                $id = $vendors[$ind][0];
-                        ?>
+                            if (isset($vendors)) {
+                                $max = count($vendors);
+                                for ($ind = 0; $ind <  $max; $ind++) {
+                                    
+                                    $vendorname = $vendors[$ind][1];  
+                                    $accountnumber =  $vendors[$ind][2];  
+                                    $vendordata = $vendorname . " | " .  $accountnumber;
+                                    $id = $vendors[$ind][0];                        ?>
                             
-                                <option value=<?php echo $id ?> >  
-                                            <?php echo $vendordata ?>
-                                </option> 
+                                    <option value=<?php echo $id ?> >  
+                                        <?php echo $vendordata ?>
+                                    </option> 
                         <?php 
+                                }
                             }
                            
                             ?>
@@ -117,8 +111,9 @@
                         <label for  ="refnumber" class="label">Viitenumero:</label>
                         <input type ="text" id="refnumber" name="refnumber" class="txtBox-read" readonly
                             value="<?php echo $refnumber;?>">
+                        <br>
 
-                        <label for  ="refnumberbutton-clear" class="label"></label>
+                        <label for  ="button-clear" class="label"></label>
                         <input type="button" id="button-clear" onclick="resetForm()"  class="btn-submit" value="Tyhjennä">
                           
                         <br>
@@ -129,11 +124,22 @@
 
                 </fieldset>
             
-                <fieldset  class="fieldset-create">
+                <fieldset>
                    
                         <legend>2. Valitse ja lataa asiakastiedosto (csv):</legend>       
-                                             
-                        <input type="file" class="file-input" name="file-input" value="<?php echo $fileinput;?>">
+
+
+                        <input type="file" class="file-input" name="file-input">             
+                        <!-- <input type="file" class="file-input" name="file-input" value=" -->
+                        <?php
+                            // if (isset($fileinput)) {
+                            //     echo $fileinput;
+                            // }
+                            // else {
+                            //     $fileinput = "";
+                            // }                        
+                        ?>
+                        <!-- "> -->
                         
                         <input type="submit" class="btn-submit" id="upload" name="upload"
                              value="Lataa tiedosto">
@@ -147,6 +153,7 @@
                     <?php }?>                   
                 
                 </fieldset>
+               
             
             </form>
 
@@ -169,12 +176,13 @@
               
                 <?php      
                     if ($response["type"] == "success") {
-                     
+                        $_SESSION["vendordata"]    = $_POST['vendordata'];
                         $_SESSION["vendorname"]    = $_POST['vendorname'];
                         $_SESSION["duedate"]       = $_POST['duedate'];
                         $_SESSION["accountnumber"] = $_POST['accountnumber'];
                         $_SESSION["message"]       = $_POST['message'];
                      
+                        log_writing("jees: " . $_POST['vendordata']);
                         if (isset($_SESSION['refnumber']))  {     
                             echo "Session variables are set:" . $_SESSION["refnumber"] ;
                         }
