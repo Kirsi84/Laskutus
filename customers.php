@@ -11,6 +11,7 @@
 
 <body>
 
+
     <div class="main">
       
         <?php
@@ -38,7 +39,7 @@
         <br> <br>   
 
         <div class="container" id ="container">
-        <table class="gridtable">
+        <table class="gridtable" id="customers-table">
             <thead>
                 <tr class="tableheader">      
                     <th>Sukunimi</th>
@@ -91,7 +92,7 @@
                     </td>
                     
                     <td> 
-                        <input type="number" step="any" id="price" name="price[]">
+                        <input type="number" id="customers-input" step="any" id="price" name="price[]">
                     </td>
 
                     <td> 

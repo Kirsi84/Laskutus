@@ -1,7 +1,9 @@
 <?php
-//  include("logWriting.php");
+ include("logWriting.php");
 //require_once __DIR__ . '/vendor/autoload.php';
 
+require_once "referenceNumber.php";
+ 
 if(!isset($_POST)) {
     header('location:index.php');
     exit();
@@ -18,6 +20,7 @@ if (isset($_SESSION['customercount']))  {
 if (isset($_SESSION['vendorname']))  {     
     $vendorname = $_SESSION['vendorname'];
 } 
+log_writing("nimi: " .   $vendorname );
 
 $html = "";
 
@@ -39,22 +42,28 @@ try {
     ]);
     
     $mpdf->SetProtection(array('print'));
-    $mpdf->SetTitle("Laskut | " . $vendor);
-    $mpdf->SetAuthor($vendor);
+    $mpdf->SetTitle("Laskut | " . $vendorname);
+    $mpdf->SetAuthor($vendorname);
     $mpdf->SetWatermarkText("Lasku");
     $mpdf->showWatermarkText = true;
     $mpdf->watermark_font = 'DejaVuSansCondensed';
     $mpdf->watermarkTextAlpha = 0.1;
-    $mpdf->SetDisplayMode('fullpage');   
+    $mpdf->SetDisplayMode('fullpage');
+    
+    $arrRefNumbers = array();
   
     for ($i = 0; $i < $customercount; $i++) { 
-        $html = gethtmldata($i);
+        $refnumber  = getReferenceNumber();
+       // $arrData = ($i,  $refnumber );
+        array_push($arrRefNumbers,  $refnumber);
+
+        $html = gethtmldata($i, $refnumber);
         $mpdf->AddPage();
         $mpdf->WriteHTML($html);      
     } 
     $mpdf->AddPage();  
     $mpdf->SetWatermarkText("Laskutettu");
-    $html = gethtmltotal($customercount); 
+    $html = gethtmltotal($customercount, $arrRefNumbers); 
     $mpdf->WriteHTML($html);  
   
     //$mpdf->Output($filename, 'I');
@@ -70,13 +79,12 @@ function checkData($data) {
 }
 
  
-function gethtmldata($i) {
+function gethtmldata($i, $refnumber) {
     $vendorname     = "";
     $duedate        = "";
     $accountnumber  = "";
-    $refnumber      = "";
-    $message        = ""; 
-
+    //$refnumber      = "";
+   
     $lname = "";
     $fname = "";
     $address = "";
@@ -84,7 +92,9 @@ function gethtmldata($i) {
     $postdistrict = "";
     $email = ""; 
     $price = 0;
-    $usermessage = "";
+   
+
+//$refnumber  = getReferenceNumber();
 
     // vendor data
     if (isset($_SESSION['vendorname']))  {     
@@ -96,12 +106,20 @@ function gethtmldata($i) {
     if (isset($_SESSION['accountnumber']))  {     
         $accountnumber = checkData($_SESSION['accountnumber']) ; 
     }    
-    if (isset($_SESSION['refnumber']))  {     
-        $refnumber = checkData($_SESSION['refnumber']) ; 
+    // if (isset($_SESSION['refnumber']))  {     
+    //     $refnumber = checkData($_SESSION['refnumber']) ; 
+    // }
+    
+    $vendormsg = "";
+    if (isset($_SESSION['vendormessage']))  {     
+        $vendormessage = checkData($_SESSION['vendormessage']) ; 
+        //explode all separate lines into an array
+        $textAr = explode("\n", $vendormessage);      
+        foreach($textAr as $line) {
+            $vendormsg = $vendormsg . $line . "<br>";
+        }     
     }
-    if (isset($_SESSION['message']))  {     
-        $message = checkData($_SESSION['message']) ; 
-    }
+   
     // customer data
     if (isset($_POST['lname'][$i]))  {     
         $lname = checkData($_POST['lname'][$i]);
@@ -130,8 +148,15 @@ function gethtmldata($i) {
     if ($price == 0) {
         $pricevar = "*****";           
     }
+    
+    $usermsg = "";
     if (isset($_POST['usermessage'][$i]))  {     
         $usermessage = checkData($_POST['usermessage'][$i]);
+        //explode all separate lines into an array
+        $textAr = explode("\n", $usermessage);      
+        foreach($textAr as $line) {
+            $usermsg = $usermsg . $line . "<br>";
+        }     
     }
 
     // generating number of invoice
@@ -193,7 +218,7 @@ mpdf-->
         <table>
             <tr>
                 <td>Laskun lähettäjä:</td>
-                <td>' . $vendor . '</td>          
+                <td>' . $vendorname . '</td>          
             </tr>
             <tr>
                 <td>Viite:</td>
@@ -227,16 +252,14 @@ mpdf-->
 
     <!-- ITEMS HERE -->
     <tr>
-        <td class="pdftd2">
-            <textarea class="pdftextarea">        
-              '. $message .' 
-            </textarea>
+        <td class="pdftd2">           
+              '. $vendormsg .'            
         </td>
-        <td class="pdftd2">
-            <textarea class="pdftextarea">        
-                '. $usermessage . '
-            </textarea>
+
+        <td class="pdftd2">            
+                '. $usermsg .'           
         </td>
+
         <td class="cost">'. $pricevar .'</td>
     </tr>
     <!-- END ITEMS HERE -->
@@ -250,16 +273,15 @@ mpdf-->
     return $html;
 }
 
-function gethtmltotal($customercount) {
+function gethtmltotal($customercount, $arrRefNumbers) {
     $vendorname         = "";
     $duedate       = "";
     $accountnumber  = "";
-    $refnumber      = "";
-    $message        = ""; 
-     
+   // $refnumber      = "";
+       
     // vendor data
     if (isset($_SESSION['vendorname']))  {     
-        $vendor = $_SESSION['vendorname'];
+        $vendorname = $_SESSION['vendorname'];
     }    
     if (isset($_SESSION['duedate']))  {     
         $duedate = date("d.m.Y", strtotime($_SESSION['duedate']));
@@ -267,12 +289,19 @@ function gethtmltotal($customercount) {
     if (isset($_SESSION['accountnumber']))  {     
         $accountnumber = $_SESSION['accountnumber'] ; 
     }    
-    if (isset($_SESSION['refnumber']))  {     
-        $refnumber = $_SESSION['refnumber'] ; 
+    // if (isset($_SESSION['refnumber']))  {     
+    //     $refnumber = $_SESSION['refnumber'] ; 
+    // }
+    
+    $vendormsg = "";
+    if (isset($_SESSION['vendormessage']))  {     
+        $vendormessage = checkData($_SESSION['vendormessage']) ; 
+        //explode all separate lines into an array
+        $textAr = explode("\n", $vendormessage);      
+        foreach($textAr as $line) {
+            $vendormsg = $vendormsg . $line . "<br>";
+        }     
     }
-    if (isset($_SESSION['message']))  {     
-        $message = $_SESSION['message'] ; 
-    }  
 
     // generating number of invoice
     $invoiceno = strval($i + 1);
@@ -294,7 +323,7 @@ function gethtmltotal($customercount) {
 <table width="100%">
 <tr>
     <td width="50%" style="color:#0000BB; ">
-        <span style="font-weight: bold; font-size: 14pt;">' .$vendor . '</span>
+        <span style="font-weight: bold; font-size: 14pt;">' . $vendorname . '</span>
         <br />
     </td>
     <td width="50%" style="text-align: right;">YHTEENVETO<br />
@@ -322,9 +351,9 @@ mpdf-->
 
 <tr>
     <td class="pdftd">
-        <textarea class="pdftextarea">        
-            '. $message .' 
-        </textarea>
+         
+            '. $vendormsg .' 
+       
     </td>
     <td width="30%">&nbsp;</td>
 
@@ -333,11 +362,11 @@ mpdf-->
         <table>
             <tr>
                 <td>Laskun lähettäjä:</td>
-                <td>' . $vendor . '</td>          
+                <td>' . $vendorname . '</td>          
             </tr>
             <tr>
-                <td>Viite:</td>
-                <td>' . $refnumber . '</td>          
+                <td></td>
+                <td></td>          
             </tr>
             <tr>
                 <td>Eräpäivä:</td>
@@ -360,7 +389,8 @@ mpdf-->
     <tr>    
         <td width="30%">Sukunimi</td>
         <td width="30%">Etunimi</td>
-        <td width="30%">Lisätiedot</td>    
+        <td width="10%">Viitenumero</td>
+        <td width="20%">Lisätiedot</td>    
         <td width="10%">Hinta €</td>
     </tr>
     </thead>
@@ -374,7 +404,8 @@ mpdf-->
                     $lname = "";
                     $fname = "";   
                     $price = 0;
-                    $usermessage = "";            
+                    $usermsg = "";
+                    $refnumber = $arrRefNumbers[$i];            
                     
                     if (isset($_POST["lname"][$i]))  {     
                         $lname = checkData($_POST["lname"][$i]);
@@ -392,9 +423,16 @@ mpdf-->
                     if ($price == 0) {
                         $pricevar = "*****";           
                     }
-                    if (isset($_POST["usermessage"][$i]))  {     
-                        $usermessage = checkData($_POST["usermessage"][$i]);
-                    }  
+                   
+                    $usermsg = "";
+                    if (isset($_POST['usermessage'][$i]))  {     
+                        $usermessage = checkData($_POST['usermessage'][$i]);
+                        //explode all separate lines into an array
+                        $textAr = explode("\n", $usermessage);      
+                        foreach($textAr as $line) {
+                            $usermsg = $usermsg . $line . "<br>";
+                        }     
+                    } 
 
                     $html .= '
                     <tr>
@@ -405,11 +443,13 @@ mpdf-->
                     <td class="pdftd2">                
                         '. $fname . '
                     </td>
+
+                    <td class="pdftd2">                
+                        '. $refnumber . '
+                    </td>
         
-                    <td class="pdftd2">
-                        <textarea class="pdftextarea">        
-                            '. $usermessage . '
-                        </textarea>
+                    <td class="pdftd2">                              
+                        '. $usermsg . '                        
                     </td>
         
                     <td class="cost">'. $pricevar .'</td>
@@ -429,6 +469,5 @@ mpdf-->
 
     return $html;
 }
-
 
 ?>

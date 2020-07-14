@@ -1,8 +1,5 @@
 Toimii hakemistorakenteella: htdocs\Laskutus:
 
-http://localhost/images/football.png
-
-
 http://localhost/
 
 http://localhost/index.php

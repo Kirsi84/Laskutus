@@ -9,16 +9,16 @@
     // define variables and set to empty values
     include 'checkData.php';
 
-    if (isset($_POST["upload"])) {
-      require_once "getReferenceNumber.php";
-      $_SESSION["refnumber"] =  $refnumber;
-    }
+    // if (isset($_POST["upload"])) {
+    //   require_once "getReferenceNumber.php";
+    //   $_SESSION["refnumber"] =  $refnumber;
+    // }
 
       // remove all session variables
     function resetSession(){      
        session_unset();
+       
     }  
-
       //include "logWriting.php";
 
 ?>
@@ -52,8 +52,7 @@
         <div class="main">
             <?php   
                include 'navbar.php';
-            ?>    
-
+            ?> 
             <br><br>
 
             <form id="frm-upload" action="" class="form-create" method="post" 
@@ -92,26 +91,30 @@
                         <label for  ="vendorname" class="label">Laskuttaja:</label>
                         <input type ="text" id="vendorname" name="vendorname" class="txtBox"                          
                             placeholder="Laskun lähettäjä"
-                            required value="<?php echo $vendorname;?>">                     
+                            required value="<?php echo $vendorname;?>">   
+
+                        <br>                  
                          
                         <!-- value of maxlength of iban account is 18 -->
                         <label for  ="accountnumber" class="label">Tilinumero:</label>
                         <input type ="text" id="accountnumber" name="accountnumber" class="txtBox"
-                            placeholder="IBAN tilinro" maxlength="18" required value="<?php echo $accountnumber;?>">
+                            placeholder="IBAN tilinro" maxlength="18" minlength=18 required
+                            pattern="^[a-zA-Z0-9]*$" value="<?php echo $accountnumber;?>">
                         <br>
                     
                         <label for  ="duedate" class="label">Eräpäivä:</label>
                         <input type ="date" id="duedate" name="duedate" class="txtBox" required value="<?php echo $duedate;?>">
+       
                         <br>
  
-                        <label for  ="message" class="label">Laskun viesti:</label>  
-                        <textarea id="message" name="message" rows="2" cols="40"><?php echo $message;?></textarea>
+                        <label for  ="vendormessage" class="label">Laskun viesti:</label>  
+                        <textarea id="vendormessage" name="vendormessage" rows="2" cols="40"><?php echo $vendormessage;?></textarea>
                         <br>
 
-                        <label for  ="refnumber" class="label">Viitenumero:</label>
+                        <!-- <label for  ="refnumber" class="label">Viitenumero:</label>
                         <input type ="text" id="refnumber" name="refnumber" class="txtBox-read" readonly
-                            value="<?php echo $refnumber;?>">
-                        <br>
+                            value="<?php //echo $refnumber;?>">
+                        <br> -->
 
                         <label for  ="button-clear" class="label"></label>
                         <input type="button" id="button-clear" onclick="resetForm()"  class="btn-submit" value="Tyhjennä">
@@ -128,19 +131,8 @@
                    
                         <legend>2. Valitse ja lataa asiakastiedosto (csv):</legend>       
 
-
                         <input type="file" class="file-input" name="file-input">             
-                        <!-- <input type="file" class="file-input" name="file-input" value=" -->
-                        <?php
-                            // if (isset($fileinput)) {
-                            //     echo $fileinput;
-                            // }
-                            // else {
-                            //     $fileinput = "";
-                            // }                        
-                        ?>
-                        <!-- "> -->
-                        
+                                                
                         <input type="submit" class="btn-submit" id="upload" name="upload"
                              value="Lataa tiedosto">
 
@@ -163,11 +155,12 @@
                     document.getElementById("vendorname").value = "";   
                     document.getElementById("accountnumber").value = ""; 
 
-                    document.getElementById("refnumber").value = ""; 
+                  //  document.getElementById("refnumber").value = ""; 
                     document.getElementById("duedate").value = ""; 
-                    document.getElementById("message").value = ""; 
-                    document.getElementById("checkDataErr").value = ""; 
                  
+                    document.getElementById("vendormessage").value = ""; 
+                    document.getElementById("checkDataErr").value = ""; 
+
                     "<?php resetSession()?>";                   
                 }
             </script>
@@ -180,12 +173,12 @@
                         $_SESSION["vendorname"]    = $_POST['vendorname'];
                         $_SESSION["duedate"]       = $_POST['duedate'];
                         $_SESSION["accountnumber"] = $_POST['accountnumber'];
-                        $_SESSION["message"]       = $_POST['message'];
+                        $_SESSION["vendormessage"] = $_POST['vendormessage'];
                      
-                        log_writing("jees: " . $_POST['vendordata']);
-                        if (isset($_SESSION['refnumber']))  {     
-                            echo "Session variables are set:" . $_SESSION["refnumber"] ;
-                        }
+                      //  log_writing("jees: " . $_POST['vendordata']);
+                        // if (isset($_SESSION['refnumber']))  {     
+                        //     echo "Session variables are set:" . $_SESSION["refnumber"] ;
+                        // }
 
                         include 'customers.php';
                     }                    

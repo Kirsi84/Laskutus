@@ -1,65 +1,120 @@
 <?php   
  include "logWriting.php";
  include "getFilePath.php";
+ include "iban.php";
 
 function createSetting() {
+    if (checkPath()) {
 
-    $type = "";
-    $accountnumber = "";
-    $vendorname = "";
-    $userMessage = "";
+        $type = "";
+        $accountnumber = "";
+        $vendorname = "";
+        $userMessage = "";
+        $ok = true;
+             
+        if (isset( $_POST['type']))  {     
+            $type        = trim(strip_tags( $_POST['type']));
+        }
+        if (isset( $_POST['accountnumber']))  {     
+            $accountnumber       = trim(strip_tags( $_POST['accountnumber']));
+        }
+        else {
+            $userMessage = "Tilinumero on pakollinen. ";
+            $ok = false;
+        }  
+        if (!checkIBAN($accountnumber)) {
+            $userMessage = $userMessage . "Virheellinen IBAN-tilinumero. ";
+            $ok = false;
+        } 
+        if (isset( $_POST['vendorname']))  {     
+            $vendorname        = trim(strip_tags( $_POST['vendorname']));
+        }
+        else {
+            $userMessage = $userMessage . "Laskun lähettäjä on pakollinen. ";
+            $ok = false;
+        }         
+    
+        if ($ok) { 
+            $newdata = array($type,  $vendorname, $accountnumber);
+            $settings = array();
 
-    if (isset( $_POST['type']))  {     
-        $type        = trim(strip_tags( $_POST['type']));
-    }
-    if (isset( $_POST['accountnumber']))  {     
-        $accountnumber       = trim(strip_tags( $_POST['accountnumber']));
-    }
-    if (isset( $_POST['vendorname']))  {     
-        $vendorname        = trim(strip_tags( $_POST['vendorname']));
-    }     
-   
-    $newdata = array($type,  $vendorname, $accountnumber);
-    $settings = array();
+            try {
+            
+                $filepath = getDefaultFilepath();
+                $dublicates = false;
+                // reading old data from parameters into an array
+                if (file_exists($filepath)) {
+                    $file = fopen($filepath,"r");
 
-    try {
-     
-        $filepath = getDefaultFilepath();
-        
-        // reading old data from parameters into an array
-        if (file_exists($filepath)) {
-            $file = fopen($filepath,"r");
+                    while (($line = fgetcsv($file)) !== FALSE) {                 
+                        array_push($settings, $line); 
+                        if ( $line == $newdata) {
+                            $dublicates = true;
+                        }
+                    }
+                }
+                
+                if ($dublicates == true) {
+                    $userMessage = "Sama asetus on lisätty jo aiemmin asetustiedostoon! ";
+                    $ok = false;
+                }
+                else {
+                    // add new data into an array
+                    array_push($settings, $newdata);
 
-            while (($line = fgetcsv($file)) !== FALSE) {                 
-                array_push($settings, $line); 
+                    sort($settings);
+
+                    // write rows into the file
+                    $file = fopen($filepath,"w");
+                    foreach ($settings as $row) {
+                        fputcsv($file, $row);
+                    } 
+                    
+                    $userMessage = "Asetus on lisätty asetustiedostoon! "; 
+                   
+                }  
+                //close file
+                fclose($file);
+
+                // if ($ok) {
+                //     header("Location: settings.php"); 
+                //     exit();
+                // }               
+            
+            }
+            catch(Exception $e) {
+                $userMessage = "Asetustiedon päivitys ei onnistunut! ";
+                log_writing($e->getMessage());    
             }
         }
         else {
-            log_writing("jees1");
-
-            $filepath = generateDefaultFilePath();
-            log_writing("jees1" . $filepath);
-
+            $userMessage =   $userMessage . " Tarkista tiedot! Asetustietoa ei lisätty. ";
         }
-        // add new data into an array
-        array_push($settings, $newdata);
-
-        // write rows into the file
-        $file = fopen($filepath,"w");
-        foreach ($settings as $row) {
-            fputcsv($file, $row);
-        }    
-        //close file
-        fclose($file);
-        $userMessage = "Asetus on lisätty asetustiedostoon!";
        
     }
-    catch(Exception $e) {
-        $userMessage = "Asetustiedon päivitys ei onnistunut!";
-        log_writing($e->getMessage());    
+    else {
+        $userMessage =   $userMessage . "Asetustietoa ei lisätty. ";
     }
     
     return $userMessage;
+}
+
+function checkPath(){
+    $path = getDefaultPath();
+
+    if (file_exists($path)) {
+        return true;
+    }
+    else  {
+        // user allows to create file path
+        if (isset( $_POST['permission']))  {     
+            generateDefaultFilePath();
+            return true;
+        }
+        else {
+            return false;
+        }
+    } 
 }
 
 function deleteSetting() {
@@ -167,6 +222,7 @@ function getSetting($ind) {
             while (($line = fgetcsv($file)) !== FALSE) { 
                 if ($i == $ind)  {                       
                     array_push($settings, $line); 
+                    break;
                 }
                 $i = $i + 1; 
             }
@@ -185,36 +241,5 @@ function getSetting($ind) {
     }
 }
 
-function getSetting2($ind) {
-  
-    $settings = array();
-   
-    try {
-     
-        $filepath = getDefaultFilepath();
-        
-        if (file_exists($filepath)) {
-            $file = fopen($filepath,"r");
-            $i = 0;
-            while (($line = fgetcsv($file)) !== FALSE) { 
-                if ($i == $ind)  {                       
-                    array_push($settings, $line); 
-                }
-                $i = $i + 1; 
-            }
-           
-            fclose($file);
-        }
-      
-        return $settings;      
-       
-    }
-    catch(Exception $e) {
-     
-        log_writing($e->getMessage()); 
-     
-        return $settings;  
-    }
-}
 
 ?>

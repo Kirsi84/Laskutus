@@ -1,11 +1,12 @@
 <?php
 
 // include "logWriting.php";
+include 'iban.php';
 
 
 // define variables and set to empty values
-$vendornameErr = $duedateErr = $accountnumberErr = $messageErr = $refnumberErr = "" ;
-$vendorname = $duedate = $accountnumber = $message = $refnumber = "";
+$vendornameErr = $duedateErr = $accountnumberErr = $vendormessageErr = $refnumberErr = "" ;
+$vendorname = $duedate = $accountnumber = $vendormessage = $refnumber = "";
 $vendordata = 0;
 $checkDataErr = "";
 
@@ -37,14 +38,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   }
   else {
     $accountnumber = test_input($_POST["accountnumber"]);  
+    $accountnumber = str_replace(' ', '', $accountnumber);
     if (checkIBAN($accountnumber) == false) {     
-      $checkDataErr =  "Virheellinen tilinumero, tarkista tiedot!";
+      $checkDataErr =  "Virheellinen IBAN-tilinumero!";
     }
   }
-  if (empty($_POST["message"])) {
-    $message = "";
+  if (empty($_POST["vendormessage"])) {
+    $vendormessage = "";
   } else {
-    $message = test_input($_POST["message"]);
+    $vendormessage = test_input($_POST["vendormessage"]);
   }
   
 }
@@ -53,16 +55,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Kansainvälinen IBAN-muotoinen tilinumero muodostuu kotimaisesta tilinumerosta,
 // jonka eteen on lisätty maakoodi eli kirjaimet FI sekä kaksi tarkistenumeroa XX.
 // Esimerkiksi tilinumero IBAN-muotoisena.  FI49 1234 5678 9123 XX.
-function checkIBAN($iban)
-{
-    $iban = trim($iban);
-    if (strlen($iban) == 18) {
-        return true;
-    }
-    else {
-        return false;
-    }
-}
+// function checkIBAN($iban)
+// {
+//     $iban = trim($iban);
+//     if (strlen($iban) == 18) {
+//         return true;
+//     }
+//     else {
+//         return false;
+//     }
+// }
  
 function test_input($data) {
   $data = trim($data);

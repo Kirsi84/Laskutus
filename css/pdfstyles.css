@@ -32,14 +32,22 @@
 }
 
 .pdftextarea{
-    /* width: 100%;
-    height: 100%; */
+   
+    border-color: white;  
+    border: 0px; 
+    border-width: 0px;     
+    overflow: auto;
+      
+    
+ } 
+
+/*  
+.pdftextarea{
     border-color: Transparent;  
     border: 0;      
     overflow: auto;
-      
-    /* size: auto; */
- } 
+     
+ }  */
 
 .pdftd2{
     width: auto;
@@ -91,3 +99,4 @@ table thead td { background-color: #EEEEEE;
 .items td.cost {
 	text-align: "." center;
 }
+

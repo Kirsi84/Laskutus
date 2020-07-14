@@ -24,11 +24,14 @@
                     <li>Pdf-laskujen muodostaminen</li>
                     <li>Asetustietorivin lisääminen, tallennus työaseman
                     asetustiedostoon ja poistaminen asetustiedoista</li>
+                    <li>Oletushakemiston puuttuessa ohjelma generoi
+                    uuden hakemistopolun työasemaan</li>
                     <li>Asetustiedosto tallennetaan työasemaan oletushakemistoon:
                     <?php
                         echo " " . getDefaultFilepath() . ".";
                     ?>
                     </li>
+
                 </ul> 
 
                 <br>

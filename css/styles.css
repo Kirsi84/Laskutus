@@ -128,7 +128,6 @@ th, td {
     width:130px;
     display: inline-block;
     height: 25px;
-    margin-left: 28px;
 }
 
 .txtBox {
@@ -154,7 +153,7 @@ select {
 
 #duedate{
     width: 135px;
-    height: 24px;    
+    height: 27px;    
 }  
 
 #accountnumber {
@@ -408,3 +407,26 @@ tr:nth-child(even) {
 #price {    
     width: 80px;   
 }
+
+/* 
+#customers-table td {
+    position: relative;
+
+    border-width:1px ; 
+    border-style:solid;
+    border-color: #666666;   
+}
+
+#customers-table td input {
+    position: absolute;
+    display: block;
+    top:0;
+    left:0;
+    margin: 0;
+    height: 100%;
+    width: 100%;
+    border: none;
+    padding: 10px;
+    box-sizing: border-box;
+  } */
+
