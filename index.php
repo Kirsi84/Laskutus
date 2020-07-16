@@ -1,26 +1,18 @@
 <?php
-
     // Start the session
     session_start();
-
-    // file upload
-    include 'upload.php';
-  
+   
     // define variables and set to empty values
     include 'checkData.php';
 
-    // if (isset($_POST["upload"])) {
-    //   require_once "getReferenceNumber.php";
-    //   $_SESSION["refnumber"] =  $refnumber;
-    // }
+    // file upload
+    include 'upload.php';
 
-      // remove all session variables
+    // remove all session variables
     function resetSession(){      
-       session_unset();
-       
+       session_unset();       
     }  
-      //include "logWriting.php";
-
+    //include "logWriting.php";
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +27,7 @@
                 function updateVendor() {                    
                     let sel = document.getElementById('vendordata');                   
                     let opt = sel.options[sel.selectedIndex]; 
-                    // console.log("opt.value: " + opt.value);
+
                     if (opt.value == 0) {
                         document.getElementById("vendorname").value = "";   
                         document.getElementById("accountnumber").value = ""; 
@@ -43,8 +35,8 @@
                     else {
                         let str = opt.text;   
                         let res = str.split("|");
-                        document.getElementById("vendorname").value = res[0];   
-                        document.getElementById("accountnumber").value = res[1];    
+                        document.getElementById("vendorname").value = res[0].trim();   
+                        document.getElementById("accountnumber").value = res[1].trim();    
                     }
                 }
         </script>     
@@ -63,7 +55,8 @@
                                              
                         <label for="vendordata" class="label">Valitse:</label>
                         <select id="vendordata" name="vendordata" onchange="updateVendor();">
-                        <option value=0 selected>Valitse laskun lähettäjä ja tilinumero</option>"
+                        <option value=0 selected>Valitse laskun lähettäjä ja tilinumero</option>
+                       
                         <?PHP
                             include 'getSettings.php';                              
                            
@@ -71,19 +64,16 @@
                                 $max = count($vendors);
                                 for ($ind = 0; $ind <  $max; $ind++) {
                                     
-                                    $vendorname = $vendors[$ind][1];  
-                                    $accountnumber =  $vendors[$ind][2];  
-                                    $vendordata = $vendorname . " | " .  $accountnumber;
-                                    $id = $vendors[$ind][0];                        ?>
+                                    $vendornamesel = $vendors[$ind][1];  
+                                    $accountnumbersel =  $vendors[$ind][2];  
+                                    $vendordata = $vendornamesel . " | " .  $accountnumbersel;
+                                    $id = $vendors[$ind][0];?>
                             
-                                    <option value=<?php echo $id ?> >  
-                                        <?php echo $vendordata ?>
-                                    </option> 
+                                    <option value=<?php echo $id ?>><?php echo $vendordata ?></option> 
                         <?php 
-                                }
-                            }
-                           
-                            ?>
+                                }                               
+                            }                           
+                        ?>
                         </select>
 
                         <br>
@@ -110,12 +100,7 @@
                         <label for  ="vendormessage" class="label">Laskun viesti:</label>  
                         <textarea id="vendormessage" name="vendormessage" rows="2" cols="40"><?php echo $vendormessage;?></textarea>
                         <br>
-
-                        <!-- <label for  ="refnumber" class="label">Viitenumero:</label>
-                        <input type ="text" id="refnumber" name="refnumber" class="txtBox-read" readonly
-                            value="<?php //echo $refnumber;?>">
-                        <br> -->
-
+                        
                         <label for  ="button-clear" class="label"></label>
                         <input type="button" id="button-clear" onclick="resetForm()"  class="btn-submit" value="Tyhjennä">
                           
@@ -144,8 +129,7 @@
                
                     <?php }?>                   
                 
-                </fieldset>
-               
+                </fieldset>               
             
             </form>
 
@@ -154,10 +138,7 @@
                     document.getElementById("vendordata").value = 0;  
                     document.getElementById("vendorname").value = "";   
                     document.getElementById("accountnumber").value = ""; 
-
-                  //  document.getElementById("refnumber").value = ""; 
-                    document.getElementById("duedate").value = ""; 
-                 
+                    document.getElementById("duedate").value = "";                 
                     document.getElementById("vendormessage").value = ""; 
                     document.getElementById("checkDataErr").value = ""; 
 
@@ -169,17 +150,12 @@
               
                 <?php      
                     if ($response["type"] == "success") {
-                        $_SESSION["vendordata"]    = $_POST['vendordata'];
+                      //  $_SESSION["vendordata"]    = $_POST['vendordata'];
                         $_SESSION["vendorname"]    = $_POST['vendorname'];
                         $_SESSION["duedate"]       = $_POST['duedate'];
                         $_SESSION["accountnumber"] = $_POST['accountnumber'];
                         $_SESSION["vendormessage"] = $_POST['vendormessage'];
-                     
-                      //  log_writing("jees: " . $_POST['vendordata']);
-                        // if (isset($_SESSION['refnumber']))  {     
-                        //     echo "Session variables are set:" . $_SESSION["refnumber"] ;
-                        // }
-
+                      
                         include 'customers.php';
                     }                    
                 ?>

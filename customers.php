@@ -8,33 +8,25 @@
      include 'head.php';
 ?>
 
-
 <body>
-
 
     <div class="main">
       
-        <?php
-            include 'navbar.php';
-        ?>
- 
-<?php
-
-    if(!empty(isset($_POST["upload"]))) {
-        if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {
-?>
-
+    <?php
+        include 'navbar.php';  
+        if(!empty(isset($_POST["upload"]))) {
+            if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {
+    ?>
 
 <form action="invoices.php" method="post">
+<!-- <form action="email.php" method="post"> -->
 
     <fieldset>
        
         <legend>3. Laskujen ja yhteenvedon muodostus: hinta- ja lisäviestin syöttö tarvittaessa</legend>      
-        
-
+    
         <input type="submit" class="btn-submit" id="btn-invoices" name="btn-billbtn-invoices" 
             value="Muodosta laskut">
-
         
         <br> <br>   
 
@@ -59,17 +51,15 @@
 
                 $class ="";
                 if($i==0) {
-                $class = "header";
+                    $class = "header";
                 }
-                ?>
-              
+        ?>             
                
                 <tr name="datarow" class="datarow">
                             
                     <td>
-                        <input type="text" name="lname[]" class="textinput" readonly value="<?php echo $row[1]; ?>"                                    
-                      
-                   </td>
+                        <input type="text" name="lname[]" class="textinput" readonly value="<?php echo $row[1]; ?>"                                   
+                    </td>
 
                     <td>
                         <input type="text" name="fname[]" class="textinput" readonly value="<?php echo $row[0]; ?>"                 
@@ -100,10 +90,10 @@
                         <textarea id="usermessage" name="usermessage[]"></textarea> 
                     </td>
                 </tr>
-            <?php
+
+        <?php
                 $i ++;
-            }
-        
+            }   // end-while 
           
             fclose($fp);
 
@@ -112,31 +102,42 @@
             }
             $_SESSION["customercount"]  = $i; //number of customers
 
-            ?>
+        ?>
             </tbody>
             </table>
-        </div>
 
-        
         <?php
-            $response = array("type" => "success", "message" => "CSV is converted to HTML successfully");
-            } else {
-                $response = array("type" => "error", "message" => "Unable to process CSV");
+            // $response = array("type" => "success", "message" => "CSV is converted to HTML successfully");
+            $response = array("type" => "success", "message" => "CSV-tiedoston konvertointi onnistui!");
+            } 
+            else {
+               // $response = array("type" => "error", "message" => "Unable to process CSV");
+                $response = array("type" => "error", "message" => "CSV-tiedoston käsittely ei onnistu!");
             }
-        }
+        ?> 
+        </div>
+                
+        <?php
+            // $response = array("type" => "success", "message" => "CSV is converted to HTML successfully");
+            $response = array("type" => "success", "message" => "CSV-tiedoston konvertointi onnistui!");
+            } 
+            else {
+               // $response = array("type" => "error", "message" => "Unable to process CSV");
+                $response = array("type" => "error", "message" => "CSV-tiedoston käsittely ei onnistu!");
+            }
+        
         ?>
-        </div>
+
         <?php if(!empty($response)) { ?>
-        <div class="response <?php echo $response["type"]; ?>
-            ">
-            <?php echo $response["message"]; ?>
-        </div>
+            <div class="response <?php echo $response["type"]; ?>
+                ">
+                <?php echo $response["message"]; ?>
+            </div>
         <?php } ?>
-      
-        </fieldset>
+
+        </div>
+    </fieldset>
 </form>
-
 </div>
-
 </body>
 </html>

@@ -10,20 +10,23 @@ if (isset($_POST["upload"])) {
     if (! file_exists($_FILES["file-input"]["tmp_name"])) {
         $response = array(
             "type" => "error",
-            "message" => "File input should not be empty."
+            "message" => "Tiedosto tulee olla valittuna ennen tiedoston lataamista!"
+            // "message" => "File input should not be empty."
+
         );
     } // Validate file input to check if is with valid extension
     else if ($file_extension != "csv") {
             $response = array(
                 "type" => "error",
-                "message" => "Invalid CSV: File must have .csv extension."
+                "message" => "Virheellinen tiedostomuoto. Tiedostolla on oltava .csv tiedostopääte."
             );
            //todo: echo $result;
         } // Validate file size
     else if (($_FILES["file-input"]["size"] > 2000000)) {
             $response = array(
                 "type" => "error",
-                "message" => "Invalid CSV: File size is too large."
+                "message" => "CSV-tiedoston koko on liian suuri!"
+               // "message" => "Invalid CSV: File size is too large."
             );
         } // Validate if all the records have same number of fields
     else {
@@ -48,13 +51,15 @@ if (isset($_POST["upload"])) {
         if (count($lengthArray) == 1) {
             $response = array(
                 "type" => "success",
-                "message" => "File Validation Success."
+                "message" => "Tiedoston validointi onnistui!"
             );
           
         } else {
             $response = array(
                 "type" => "error",
-                "message" => "Invalid CSV: Count mismatch."
+                "message" => "Virheellinen CSV-tiedosto!"
+                // "message" => "Invalid CSV: Count mismatch."
+
             );
         }
     }

@@ -1,16 +1,19 @@
 /* styles of pdf */
 
-
-.pdfdivleft {
-  
-    display: inline;
-    text-align: left;
-}
-
 .pdfdiv {
     display: inline-block;
-    text-align: right;
-   
+    text-align: right;   
+}
+
+.pdfdivlefttot {
+  
+    width:400px;
+    float:left;
+}
+
+.pdfdivtot {
+    width:250px; 
+    float:left;
 }
 
 .pdfdivfield {
@@ -20,49 +23,22 @@
 
 .pdftable {
     width: 100%;
-    font-family: serif;   
-
-     /* cellpadding: 10; */
+    font-family: serif; 
 }
 
 .pdftd {
-    width: 45%;
-   
+    width: 45%;   
     border: 0.1mm solid #888888; 
 }
 
-.pdftextarea{
-   
-    border-color: white;  
-    border: 0px; 
-    border-width: 0px;     
-    overflow: auto;
-      
-    
- } 
-
-/*  
-.pdftextarea{
-    border-color: Transparent;  
-    border: 0;      
-    overflow: auto;
-     
- }  */
-
 .pdftd2{
     width: auto;
-
-}
-
-.spanpdf {
-    font-size: 20pt;
-    color: #555555;
-    font-family: sans;
 }
 
 body {font-family: sans-serif;
 	font-size: 15pt;
 }
+
 p {	margin: 0pt; }
 table.items {
     border: 0.1mm solid #000000;
@@ -70,15 +46,16 @@ table.items {
     width: 100%;
     font-size: xx-large;
     border-collapse: collapse;
-    /* cellpadding: 8; */
+   
 }
+
 td { vertical-align: top; }
+
 .items td {
 	border-left: 0.1mm solid #000000;
-    border-right: 0.1mm solid #000000;
-    
-    /* position: relative; */
+    border-right: 0.1mm solid #000000;    
 }
+
 table thead td { background-color: #EEEEEE;
 	text-align: center;
 	border: 0.1mm solid #000000;

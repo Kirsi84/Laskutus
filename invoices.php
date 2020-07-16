@@ -344,8 +344,14 @@ Page {PAGENO} of {nb}
 
 mpdf-->
 
-<div class="pdfdivleft" >Laskun viesti:</div>
-<div class="pdfdiv" >Laskun päivä: ' . $date .'</div>
+<p>
+    <div class="pdfdivlefttot">
+        Laskun viesti:
+    </div>
+    <div class="pdfdivtot">
+        Laskun päivä: ' . $date .'
+    </div>
+</p>
 
 <table class="pdftable">
 

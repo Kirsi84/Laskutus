@@ -2,6 +2,4 @@
 #/logs
 #/Testitiedostot
 #/output
-contact.php
-contact_mail.php
-/phpmailer
+#/phpmailer
