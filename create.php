@@ -9,7 +9,17 @@
         include 'head.php';
     ?>
     <body>
+    <script>
+          function hidePermission() {
+             // document.getElementById("permission").style.display = "none";   
+              document.getElementById("setCheckbox").style.display = "none";              
+          };
 
+          function showPermission() {
+            //  document.getElementById("permission").style.display = "block"; 
+              document.getElementById("setCheckbox").style.display = "block"; 
+          };
+      </script>
 <?php
     // define variables and set to empty values
     $vendornameErr = $accountnumberErr = "";
@@ -43,7 +53,7 @@
             include 'navbar.php';
         ?>  
 
-        <br><br><br>
+        <br><br>
       
         <form id="form-create" class="form-create" action="create.php" method="post">
                 
@@ -51,13 +61,15 @@
 
                 <legend>Asetustietojen lisäys</legend>   
 
-                <?php  if (!file_exists(getDefaultPath())) { ?>
-                    <label for="checkbox">Asetushakemiston luonti työasemaan <?php
-                            echo "(" . getDefaultPath() . ")";?></label> 
-                    <input type="checkbox" id="permission" name="permission" value="0" required>
-                <?php } ?>
+                <p id="setCheckbox">
+                  <?php if (!file_exists(getDefaultPath())) { ?>
+                      <label for="checkbox">Asetushakemiston luonti työasemaan <?php
+                              echo "(" . getDefaultPath() . ")";?></label> 
+                      <input type="checkbox" id="permission" name="permission" value="0" required>
+                  <?php } ?>
+                </p>
 
-                <br><br> 
+                
               
                 <label for  ="type" class="label">Asetus:</label>
                 <input type ="text" id="type" name="type" class="txtBox-read"  
@@ -77,17 +89,31 @@
                 value="<?php echo $accountnumber;?>">
                
                 <br> <br>  
+                
 
-                <label for  ="create" class="label"></label>
-                <input type="submit" name="create"  id="create"  class="btn-submit" value="Tallenna" />
+                <label for  ="create-button" class="label"></label>
+                <input type="submit" name="create-button"  id="create-button"  class="btn-submit" value="Tallenna" />
 
                 <br><br>
 
                 <div id ="msg">
                 <?php    
-                    if(isset($_POST['create'])) // button name
+                    if(isset($_POST['create-button'])) // button name
                     {      
-                        echo createSetting();
+                        $infoarr = createSetting();
+                        // if ($infoarr[0] == "error") {
+                        //     echo "Virhe: ";
+                        // }                        
+                        // else {                                
+                        //     echo "Ok: ";
+                        // }
+                        if (file_exists(getDefaultPath())) {                         
+                          echo '<script>hidePermission();</script>';
+                        }
+                        else {
+                          echo '<script>hidePermission();</script>';
+                        }
+                        echo $infoarr[1];
                     }
                 ?>
                 </div>

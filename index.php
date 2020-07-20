@@ -2,6 +2,7 @@
     // Start the session
     session_start();
 
+    $mindate = date("Y-m-d");
     
     // define variables and set to empty values
     include 'checkData.php';
@@ -98,7 +99,7 @@
                         <br>
                     
                         <label for  ="duedate" class="label">Eräpäivä:</label>
-                        <input type ="date" id="duedate" name="duedate" class="txtBox" required value="<?php echo $duedate;?>">
+                        <input type ="date" id="duedate" name="duedate" min="<?php echo $mindate;?>" class="txtBox" required value="<?php echo $duedate;?>">
        
                         <br>
  
@@ -177,7 +178,7 @@
                         $_SESSION["vendormessage"] = $_POST['vendormessage'];
 
                         echo '<script type="text/javascript">','hideFieldset();', '</script>'
-;
+                        ;
                         include 'customers.php';
                     }                    
                 ?>

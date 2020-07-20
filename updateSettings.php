@@ -4,6 +4,11 @@
  include_once "iban.php";
 
 function createSetting() {
+    $infoarr = array();
+    $infoarr[0] = "error"; 
+    $infoarr[1] = "Virhe asetustietojen käsittelyssä!"; 
+    $userMessage = "";
+    
     if (checkPath()) {
 
         $type = "";
@@ -69,7 +74,7 @@ function createSetting() {
                     foreach ($settings as $row) {
                         fputcsv($file, $row);
                     } 
-                    
+                    $infoarr[0] = "success";
                     $userMessage = "Asetus on lisätty asetustiedostoon! "; 
                    
                 }  
@@ -93,10 +98,10 @@ function createSetting() {
        
     }
     else {
-        $userMessage =   $userMessage . "Asetustietoa ei lisätty. ";
+        $userMessage =   $userMessage . "Asetustiedoston hakemiston käsittely ei onnistu. Asetustietoa ei lisätty!";
     }
-    
-    return $userMessage;
+    $infoarr[1] = $userMessage;
+    return $infoarr;
 }
 
 function checkPath(){
@@ -108,8 +113,12 @@ function checkPath(){
     else  {
         // user allows to create file path
         if (isset( $_POST['permission']))  {     
-            generateDefaultFilePath();
-            return true;
+            if (generateDefaultFilePath()) {
+                return true;
+            }
+            else {
+                return false;
+            }            
         }
         else {
             return false;

@@ -26,7 +26,7 @@ $html = "";
 try {
    
     $date = date("Ymd");
-    $filename = "Laskut_" . $date . "_" . $vendor  . ".pdf";
+    $filename = "Laskut_" . $date . "_" . $vendorname  . ".pdf";
     
     $path = (getenv('MPDF_ROOT')) ? getenv('MPDF_ROOT') : __DIR__;
     require_once $path . '/vendor/autoload.php';
@@ -291,12 +291,7 @@ function gethtmltotal($customercount, $arrRefNumbers) {
         }     
     }
 
-    // generating number of invoice
-    $invoiceno = strval($i + 1);
-    $invoiceno = sprintf('%03d', $invoiceno);
-
     $date = date("d.m.Y");
-
       
     $html = '
 <html>
