@@ -93,9 +93,15 @@ fieldset {
 }
 
 legend {
-    font-size: large;
+    background-color: gray;
+    color: white;
+    padding: 5px 10px;
+
+
+    /* font-size: large;
     margin-left: 28px;
-    color: darkblue;
+   
+    color: black; */
 }
 
 .div-create {
@@ -132,6 +138,7 @@ th, td {
 
 .txtBox {
     width:250px ;
+   
     display: inline-block;
     height: 25px;   
     margin-right: 10px;    
@@ -144,6 +151,11 @@ th, td {
     height: 29px;
     display: inline-block;   
     text-align: left;
+}
+
+.readonly{
+    /* background-color:#E8F0FE; */
+    background-color: powderblue;
 }
 
 select {
@@ -171,20 +183,20 @@ textarea{
 }
 
 /* price update */
-.textareaItem{    
+/* .textareaItem{    
     border: 2px solid;
     padding: 20px; 
     width: 300px;
     resize: both;
     overflow: auto; 
-}
+} */
 
-.textareagrid{    
+/* .textareagrid{    
     border: 1px solid;
     width: 300px;
     resize: both;
     overflow: auto; 
-}
+} */
 
 .lomake {
     max-width:600px;    
@@ -354,8 +366,8 @@ footer {
     margin-top: 0 px;
     
     overflow:auto;
-    background-color: #c5f3c3;
-
+    /* background-color: #c5f3c3; */
+    background-color: white;
     margin-left: auto;
     margin-right: auto;
     width: 100%;
@@ -397,36 +409,27 @@ table.gridtable td {
 }
 
 tr:hover {
-    background-color:#82f0cb
+    /* background-color:#82f0cb; */
+    background-color: gainsboro;
 }
 
 tr:nth-child(even) {
-    background-color: #a2d0c8;
+    /* background-color: #a2d0c8; */
+    background-color: whitesmoke;
 }
 
 #price {    
     width: 80px;   
 }
 
-/* 
-#customers-table td {
-    position: relative;
-
-    border-width:1px ; 
-    border-style:solid;
-    border-color: #666666;   
+.hide-column{
+    display: none;
 }
 
-#customers-table td input {
-    position: absolute;
-    display: block;
-    top:0;
-    left:0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-    border: none;
-    padding: 10px;
-    box-sizing: border-box;
-  } */
+#price {
+    width: 70px;
+}
+
+
+
 

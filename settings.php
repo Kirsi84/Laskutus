@@ -39,7 +39,7 @@
     
             <fieldset class="fieldset-create">      
                               
-                <p><a href="create.php">Lisää</a></p>
+                <a href="create.php">Lisää</a>
                 
                 <legend>Asetustiedot - laskun lähettäjän vakiotiedot</legend>      
                 <br> 

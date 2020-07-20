@@ -1,7 +1,7 @@
 <?php   
  include "logWriting.php";
  include "getFilePath.php";
- include "iban.php";
+ include_once "iban.php";
 
 function createSetting() {
     if (checkPath()) {
@@ -177,8 +177,6 @@ function deleteSetting() {
     return $userMessage;
 }
 
-
-
 function getAllSettings() {
   
     $settings = array();
@@ -190,13 +188,15 @@ function getAllSettings() {
         // reading old data from parameters into an array
         if (file_exists($filepath)) {
             $file = fopen($filepath,"r");
-
+            
             while (($line = fgetcsv($file)) !== FALSE) {                 
                 array_push($settings, $line); 
+               
             }
              //close file
             fclose($file);
         }
+               
         return $settings;      
        
     }
@@ -240,6 +240,7 @@ function getSetting($ind) {
         return $settings;  
     }
 }
+
 
 
 ?>

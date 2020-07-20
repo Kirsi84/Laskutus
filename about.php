@@ -25,7 +25,7 @@
                     <li>Asetustietorivin lisääminen, tallennus työaseman
                     asetustiedostoon ja poistaminen asetustiedoista</li>
                     <li>Oletushakemiston puuttuessa ohjelma generoi
-                    uuden hakemistopolun työasemaan</li>
+                    uuden hakemistopolun työasemaan niin halutessasi (valitaan täppä ensimmäisellä kerralla)</li>
                     <li>Asetustiedosto tallennetaan työasemaan oletushakemistoon:
                     <?php
                         echo " " . getDefaultFilepath() . ".";
@@ -37,7 +37,7 @@
                 <br>
                 Versio 1.0 
                 <br>
-                8.7.2020
+                18.7.2020
            
             </fieldset>
         <div>

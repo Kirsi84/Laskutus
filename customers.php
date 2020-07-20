@@ -7,7 +7,6 @@
 <?php
      include 'head.php';
 ?>
-
 <body>
 
     <div class="main">
@@ -25,6 +24,24 @@
        
         <legend>3. Laskujen ja yhteenvedon muodostus: hinta- ja lisäviestin syöttö tarvittaessa</legend>      
     
+        <label for  ="vendorname" class="label">Laskuttaja:</label>
+            <?php echo $vendorname;?>
+        <br>
+        <label for  ="accountnumber" class="label">Tilinumero:</label>
+            <?php echo $accountnumber;?>
+        <br>    
+        <label for  ="duedate" class="label">Eräpäivä:</label>
+            <?php 
+            $converted = date("d.m.Y", strtotime($_SESSION['duedate']));            
+            echo $converted;
+            ?>
+        <br>
+        <label for  ="vendormessage" class="label">Laskun viesti:</label>
+        <textarea id="vendormessage" name="vendormessage" rows="5" cols="40"
+            readonly class="readonly"><?php echo $vendormessage;?></textarea>
+        <br><br>            
+
+        <label for  ="btn-invoices" class="label"></label>
         <input type="submit" class="btn-submit" id="btn-invoices" name="btn-billbtn-invoices" 
             value="Muodosta laskut">
         
@@ -33,13 +50,18 @@
         <div class="container" id ="container">
         <table class="gridtable" id="customers-table">
             <thead>
-                <tr class="tableheader">      
+                <tr class="tableheader">
                     <th>Sukunimi</th>
                     <th>Etunimi</th> 
-                    <th>Osoite</th>
-                    <th>Postinumero</th>
-                    <th>Postitoimipaikka</th>
-                    <th>Sähköpostiosoite</th>      
+                    <th>Sähköpostiosoite</th>   
+
+                    <th class="hide-column">Sukunimi</th>
+                    <th class="hide-column">Etunimi</th>                   
+                    <th class="hide-column">Osoite</th>                   
+                    <th class="hide-column">Postinumero</th>                   
+                    <th class="hide-column">Postitoimipaikka</th>                    
+                    <th class="hide-column">Sähköpostiosoite</th>  
+
                     <th>Hinta €</th>
                     <th>Lisäviesti laskulle</th>    
                 </tr>
@@ -56,38 +78,47 @@
         ?>             
                
                 <tr name="datarow" class="datarow">
-                            
                     <td>
+                        <?php echo $row[1]; ?>                                   
+                    </td>
+                    <td>
+                        <?php echo $row[0]; ?>                 
+                    </td>
+                    <td>                    
+                        <?php echo $row[5]; ?>             
+                    </td>
+
+                    <td class="hide-column">
                         <input type="text" name="lname[]" class="textinput" readonly value="<?php echo $row[1]; ?>"                                   
                     </td>
 
-                    <td>
+                    <td class="hide-column">
                         <input type="text" name="fname[]" class="textinput" readonly value="<?php echo $row[0]; ?>"                 
                     </td>
 
-                    <td>
-                        <input type="text" name="address[]" class="textinput" readonly value="<?php echo $row[2]; ?>"                
+                    <td class="hide-column">
+                        <input type="text"  name="address[]" class="textinput" readonly value="<?php echo $row[2]; ?>"                
                    </td>
 
-                    <td>
+                    <td class="hide-column">
                         <input type="text" name="postcode[]" class="textinput" readonly value="<?php echo $row[3]; ?>" 
                     </td>
 
-                    <td>                   
+                    <td class="hide-column">                   
                         <input type="text" name="postaldistrict[]" class="textinput" readonly value="<?php echo $row[4]; ?>"               
-                    </td> 
-
-                    <td>                    
+                    </td>                    
+                   
+                    <td class="hide-column">                    
                         <input type="text" name="email[]" class="textinput" readonly value="<?php echo $row[5]; ?>"             
                     </td>
                     
                     <td> 
-                        <input type="number" id="customers-input" step="any" id="price" name="price[]">
+                        <input type="number" step="any" id="price" min="0" name="price[]">
                     </td>
 
                     <td> 
                         <!-- <textarea id="usermessage" name="usermessage[]" class="textareagrid"></textarea>-->
-                        <textarea id="usermessage" name="usermessage[]"></textarea> 
+                        <textarea id="usermessage" name="usermessage[]" rows="4"></textarea> 
                     </td>
                 </tr>
 

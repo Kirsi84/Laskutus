@@ -1,12 +1,14 @@
 <?php
     // Start the session
     session_start();
-   
+
+    
     // define variables and set to empty values
     include 'checkData.php';
 
     // file upload
     include 'upload.php';
+    
 
     // remove all session variables
     function resetSession(){      
@@ -41,6 +43,7 @@
                 }
         </script>     
    
+
         <div class="main">
             <?php   
                include 'navbar.php';
@@ -50,26 +53,28 @@
             <form id="frm-upload" action="" class="form-create" method="post" 
                 enctype="multipart/form-data">
                         
-                <fieldset>                   
+                <fieldset id="fieldset-first">
+                   
                         <legend>1. Laskuttajan tiedot</legend>             
-                                             
+                                       
                         <label for="vendordata" class="label">Valitse:</label>
                         <select id="vendordata" name="vendordata" onchange="updateVendor();">
                         <option value=0 selected>Valitse laskun lähettäjä ja tilinumero</option>
                        
                         <?PHP
-                            include 'getSettings.php';                              
-                           
-                            if (isset($vendors)) {
-                                $max = count($vendors);
-                                for ($ind = 0; $ind <  $max; $ind++) {
-                                    
-                                    $vendornamesel = $vendors[$ind][1];  
-                                    $accountnumbersel =  $vendors[$ind][2];  
+                            include 'updateSettings.php';
+                           // $ind = 0;              
+                            $settings = getAllSettings();
+                            if (count($settings) > 0) {
+                                foreach ($settings as $row) {   
+                                    $id = $row[0];
+                                    $vendornamesel = $row[1];  
+                                    $accountnumbersel =  $row[2];  
                                     $vendordata = $vendornamesel . " | " .  $accountnumbersel;
-                                    $id = $vendors[$ind][0];?>
+                        ?>
                             
                                     <option value=<?php echo $id ?>><?php echo $vendordata ?></option> 
+                                                              
                         <?php 
                                 }                               
                             }                           
@@ -98,7 +103,7 @@
                         <br>
  
                         <label for  ="vendormessage" class="label">Laskun viesti:</label>  
-                        <textarea id="vendormessage" name="vendormessage" rows="2" cols="40"><?php echo $vendormessage;?></textarea>
+                        <textarea id="vendormessage" name="vendormessage" rows="5" cols="40"><?php echo $vendormessage;?></textarea>
                         <br>
                         
                         <label for  ="button-clear" class="label"></label>
@@ -109,11 +114,12 @@
                         <label for  ="checkDataErr" class="label"></label>
                         <input type ="text" id="checkDataErr" name="checkDataErr"  class="txtBox" readonly
                             value="<?php echo $checkDataErr;?>">
-
+                   
                 </fieldset>
             
-                <fieldset>
-                   
+                <fieldset id="fieldset-second">
+                <!-- <fieldset class="hide-element"> -->
+                  
                         <legend>2. Valitse ja lataa asiakastiedosto (csv):</legend>       
 
                         <input type="file" class="file-input" name="file-input">             
@@ -142,8 +148,22 @@
                     document.getElementById("vendormessage").value = ""; 
                     document.getElementById("checkDataErr").value = ""; 
 
-                    "<?php resetSession()?>";                   
+                    "<?php resetSession()?>";
+
+                    showFieldset();                   
                 }
+
+                function hideFieldset() {
+                    document.getElementById("fieldset-first").style.display = "none"; 
+                    document.getElementById("fieldset-second").style.display = "none"; 
+
+                };
+
+                function showFieldset() {
+                    document.getElementById("fieldset-first").style.display = "block"; 
+                    document.getElementById("fieldset-second").style.display = "block"; 
+ 
+                };
             </script>
 
             <?php if(!empty($response)) { ?>
@@ -155,7 +175,9 @@
                         $_SESSION["duedate"]       = $_POST['duedate'];
                         $_SESSION["accountnumber"] = $_POST['accountnumber'];
                         $_SESSION["vendormessage"] = $_POST['vendormessage'];
-                      
+
+                        echo '<script type="text/javascript">','hideFieldset();', '</script>'
+;
                         include 'customers.php';
                     }                    
                 ?>

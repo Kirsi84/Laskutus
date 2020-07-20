@@ -20,7 +20,6 @@ if (isset($_SESSION['customercount']))  {
 if (isset($_SESSION['vendorname']))  {     
     $vendorname = $_SESSION['vendorname'];
 } 
-log_writing("nimi: " .   $vendorname );
 
 $html = "";
 
@@ -54,7 +53,7 @@ try {
   
     for ($i = 0; $i < $customercount; $i++) { 
         $refnumber  = getReferenceNumber();
-       // $arrData = ($i,  $refnumber );
+      
         array_push($arrRefNumbers,  $refnumber);
 
         $html = gethtmldata($i, $refnumber);
@@ -66,7 +65,7 @@ try {
     $html = gethtmltotal($customercount, $arrRefNumbers); 
     $mpdf->WriteHTML($html);  
   
-    //$mpdf->Output($filename, 'I');
+   // $mpdf->Output($filename, 'I');
     $mpdf->Output($filename, 'D');
 
 }
@@ -83,7 +82,6 @@ function gethtmldata($i, $refnumber) {
     $vendorname     = "";
     $duedate        = "";
     $accountnumber  = "";
-    //$refnumber      = "";
    
     $lname = "";
     $fname = "";
@@ -92,10 +90,7 @@ function gethtmldata($i, $refnumber) {
     $postdistrict = "";
     $email = ""; 
     $price = 0;
-   
-
-//$refnumber  = getReferenceNumber();
-
+  
     // vendor data
     if (isset($_SESSION['vendorname']))  {     
         $vendorname = checkData($_SESSION['vendorname']);
@@ -106,10 +101,7 @@ function gethtmldata($i, $refnumber) {
     if (isset($_SESSION['accountnumber']))  {     
         $accountnumber = checkData($_SESSION['accountnumber']) ; 
     }    
-    // if (isset($_SESSION['refnumber']))  {     
-    //     $refnumber = checkData($_SESSION['refnumber']) ; 
-    // }
-    
+       
     $vendormsg = "";
     if (isset($_SESSION['vendormessage']))  {     
         $vendormessage = checkData($_SESSION['vendormessage']) ; 
@@ -277,7 +269,6 @@ function gethtmltotal($customercount, $arrRefNumbers) {
     $vendorname         = "";
     $duedate       = "";
     $accountnumber  = "";
-   // $refnumber      = "";
        
     // vendor data
     if (isset($_SESSION['vendorname']))  {     
@@ -289,10 +280,7 @@ function gethtmltotal($customercount, $arrRefNumbers) {
     if (isset($_SESSION['accountnumber']))  {     
         $accountnumber = $_SESSION['accountnumber'] ; 
     }    
-    // if (isset($_SESSION['refnumber']))  {     
-    //     $refnumber = $_SESSION['refnumber'] ; 
-    // }
-    
+        
     $vendormsg = "";
     if (isset($_SESSION['vendormessage']))  {     
         $vendormessage = checkData($_SESSION['vendormessage']) ; 

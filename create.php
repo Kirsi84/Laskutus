@@ -46,8 +46,7 @@
         <br><br><br>
       
         <form id="form-create" class="form-create" action="create.php" method="post">
-        <div>
-        
+                
             <fieldset>            
 
                 <legend>Asetustietojen lisäys</legend>   
@@ -82,8 +81,6 @@
                 <label for  ="create" class="label"></label>
                 <input type="submit" name="create"  id="create"  class="btn-submit" value="Tallenna" />
 
-                <!-- <input type="reset"  class="btn-submit" value="Tyhjennä" onclick="resetForm()">
-                 -->
                 <br><br>
 
                 <div id ="msg">
@@ -96,9 +93,7 @@
                 </div>
                 <br>
             </fieldset>
-            
-            </div>
-           
+                                 
             <br>
             <div class="div-create">
                 <p><a href="settings.php">Paluu</a></p>
