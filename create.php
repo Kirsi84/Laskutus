@@ -110,9 +110,9 @@
                         if (file_exists(getDefaultPath())) {                         
                           echo '<script>hidePermission();</script>';
                         }
-                        else {
-                          echo '<script>hidePermission();</script>';
-                        }
+                        // else {
+                        //   echo '<script>hidePermission();</script>';
+                        // }
                         echo $infoarr[1];
                     }
                 ?>

@@ -4,8 +4,8 @@ include "logWriting.php";
 include "filePath.php";
 include_once "iban.php";
 
-//error_reporting(0); // in production not showing when zero
-error_reporting(E_ALL); // in test environment show all errors
+error_reporting(0); // in production not showing when zero
+//error_reporting(E_ALL); // in test environment show all errors
 
 function createSetting() {
     $infoarr = array();
@@ -50,9 +50,12 @@ function createSetting() {
             try {
             
                 $filepath = getDefaultFilepath();
+               
                 $dublicates = false;
                 // reading old data from parameters into an array
                 if (file_exists($filepath)) {
+                   
+                    $dublicates = false;
                     $file = fopen($filepath,"r");
 
                     while (($line = fgetcsv($file)) !== FALSE) {                 
@@ -72,7 +75,7 @@ function createSetting() {
                     array_push($settings, $newdata);
 
                     sort($settings);
-
+                   
                     // write rows into the file
                     $file = fopen($filepath,"w");
                     foreach ($settings as $row) {
@@ -84,16 +87,11 @@ function createSetting() {
                 }  
                 //close file
                 fclose($file);
-
-                // if ($ok) {
-                //     header("Location: settings.php"); 
-                //     exit();
-                // }               
-            
+ 
             }
             catch(Exception $e) {
                 $userMessage = "Asetustiedon päivitys ei onnistunut! ";
-                log_writing($e->getMessage());    
+                log_writing($e->getMessage());                 
             }
         }
         else {

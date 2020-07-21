@@ -19,12 +19,12 @@
           
                 <h2>Yhdistyksen laskujen muodostus</h2>
                 <ul>
-                    <li>Laskujen muodostus csv-tiedostosta</li>
+                    <li>Laskuttajan nimen, tilinumeron, eräpäivän ja laskun viestin syöttäminen</li> 
+                    <li>Laskujen muodostus csv-tiedostosta ja syötetyistä tiedoista</li>
                     <li>Laskun hinnan ja lisätiedon syöttäminen tarvittaessa</li>
                     <li>Pdf-laskujen muodostaminen</li>
-                   
-                    <li>Oletushakemiston luonti työasemaan niin halutessasi (valitse täppä ensimmäisellä kerralla)</li>
-                    
+
+                    <li>Oletushakemiston luonti työasemaan niin halutessasi (valitse täppä ensimmäisellä kerralla)</li>                    
                     <li>Asetustietorivin lisääminen ja poisto työaseman
                     asetustiedostoon</li>
                     <li>Asetustiedosto tallennetaan työasemaan oletushakemistoon:
@@ -36,7 +36,7 @@
                 </ul> 
 
                 <br>
-                Versio 1.0 
+                Versio 1.1 
                 <br>
                 21.7.2020
            

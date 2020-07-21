@@ -1,4 +1,5 @@
-<?php
+<?php 
+
 
 function getDefaultPath() {  
     return  "c:\\Laskutus\\";  
@@ -12,7 +13,6 @@ function getDefaultFile() {
 function getDefaultFilepath(){ 
     return getDefaultPath() . getDefaultFile();   
 }
-
 
 //generate default folder path
 function generateDefaultFolder() {
@@ -34,22 +34,37 @@ function generateDefaultFolder() {
                     
                 $testpath =  $testpath . '\\' . $arr[$i];          
                 if (!file_exists($testpath)) {
-                    mkdir($testpath);
+                    mkdir($testpath);                    
                 }                        
                 $i++;
             }
-            //$filepath =  $testpath . getDefaultFile();
-            $ret = true;
+            if (file_exists(getDefaultPath())) {
+                $ret = true;
+            }
+            else {
+                $ret = false;
+            }               
         }
     }
 
     catch(Exception $e) {
         $ret = false;
-        //$filepath   = "";
+        log_writing2($e->getMessage());       
     }
    
     return  $ret;
 }
 
+function log_writing2($msg) {      
+    
+    if (!file_exists('logs')) {
+        mkdir('logs', 0777, true);
+    }
+
+    $date_utc = new \DateTime("now", new \DateTimeZone("UTC")); //UTC-time is used
+    
+    $log  = $date_utc->format(\DateTime::ISO8601) . " " . $msg .  "\r\n";
+    file_put_contents('./logs/log_'.date("j.n.Y").'.txt', $log, FILE_APPEND);
+}
 
 ?>
