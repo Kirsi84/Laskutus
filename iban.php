@@ -76,6 +76,14 @@ function isValidIBAN ($iban) {
     
         return (int)$mod == 1;
     }
-  }
+}
+
+function formatIBAN($iban) {
+    $iban = trim($iban);
+    $iban =  strtoupper($iban);
+    return substr( $iban, 0, 4) . " " . substr( $iban, 4, 4) . " " .
+           substr( $iban, 8, 4) . " " . substr( $iban, 12, 4) . " " .
+           substr( $iban, 16, 2);
+}
 
 ?>

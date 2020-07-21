@@ -1,5 +1,6 @@
 <?php
  include("logWriting.php");
+ include_once 'iban.php';
 //require_once __DIR__ . '/vendor/autoload.php';
 
 require_once "referenceNumber.php";
@@ -100,6 +101,7 @@ function gethtmldata($i, $refnumber) {
     }    
     if (isset($_SESSION['accountnumber']))  {     
         $accountnumber = checkData($_SESSION['accountnumber']) ; 
+        $accountnumber = formatIBAN($accountnumber);
     }    
        
     $vendormsg = "";
@@ -222,8 +224,9 @@ mpdf-->
             </tr>
             <tr>
                 <td>Tilinumero:</td>
-                <td>' . $accountnumber . '</td>          
-            </tr>        
+                <td class="wide">' . $accountnumber . ' </td>            
+            </tr>    
+                      
         </table>
        
     </td>
@@ -279,6 +282,7 @@ function gethtmltotal($customercount, $arrRefNumbers) {
     }    
     if (isset($_SESSION['accountnumber']))  {     
         $accountnumber = $_SESSION['accountnumber'] ; 
+        $accountnumber = formatIBAN($accountnumber);
     }    
         
     $vendormsg = "";
@@ -363,7 +367,7 @@ mpdf-->
             </tr>
             <tr>
                 <td>Tilinumero:</td>
-                <td>' . $accountnumber . '</td>          
+                <td class="wide">' . $accountnumber . '</td>          
             </tr>        
         </table>
        
@@ -376,9 +380,9 @@ mpdf-->
 <table class="items" >
     <thead>
     <tr>    
-        <td width="30%">Sukunimi</td>
-        <td width="30%">Etunimi</td>
-        <td width="10%">Viitenumero</td>
+        <td width="22%">Sukunimi</td>
+        <td width="20%">Etunimi</td>
+        <td width="28%">Viitenumero</td>
         <td width="20%">Lisätiedot</td>    
         <td width="10%">Hinta €</td>
     </tr>

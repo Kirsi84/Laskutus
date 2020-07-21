@@ -2,8 +2,6 @@
 
 // include "logWriting.php";
 include_once 'iban.php';
-//include 'updateSettings.php';
-
 
 // define variables and set to empty values
 //$vendornameErr = $duedateErr = $accountnumberErr = $vendormessageErr = "";
@@ -39,10 +37,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   else {
     $accountnumber = test_input($_POST["accountnumber"]);  
     $accountnumber = str_replace(' ', '', $accountnumber);
-    //todo:
-    //if (checkIBAN($accountnumber) == false) {     
-    //  $checkDataErr =  "Virheellinen IBAN-tilinumero!";
-    //}
+    $accountnumber =  strtoupper($accountnumber);
+    if (checkIBAN($accountnumber) == false) {     
+        $checkDataErr =  "Virheellinen IBAN-tilinumero!";
+    }
   }
   if (empty($_POST["vendormessage"])) {
     $vendormessage = "";

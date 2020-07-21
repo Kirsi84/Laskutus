@@ -1,7 +1,11 @@
-<?php   
- include "logWriting.php";
- include "getFilePath.php";
- include_once "iban.php";
+<?php 
+
+include "logWriting.php";
+include "filePath.php";
+include_once "iban.php";
+
+//error_reporting(0); // in production not showing when zero
+error_reporting(E_ALL); // in test environment show all errors
 
 function createSetting() {
     $infoarr = array();
@@ -105,7 +109,7 @@ function createSetting() {
 }
 
 function checkPath(){
-    $path = getDefaultPath();
+    $path = getDefaultPath(); // folder
 
     if (file_exists($path)) {
         return true;
@@ -113,7 +117,7 @@ function checkPath(){
     else  {
         // user allows to create file path
         if (isset( $_POST['permission']))  {     
-            if (generateDefaultFilePath()) {
+            if (generateDefaultFolder()) {
                 return true;
             }
             else {

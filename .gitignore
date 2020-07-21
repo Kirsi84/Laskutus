@@ -1,5 +1,5 @@
 # files not send to github
-logs/
+#logs/
 Testitiedostot/
 output/
 phpmailer/

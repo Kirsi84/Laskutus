@@ -8,8 +8,7 @@
     include 'checkData.php';
 
     // file upload
-    include 'upload.php';
-    
+    include 'upload.php';    
 
     // remove all session variables
     function resetSession(){      
@@ -64,7 +63,7 @@
                        
                         <?PHP
                             include 'updateSettings.php';
-                           // $ind = 0;              
+                                        
                             $settings = getAllSettings();
                             if (count($settings) > 0) {
                                 foreach ($settings as $row) {   
@@ -119,8 +118,7 @@
                 </fieldset>
             
                 <fieldset id="fieldset-second">
-                <!-- <fieldset class="hide-element"> -->
-                  
+                                 
                         <legend>2. Valitse ja lataa asiakastiedosto (csv):</legend>       
 
                         <input type="file" class="file-input" name="file-input">             
@@ -171,7 +169,7 @@
               
                 <?php      
                     if ($response["type"] == "success") {
-                      //  $_SESSION["vendordata"]    = $_POST['vendordata'];
+                      
                         $_SESSION["vendorname"]    = $_POST['vendorname'];
                         $_SESSION["duedate"]       = $_POST['duedate'];
                         $_SESSION["accountnumber"] = $_POST['accountnumber'];

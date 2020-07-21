@@ -1,5 +1,5 @@
 <?php
-    //  header('Content-Type: text/html; charset=UTF-8');
+   include_once 'iban.php';
 ?>
 <!DOCTYPE html>
 
@@ -18,7 +18,6 @@
     ?>
 
 <form action="invoices.php" method="post">
-<!-- <form action="email.php" method="post"> -->
 
     <fieldset>
        
@@ -28,8 +27,9 @@
             <?php echo $vendorname;?>
         <br>
         <label for  ="accountnumber" class="label">Tilinumero:</label>
-            <?php echo $accountnumber;?>
-        <br>    
+            <?php echo formatIBAN($accountnumber);?>
+        <br>  
+          
         <label for  ="duedate" class="label">Eräpäivä:</label>
             <?php 
             $converted = date("d.m.Y", strtotime($_SESSION['duedate']));            
@@ -117,7 +117,6 @@
                     </td>
 
                     <td> 
-                        <!-- <textarea id="usermessage" name="usermessage[]" class="textareagrid"></textarea>-->
                         <textarea id="usermessage" name="usermessage[]" rows="4"></textarea> 
                     </td>
                 </tr>
@@ -138,25 +137,21 @@
             </table>
 
         <?php
-            // $response = array("type" => "success", "message" => "CSV is converted to HTML successfully");
+
             $response = array("type" => "success", "message" => "CSV-tiedoston konvertointi onnistui!");
             } 
             else {
-               // $response = array("type" => "error", "message" => "Unable to process CSV");
-                $response = array("type" => "error", "message" => "CSV-tiedoston käsittely ei onnistu!");
+                 $response = array("type" => "error", "message" => "CSV-tiedoston käsittely ei onnistu!");
             }
         ?> 
         </div>
                 
         <?php
-            // $response = array("type" => "success", "message" => "CSV is converted to HTML successfully");
             $response = array("type" => "success", "message" => "CSV-tiedoston konvertointi onnistui!");
             } 
             else {
-               // $response = array("type" => "error", "message" => "Unable to process CSV");
-                $response = array("type" => "error", "message" => "CSV-tiedoston käsittely ei onnistu!");
-            }
-        
+                 $response = array("type" => "error", "message" => "CSV-tiedoston käsittely ei onnistu!");
+            }        
         ?>
 
         <?php if(!empty($response)) { ?>

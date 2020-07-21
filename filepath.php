@@ -14,11 +14,12 @@ function getDefaultFilepath(){
 }
 
 
-//generate default file path
-function generateDefaultFilePath() {
+//generate default folder path
+function generateDefaultFolder() {
    
     $path       = getDefaultPath();
     $filepath   = "";
+    $ret = false;
 
     try {
         // check if folder exists or not
@@ -37,17 +38,17 @@ function generateDefaultFilePath() {
                 }                        
                 $i++;
             }
-            $filepath =  $testpath . getDefaultFile();
-            return true;
+            //$filepath =  $testpath . getDefaultFile();
+            $ret = true;
         }
     }
 
     catch(Exception $e) {
-        return false;
+        $ret = false;
         //$filepath   = "";
     }
    
-//return  $filepath;
+    return  $ret;
 }
 
 

@@ -1,7 +1,10 @@
 <?php
 
 function getReferenceNumber() {
-	$lasku = rand(100000, 999999);  
+	$date = date("Y.m.d");	
+	$header = intval(substr($date, 2,2) . substr($date, 5,2) . substr($date, 8,2));
+	$lasku = rand(100000, 999999);	
+	$lasku = $header . $lasku;
 	$refnumber = SuomalainenViite::luo($lasku);
 	return $refnumber;
 }

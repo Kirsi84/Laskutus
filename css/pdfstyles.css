@@ -27,7 +27,7 @@
 }
 
 .pdftd {
-    width: 45%;   
+    width: 45%; 
     border: 0.1mm solid #888888; 
 }
 
@@ -75,5 +75,10 @@ table thead td { background-color: #EEEEEE;
 }
 .items td.cost {
 	text-align: "." center;
+}
+
+.wide{
+
+    width: 250px;
 }
 
