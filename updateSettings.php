@@ -95,12 +95,12 @@ function createSetting() {
             }
         }
         else {
-            $userMessage =   $userMessage . " Tarkista tiedot! Asetustietoa ei lisätty. ";
+            $userMessage =   $userMessage . " Asetustietoa ei lisätty. ";
         }
        
     }
     else {
-        $userMessage =   $userMessage . "Asetustiedoston hakemiston käsittely ei onnistu. Asetustietoa ei lisätty!";
+        $userMessage =   $userMessage . "Asetustiedoston hakemistorakenteen luonti ei onnistu. Asetustietoa ei lisätty!";
     }
     $infoarr[1] = $userMessage;
     return $infoarr;

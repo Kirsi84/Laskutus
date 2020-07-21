@@ -1,17 +1,18 @@
 <?php 
 
-
-function getDefaultPath() {  
-    return  "c:\\Laskutus\\";  
+function getDefaultPath() {
+   $configs = include('config.php');
+   return  $configs['defaultPath'];   
 }
 
-function getDefaultFile() {
-    return  "Asetukset.csv";
+function getDefaultFile() { 
+   $configs = include('config.php');
+   return  $configs['defaultFile'];
 }
 
 // default file path of settings file in workstation 
-function getDefaultFilepath(){ 
-    return getDefaultPath() . getDefaultFile();   
+function getDefaultFilepath(){
+   return getDefaultPath() . getDefaultFile(); 
 }
 
 //generate default folder path
@@ -34,7 +35,9 @@ function generateDefaultFolder() {
                     
                 $testpath =  $testpath . '\\' . $arr[$i];          
                 if (!file_exists($testpath)) {
-                    mkdir($testpath);                    
+                    //todo: safe or not
+                    mkdir($testpath, 0777, true);
+                    // mkdir($testpath);                    
                 }                        
                 $i++;
             }
