@@ -6,8 +6,7 @@ phpmailer/
 composer.json
 composer.lock
 # email-asetukset: config.php
-#config.php
-#email.php
+config.php
 laskutest.pdf
 settings2.php
 uploadsettings.php

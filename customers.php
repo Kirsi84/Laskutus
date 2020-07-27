@@ -1,10 +1,5 @@
 <?php
    include_once 'iban.php';
-//    $emailmessage = "jepjep";
-//    if (isset($_SESSION["emailmessage"])) {
-//        $emailmessage = $_SESSION["emailmessage"]; 
-//    }
-  
 ?>
 <!DOCTYPE html>
 
@@ -51,15 +46,6 @@
             value="Muodosta laskut">
         
         <br> <br>   
-
-        <!-- <button name="apu" onclick="myFunction()">Click me</button>
-        <p id="demo"></p>
-        <script>
-            function myFunction() {
-                let txt =  "jep: " + getEmailInformation();
-                alert(txt);
-            }
-        </script> -->
 
         <div class="container" id ="container">
         <table class="gridtable" id="customers-table">

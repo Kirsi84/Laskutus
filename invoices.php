@@ -45,6 +45,8 @@ try {
     $path = (getenv('MPDF_ROOT')) ? getenv('MPDF_ROOT') : __DIR__;
     require_once $path . '/vendor/autoload.php';
 
+    ob_clean(); // cleaning the buffer before Output()
+
     $mpdf = new \Mpdf\Mpdf([
         'margin_left' => 20,
         'margin_right' => 15,
@@ -516,6 +518,8 @@ function emailInvoice($vendorname, $email, $html) {
         $path = (getenv('MPDF_ROOT')) ? getenv('MPDF_ROOT') : __DIR__;
         require_once $path . '/vendor/autoload.php';
     
+        ob_clean(); // cleaning the buffer before Output()
+        
         $mpdf = new \Mpdf\Mpdf([
             'margin_left' => 20,
             'margin_right' => 15,

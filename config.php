@@ -1,7 +1,7 @@
 <?php
-
+  
 return array(
-    'environment' => 'PRODUCTION',
+    'environment' => 'TEST',
     'defaultPath' => 'c:\\Laskutus\\',
     'defaultFile' => 'Asetukset.csv',
     'emailServer' => '',
