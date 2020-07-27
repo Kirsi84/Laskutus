@@ -4,8 +4,14 @@ include "logWriting.php";
 include "filePath.php";
 include_once "iban.php";
 
-error_reporting(0); // in production not showing when zero
-//error_reporting(E_ALL); // in test environment show all errors
+$configs = include('config.php');
+$environment =  $configs['environment'];  
+if ($environment == "TEST")  {
+    error_reporting(E_ALL); // in test environment show all the errors   
+}
+else {
+    error_reporting(0); // in production not showing when zero
+}
 
 function createSetting() {
     $infoarr = array();
@@ -91,7 +97,8 @@ function createSetting() {
             }
             catch(Exception $e) {
                 $userMessage = "Asetustiedon päivitys ei onnistunut! ";
-                log_writing($e->getMessage());                 
+                log_writing($e->getMessage());  
+                error_log($userMessage . $e->getMessage(), 0);                  
             }
         }
         else {
@@ -100,6 +107,7 @@ function createSetting() {
        
     }
     else {
+        error_log("Error when processing files/directories!", 0);
         $userMessage =   $userMessage . "Asetustiedoston hakemistorakenteen luonti ei onnistu. Asetustietoa ei lisätty!";
     }
     $infoarr[1] = $userMessage;
@@ -174,14 +182,15 @@ function deleteSetting() {
         }    
        
         fclose($file);
-        // $userMessage = "Asetus on poistettu asetustiedostosta!";
-        /* Redirect browser */
+     
+        /* Redirect browser, asetus on poistettu asetustiedostosta! */
         header("Location: settings.php"); 
         exit();
        
     }
     catch(Exception $e) {
         $userMessage = "Asetustiedon päivitys ei onnistunut!";
+        error_log("Error deleteSetting: " . $e->getMessage(), 0);
         log_writing($e->getMessage());    
     }
     
@@ -208,13 +217,12 @@ function getAllSettings() {
             fclose($file);
         }
                
-        return $settings;      
-       
+        return $settings;
     }
     catch(Exception $e) {
-       // $userMessage = "Asetustietojen haku ei onnistu!";
+      
         log_writing($e->getMessage()); 
-        //return $userMessage; 
+        error_log("Error getAllSettings: " . $e->getMessage(), 0);        
         return $settings;  
     }
 }
@@ -247,11 +255,9 @@ function getSetting($ind) {
     catch(Exception $e) {
      
         log_writing($e->getMessage()); 
-     
+        error_log("Error getSetting; " . $e->getMessage(), 0);     
         return $settings;  
     }
 }
-
-
 
 ?>

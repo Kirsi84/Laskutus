@@ -29,18 +29,20 @@
                     asetustiedostoon</li>
                     <li>Asetustiedosto tallennetaan työasemaan oletushakemistoon:
                     <?php
-                        echo " " . getDefaultFilepath() . ".";
+                        echo " " . getDefaultFilepath() . ".";                       
                     ?>
                     </li>
 
                 </ul> 
 
                 <br>
-                Versio 1.1 
+                Versio 1.2 
                 <br>
-                21.7.2020
+                26.7.2020
            
             </fieldset>
+
+           
         <div>
     </body>
 </html>

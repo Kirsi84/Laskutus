@@ -1,5 +1,4 @@
 <?php
-
 return array(
     'environment' => 'PRODUCTION',
     'defaultPath' => 'c:\\Laskutus\\',
@@ -8,6 +7,5 @@ return array(
     'emailUserid' => '',
     'emailPassword' => '',
     'emailPort' => '587'
-    
 );
 ?>

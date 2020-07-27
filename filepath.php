@@ -23,6 +23,7 @@ function generateDefaultFolder() {
     $ret = false;
 
     try {
+        
         // check if folder exists or not
         if (!file_exists($path)) {
     
@@ -52,7 +53,8 @@ function generateDefaultFolder() {
 
     catch(Exception $e) {
         $ret = false;
-        log_writing2($e->getMessage());       
+        log_writing2($e->getMessage()); 
+        error_log("Filepath.php: generateDefaultFolder(): " . $e->getMessage(), 0);      
     }
    
     return  $ret;

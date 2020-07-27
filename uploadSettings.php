@@ -1,6 +1,6 @@
 <?php
 header('Content-Type: text/html; charset=UTF-8');
-include("logWriting.php");
+//include_once ("logWriting.php");
 
 if (isset($_POST["upload"])) {
   

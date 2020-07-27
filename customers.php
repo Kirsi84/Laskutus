@@ -1,5 +1,10 @@
 <?php
    include_once 'iban.php';
+//    $emailmessage = "jepjep";
+//    if (isset($_SESSION["emailmessage"])) {
+//        $emailmessage = $_SESSION["emailmessage"]; 
+//    }
+  
 ?>
 <!DOCTYPE html>
 
@@ -19,7 +24,7 @@
 
 <form action="invoices.php" method="post">
 
-    <fieldset>
+    <fieldset id="fieldset-third">
        
         <legend>3. Laskujen ja yhteenvedon muodostus: hinta- ja lisäviestin syöttö tarvittaessa</legend>      
     
@@ -46,6 +51,15 @@
             value="Muodosta laskut">
         
         <br> <br>   
+
+        <!-- <button name="apu" onclick="myFunction()">Click me</button>
+        <p id="demo"></p>
+        <script>
+            function myFunction() {
+                let txt =  "jep: " + getEmailInformation();
+                alert(txt);
+            }
+        </script> -->
 
         <div class="container" id ="container">
         <table class="gridtable" id="customers-table">
@@ -121,6 +135,7 @@
                     </td>
                 </tr>
 
+
         <?php
                 $i ++;
             }   // end-while 
@@ -137,7 +152,7 @@
             </table>
 
         <?php
-
+          
             $response = array("type" => "success", "message" => "CSV-tiedoston konvertointi onnistui!");
             } 
             else {
@@ -160,6 +175,22 @@
                 <?php echo $response["message"]; ?>
             </div>
         <?php } ?>
+
+
+
+        <?php
+        //   if(isset($_POST['apu'])) {// button name
+        //         function getEmailInformation() {
+        //             if(isset($_SESSION["emailmessage"])) {
+        //                 $emailinformation =  $_SESSION["emailmessage"];               
+        //             }
+        //             else {
+        //                 $emailinformation = "jep";                
+        //             }
+        //             return $emailinformation;
+        //         }
+        // }
+        ?>
 
         </div>
     </fieldset>

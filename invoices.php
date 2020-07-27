@@ -1,13 +1,25 @@
 <?php
- include("logWriting.php");
- include_once 'iban.php';
-//require_once __DIR__ . '/vendor/autoload.php';
-
+include_once ("logWriting.php");
+include_once 'iban.php';
 require_once "referenceNumber.php";
  
 if(!isset($_POST)) {
     header('location:index.php');
     exit();
+}
+
+$emailSuccesses = 0;
+$emailErrors = 0;
+
+date_default_timezone_set('Europe/Helsinki');
+
+$configs = include('config.php');
+$environment =  $configs['environment'];  
+if ($environment == "TEST")  {
+    error_reporting(E_ALL); // in test environment show all the errors   
+}
+else {
+    error_reporting(0); // in production not showing when zero
 }
 
 if (session_status() == PHP_SESSION_NONE) {
@@ -23,6 +35,7 @@ if (isset($_SESSION['vendorname']))  {
 } 
 
 $html = "";
+$emailInformation = "";
 
 try {
    
@@ -59,25 +72,42 @@ try {
 
         $html = gethtmldata($i, $refnumber);
         $mpdf->AddPage();
-        $mpdf->WriteHTML($html);      
+        $mpdf->WriteHTML($html);   
+        
+        if (isset($_POST['email'][$i]))  {           
+            $email =  trim(trim($_POST['email'][$i])); 
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {                
+                if (emailInvoice($vendorname, $email, $html)) {
+                    $emailSuccesses = $emailSuccesses + 1;
+                }
+                else {
+                    $emailErrors = $emailErrors + 1;
+                }              
+            }                
+        }        
     } 
+
+    $emailInformation = "Onnistuneet sähköpostilähetykset: " . $emailSuccesses .
+        " kpl. <br> Sähköposteja ei lähetetty: " . $emailErrors . " kpl.";
+        $_SESSION["emailInformation"] = $emailInformation; 
+
     $mpdf->AddPage();  
     $mpdf->SetWatermarkText("Laskutettu");
     $html = gethtmltotal($customercount, $arrRefNumbers); 
     $mpdf->WriteHTML($html);  
-  
-   // $mpdf->Output($filename, 'I');
-    $mpdf->Output($filename, 'D');
-
+   
+    // $mpdf->Output($filename, 'I');
+    $mpdf->Output($filename, 'D');   
+ 
 }
 catch(\Mpdf\MpdfException $e) {
-    echo $e->getMessage();
+    error_log($e->getMessage(), 0);
+   // echo $e->getMessage();
 }
 
 function checkData($data) {
     return trim(strip_tags($data));
 }
-
  
 function gethtmldata($i, $refnumber) {
     $vendorname     = "";
@@ -296,6 +326,13 @@ function gethtmltotal($customercount, $arrRefNumbers) {
     }
 
     $date = date("d.m.Y");
+    
+    if(isset($_SESSION['emailInformation'])) {
+        $emailInformation =  $_SESSION['emailInformation'];       
+    }
+    else {
+        $emailInformation = "Tarkista sähköpostien lähetys!";       
+    }  
       
     $html = '
 <html>
@@ -456,6 +493,9 @@ mpdf-->
 
     </tbody>
 </table>
+<br>
+'. $emailInformation .'
+
 </body>
 </html>
 <pagebreak/>';
@@ -463,4 +503,51 @@ mpdf-->
     return $html;
 }
 
+function emailInvoice($vendorname, $email, $html) {
+   
+    include_once 'email.php';
+
+    $ret = false;
+    try {
+   
+        $date = date("Ymd");
+        $filename = "Lasku_" . $date . "_" . $vendorname  . ".pdf";
+        
+        $path = (getenv('MPDF_ROOT')) ? getenv('MPDF_ROOT') : __DIR__;
+        require_once $path . '/vendor/autoload.php';
+    
+        $mpdf = new \Mpdf\Mpdf([
+            'margin_left' => 20,
+            'margin_right' => 15,
+            'margin_top' => 48,
+            'margin_bottom' => 25,
+            'margin_header' => 10,
+            'margin_footer' => 10
+        ]);
+        
+        $mpdf->SetProtection(array('print'));
+        $mpdf->SetTitle("Lasku | " . $vendorname);
+        $mpdf->SetAuthor($vendorname);
+        $mpdf->SetWatermarkText("Lasku");
+        $mpdf->showWatermarkText = true;
+        $mpdf->watermark_font = 'DejaVuSansCondensed';
+        $mpdf->watermarkTextAlpha = 0.1;
+        $mpdf->SetDisplayMode('fullpage');
+        
+        $html = $html;
+        $mpdf->AddPage();
+        $mpdf->WriteHTML($html);
+      
+        $mpdf->Output($filename, 'F');
+
+        //todo:
+        $ret = sendEmail($email, $vendorname, $filename);
+    
+    }
+    catch(\Mpdf\MpdfException $e) {
+        //echo $e->getMessage();
+        error_log($e->getMessage(), 0);
+    }
+    return $ret;
+}
 ?>

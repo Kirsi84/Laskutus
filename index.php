@@ -155,13 +155,14 @@
                 function hideFieldset() {
                     document.getElementById("fieldset-first").style.display = "none"; 
                     document.getElementById("fieldset-second").style.display = "none"; 
+                  
 
                 };
 
                 function showFieldset() {
                     document.getElementById("fieldset-first").style.display = "block"; 
                     document.getElementById("fieldset-second").style.display = "block"; 
- 
+                    document.getElementById("fieldset-third").style.display = "none"; 
                 };
             </script>
 
