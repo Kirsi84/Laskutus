@@ -1,10 +1,10 @@
 <?php
   
   return array(
-    'environment' => 'TEST',
+    'environment' => 'PRODUCTION',
     'defaultPath' => 'c:\\Laskutus\\',
     'defaultFile' => 'Asetukset.csv',
-    'emailServer' => 'smtp.gmail.com',
+    'emailServer' => '',
     'emailUserid' => '',
     'emailPassword' => '',
     'emailPort' => '587'
