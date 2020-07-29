@@ -17,7 +17,7 @@ function sendEmail($email, $vendorname, $filename) {
     $emailUserid =  $configs['emailUserid'];
     $emailPassword =  $configs['emailPassword'];
     $emailPort =  $configs['emailPort'];
-
+    
     $vendormsg = "";
     if (isset($_SESSION['vendormessage']))  {     
         $vendormessage = checkData($_SESSION['vendormessage']) ; 
@@ -33,22 +33,21 @@ function sendEmail($email, $vendorname, $filename) {
 
     try {
         //Server settings
-        //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                   // Enable verbose debug output
-        $mail->SMTPDebug = false;
+        //$mail->SMTPDebug = SMTP::DEBUG_SERVER;                 // Enable verbose debug output
+        $mail->SMTPDebug = false;                                // production level, also by value zero
         $mail->isSMTP();                                         // Send using SMTP
         $mail->Host       = $emailServer;                        // Set the SMTP server to send through
     
-        $mail->SMTPAuth   = true;                                 // Enable SMTP authentication
-        $mail->Username   = $emailUserid;                         // SMTP username
-        $mail->Password   = $emailPassword;                       // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;       // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
+        $mail->SMTPAuth   = true;                                // Enable SMTP authentication
+        $mail->Username   = $emailUserid;                        // SMTP username
+        $mail->Password   = $emailPassword;                      // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;      // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         //Port: 465 (SSL required) or 587 (TLS required)
-        $mail->Port       = $emailPort;                           // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+        $mail->Port       = $emailPort;                          // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
         //Recipients
     
-        $mail->setFrom($emailUserid, 'Mailer');
-        //  $mail->setFrom($emailUserid);
+        $mail->setFrom($emailUserid, 'Mailer');        
         $mail->addAddress($email);     // Add a recipient
     
         // Attachments
@@ -74,7 +73,7 @@ function sendEmail($email, $vendorname, $filename) {
     // delete a file after sending email
     if (file_exists($filename)) {
         unlink($filename);
-        error_log("File deleted after sending by email: " . $filename, 0);     
+        error_log("OK: File deleted after sending by email: " . $filename, 0);     
     }
     
     return $ret;

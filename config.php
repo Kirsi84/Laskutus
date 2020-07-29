@@ -1,6 +1,6 @@
 <?php
   
-return array(
+  return array(
     'environment' => 'TEST',
     'defaultPath' => 'c:\\Laskutus\\',
     'defaultFile' => 'Asetukset.csv',

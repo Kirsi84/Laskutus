@@ -1,6 +1,5 @@
 <?php 
 
-include "logWriting.php";
 include "filePath.php";
 include_once "iban.php";
 
@@ -96,8 +95,7 @@ function createSetting() {
  
             }
             catch(Exception $e) {
-                $userMessage = "Asetustiedon päivitys ei onnistunut! ";
-                log_writing($e->getMessage());  
+                $userMessage = "Asetustiedon päivitys ei onnistunut! ";              
                 error_log($userMessage . $e->getMessage(), 0);                  
             }
         }
@@ -190,8 +188,7 @@ function deleteSetting() {
     }
     catch(Exception $e) {
         $userMessage = "Asetustiedon päivitys ei onnistunut!";
-        error_log("Error deleteSetting: " . $e->getMessage(), 0);
-        log_writing($e->getMessage());    
+        error_log("Error deleteSetting: " . $e->getMessage(), 0);          
     }
     
     return $userMessage;
@@ -221,7 +218,6 @@ function getAllSettings() {
     }
     catch(Exception $e) {
       
-        log_writing($e->getMessage()); 
         error_log("Error getAllSettings: " . $e->getMessage(), 0);        
         return $settings;  
     }
@@ -249,12 +245,10 @@ function getSetting($ind) {
             fclose($file);
         }
       
-        return $settings;      
-       
+        return $settings;
     }
-    catch(Exception $e) {
-     
-        log_writing($e->getMessage()); 
+    catch(Exception $e) {     
+    
         error_log("Error getSetting; " . $e->getMessage(), 0);     
         return $settings;  
     }

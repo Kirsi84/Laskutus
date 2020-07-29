@@ -5,7 +5,7 @@
 // Esimerkiksi tilinumero IBAN-muotoisena.  FI49123456789123XX.
 function checkIBAN($iban)
 {
-    $iban = trim($iban);
+    //$iban = trim($iban);
     if (strlen($iban) == 18) {
 
         if (ctype_alnum($iban)) {

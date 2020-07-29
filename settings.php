@@ -12,11 +12,9 @@
     }  
 
     function resetFormData() {
-        resetSession();
-       
+        resetSession();       
     }
-   // include 'logWriting.php';
-
+   
 ?>
 
 <!DOCTYPE html>

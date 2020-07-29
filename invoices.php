@@ -1,5 +1,5 @@
 <?php
-include_once ("logWriting.php");
+
 include_once 'iban.php';
 require_once "referenceNumber.php";
  
@@ -103,8 +103,7 @@ try {
  
 }
 catch(\Mpdf\MpdfException $e) {
-    error_log($e->getMessage(), 0);
-   // echo $e->getMessage();
+    error_log($e->getMessage(), 0);  
 }
 
 function checkData($data) {
@@ -543,13 +542,11 @@ function emailInvoice($vendorname, $email, $html) {
         $mpdf->WriteHTML($html);
       
         $mpdf->Output($filename, 'F');
-
-        //todo:
+        
         $ret = sendEmail($email, $vendorname, $filename);
     
     }
-    catch(\Mpdf\MpdfException $e) {
-        //echo $e->getMessage();
+    catch(\Mpdf\MpdfException $e) {     
         error_log($e->getMessage(), 0);
     }
     return $ret;

@@ -162,22 +162,6 @@
             </div>
         <?php } ?>
 
-
-
-        <?php
-        //   if(isset($_POST['apu'])) {// button name
-        //         function getEmailInformation() {
-        //             if(isset($_SESSION["emailmessage"])) {
-        //                 $emailinformation =  $_SESSION["emailmessage"];               
-        //             }
-        //             else {
-        //                 $emailinformation = "jep";                
-        //             }
-        //             return $emailinformation;
-        //         }
-        // }
-        ?>
-
         </div>
     </fieldset>
 </form>

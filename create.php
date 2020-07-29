@@ -10,13 +10,11 @@
     ?>
     <body>
     <script>
-          function hidePermission() {
-             // document.getElementById("permission").style.display = "none";   
+          function hidePermission() {             
               document.getElementById("setCheckbox").style.display = "none";              
           };
 
           function showPermission() {
-            //  document.getElementById("permission").style.display = "block"; 
               document.getElementById("setCheckbox").style.display = "block"; 
           };
       </script>
@@ -67,9 +65,7 @@
                               echo "(" . getDefaultPath() . ")";?></label> 
                       <input type="checkbox" id="permission" name="permission" value="0" required>
                   <?php } ?>
-                </p>
-
-                
+                </p>                
               
                 <label for  ="type" class="label">Asetus:</label>
                 <input type ="text" id="type" name="type" class="txtBox-read"  
@@ -109,10 +105,7 @@
                         // }
                         if (file_exists(getDefaultPath())) {                         
                           echo '<script>hidePermission();</script>';
-                        }
-                        // else {
-                        //   echo '<script>hidePermission();</script>';
-                        // }
+                        }                       
                         echo $infoarr[1];
                     }
                 ?>

@@ -52,24 +52,11 @@ function generateDefaultFolder() {
     }
 
     catch(Exception $e) {
-        $ret = false;
-        log_writing2($e->getMessage()); 
+        $ret = false;        
         error_log("Filepath.php: generateDefaultFolder(): " . $e->getMessage(), 0);      
     }
    
     return  $ret;
-}
-
-function log_writing2($msg) {      
-    
-    if (!file_exists('logs')) {
-        mkdir('logs', 0777, true);
-    }
-
-    $date_utc = new \DateTime("now", new \DateTimeZone("UTC")); //UTC-time is used
-    
-    $log  = $date_utc->format(\DateTime::ISO8601) . " " . $msg .  "\r\n";
-    file_put_contents('./logs/log_'.date("j.n.Y").'.txt', $log, FILE_APPEND);
 }
 
 ?>
