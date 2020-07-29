@@ -86,7 +86,7 @@
                        
                         <label for  ="vendorname" class="label">Laskuttaja:</label>
                         <input type ="text" id="vendorname" name="vendorname" class="txtBox"
-                            onchange="checkFields()"                          
+                            onchange="checkVendorname()"                          
                             placeholder="Laskun lähettäjä"
                             required value="<?php echo $vendorname;?>">
                         <br>                  
@@ -94,7 +94,7 @@
                         <!-- value of maxlength of iban account is 18 -->
                         <label for  ="accountnumber" class="label">Tilinumero:</label>
                         <input type ="text" id="accountnumber" name="accountnumber" class="txtBox"
-                            onchange="checkFields()"  
+                            onchange="checkAccountnumber()"  
                             placeholder="IBAN tilinro" maxlength="18" minlength=18 required                            
                             pattern="^[a-zA-Z0-9]*$" value="<?php echo $accountnumber;?>">
                         <br>
@@ -102,7 +102,7 @@
                         <label for  ="duedate" class="label">Eräpäivä:</label>
                         <input type ="date" id="duedate" name="duedate" min="<?php echo $mindate;?>"
                             class="txtBox"
-                            onchange="checkFields()"  
+                            onchange="checkDuedate()"  
                             required value="<?php echo $duedate;?>">        
                         <br>
  
@@ -138,8 +138,6 @@
                
                     <?php }?>                   
                 
-
-                  
                 </fieldset>               
             
             </form>
@@ -147,13 +145,26 @@
             <script>
                 
                 function checkFields() {
+                    checkDuedate();
+                    checkAccountnumber();
+                    checkVendorname();                   
+                }
+
+                function checkVendorname() {
+                    let errortext = "";
+                    let x = ""; 
+                    x = document.getElementById("vendorname");                    
+                    if (x.value.trim() == "") {
+                        errortext = "Laskun lähettäjä on pakollinen!"; 
+                    }                   
+                    document.getElementById("vendorname").value   = x.value.trim();
+                    document.getElementById("checkDataErr").value = errortext;
+                }
+
+                function checkAccountnumber() {
+
                     let errortext = "";
                     let x = "";                    
-                    x = document.getElementById("duedate");
-                    if (x.value == "") {
-                        errortext = "Eräpäivä on pakollinen!";
-                    }
-
                     x = document.getElementById("accountnumber");                    
                     if (x.value == "") {
                         errortext = "Tilinumero on pakollinen!";
@@ -164,13 +175,16 @@
                         }
                     }
                     document.getElementById("accountnumber").value   = x.value.trim();
+                    document.getElementById("checkDataErr").value = errortext;
+                }
 
-                    x = document.getElementById("vendorname");                    
-                    if (x.value.trim() == "") {
-                        errortext = "Laskun lähettäjä on pakollinen!"; 
-                    }                   
-                    document.getElementById("vendorname").value   = x.value.trim(); 
-
+                function checkDuedate() {
+                    let errortext = "";
+                    let x = "";                    
+                    x = document.getElementById("duedate");
+                    if (x.value == "") {
+                        errortext = "Eräpäivä on pakollinen!";
+                    }
                     document.getElementById("checkDataErr").value = errortext;
                 }
 
@@ -178,7 +192,7 @@
                     document.getElementById("vendordata").value = 0;  
                     document.getElementById("vendorname").value = "";   
                     document.getElementById("accountnumber").value = ""; 
-                    document.getElementById("duedate").value = "";                 
+                    document.getElementById("duedate").value = "";               
                     document.getElementById("vendormessage").value = ""; 
                     document.getElementById("checkDataErr").value = ""; 
 

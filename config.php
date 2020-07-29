@@ -4,7 +4,7 @@
     'environment' => 'TEST',
     'defaultPath' => 'c:\\Laskutus\\',
     'defaultFile' => 'Asetukset.csv',
-    'emailServer' => '',
+    'emailServer' => 'smtp.gmail.com',
     'emailUserid' => '',
     'emailPassword' => '',
     'emailPort' => '587'

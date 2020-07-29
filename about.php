@@ -23,6 +23,9 @@
                     <li>Laskujen muodostus csv-tiedostosta ja syötetyistä tiedoista</li>
                     <li>Laskun hinnan ja lisätiedon syöttäminen tarvittaessa</li>
                     <li>Pdf-laskujen muodostaminen</li>
+                    <li>Sähköpostien lähetys, jossa liitteenä lasku</li>
+                    <li>Sähköpostien lähetys on käytettävissä, mikäli palvelimen sähköpostiasetukset 
+                    on määritetty palvelimen konfiguraatiotiedostossa</li>
 
                     <li>Oletushakemiston luonti työasemaan niin halutessasi (valitse täppä ensimmäisellä kerralla)</li>                    
                     <li>Asetustietorivin lisääminen ja poisto työaseman
@@ -36,7 +39,7 @@
                 </ul> 
 
                 <br>
-                Versio 1.4 
+                Versio 1.5 
                 <br>
                 29.7.2020
            
