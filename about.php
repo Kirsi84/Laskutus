@@ -39,7 +39,7 @@
                 </ul> 
 
                 <br>
-                Versio 1.7 
+                Versio 1.8 
                 <br>
                 30.7.2020
            

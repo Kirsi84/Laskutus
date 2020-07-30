@@ -1,4 +1,13 @@
 <?php
+
+    $configs = include('config.php');
+    $environment =  $configs['environment'];  
+    if ($environment == "TEST")  {
+        error_reporting(E_ALL); // in test environment show all the errors   
+    }
+    else {
+        error_reporting(0); // in production not showing when zero
+    }
     // Start the session
     session_start();
 

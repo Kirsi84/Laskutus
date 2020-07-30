@@ -1,13 +1,12 @@
 <?php
   
   return array(
-    'environment' => 'PRODUCTION',
+    'environment' => 'TESTKOE',
     'defaultPath' => 'c:\\Laskutus\\',
     'defaultFile' => 'Asetukset.csv',
     'emailServer' => '',
     'emailUserid' => '',
     'emailPassword' => '',
-
     'emailPort' => '587'
     
 );

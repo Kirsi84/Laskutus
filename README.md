@@ -1,2 +1,2 @@
 # Laskutus
-Laskujen muodostus ja tulostus
+Laskujen (pdf-tiedostojen) muodostus ja lähetys sähköpostilla.

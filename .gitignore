@@ -1,8 +1,2 @@
 # files not send to github
-#logs/
-Testitiedostot/
-output/
-phpmailer/
-composer.json
-composer.lock
 config.php

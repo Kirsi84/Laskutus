@@ -94,7 +94,7 @@ try {
     $emailInformation = 
         "Muodollisesti validien sähköpostiosoitteiden kokonaismäärä: " .  $totalEmails . " kpl. <br>" . 
         " Onnistuneet sähköpostilähetykset: " . $emailSuccesses .
-        " kpl. <br> Sähköposteja ei lähetetty/lähetys epäonnistui: " . $emailErrors . " kpl.";
+        " kpl. <br> Sähköposteja ei lähetetty / lähetys epäonnistui: " . $emailErrors . " kpl.";
         $_SESSION["emailInformation"] = $emailInformation; 
 
     $mpdf->AddPage();  
