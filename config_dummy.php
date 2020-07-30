@@ -6,6 +6,6 @@ return array(
     'emailServer' => '',
     'emailUserid' => '',
     'emailPassword' => '',
-    'emailPort' => '587'
+    'emailPort' => ''
 );
 ?>

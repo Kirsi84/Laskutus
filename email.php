@@ -47,7 +47,7 @@ function sendEmail($email, $vendorname, $filename) {
 
         //Recipients
     
-        $mail->setFrom($emailUserid, 'Mailer');        
+        $mail->setFrom($emailUserid, 'Laskutus');        
         $mail->addAddress($email);     // Add a recipient
     
         // Attachments
@@ -56,18 +56,23 @@ function sendEmail($email, $vendorname, $filename) {
         // Content
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = 'Lasku: ' . $vendorname;
-        $mail->Body    = 'Laskun viesti: <br>' . $vendormsg;  
-        $mail->AltBody = 'Lasku: ';
+        $mail->Body    = '<b>Laskun viesti:</b> <br>' . $vendormsg;  
+        $mail->AltBody = 'Laskun viesti';
 
         $mail->send();
         $ret = true;
         // echo 'Message has been sent';
     }
-    catch (Exception $e) {
-        $ret = false;
-         //  echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    //PHPMailer error messages
+    catch (phpmailerException $e) {
+        $ret = false; 
+        error_log( $e->errorMessage(), 0);  
+    }      
+    
+    // other error messages 
+    catch (Exception $e) {   
+        $ret = false;      
         error_log("email.php: Error when sending pdf-invoice by email: " . $e->getMessage(), 0);
-         //  error_log("Message could not be sent. Mailer Error: {$mail->ErrorInfo}", 0);
     }
 
     // delete a file after sending email

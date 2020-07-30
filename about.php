@@ -39,9 +39,9 @@
                 </ul> 
 
                 <br>
-                Versio 1.5 
+                Versio 1.6 
                 <br>
-                29.7.2020
+                30.7.2020
            
             </fieldset>
 

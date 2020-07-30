@@ -10,6 +10,7 @@ if(!isset($_POST)) {
 
 $emailSuccesses = 0;
 $emailErrors = 0;
+$totalEmails = 0;
 
 date_default_timezone_set('Europe/Helsinki');
 
@@ -78,7 +79,8 @@ try {
         
         if (isset($_POST['email'][$i]))  {           
             $email =  trim(trim($_POST['email'][$i])); 
-            if (filter_var($email, FILTER_VALIDATE_EMAIL)) {                
+            if (filter_var($email, FILTER_VALIDATE_EMAIL)) { 
+                $totalEmails = $totalEmails + 1;               
                 if (emailInvoice($vendorname, $email, $html)) {
                     $emailSuccesses = $emailSuccesses + 1;
                 }
@@ -89,8 +91,10 @@ try {
         }        
     } 
 
-    $emailInformation = "Onnistuneet sähköpostilähetykset: " . $emailSuccesses .
-        " kpl. <br> Sähköposteja ei lähetetty: " . $emailErrors . " kpl.";
+    $emailInformation = 
+        "Muodollisesti validien sähköpostiosoitteiden kokonaismäärä: " .  $totalEmails . " kpl. <br>" . 
+        " Onnistuneet sähköpostilähetykset: " . $emailSuccesses .
+        " kpl. <br> Sähköposteja ei lähetetty/lähetys epäonnistui: " . $emailErrors . " kpl.";
         $_SESSION["emailInformation"] = $emailInformation; 
 
     $mpdf->AddPage();  
@@ -418,8 +422,8 @@ mpdf-->
 <table class="items" >
     <thead>
     <tr>    
-        <td width="22%">Sukunimi</td>
-        <td width="20%">Etunimi</td>
+        <td width="36%">Nimi</td>
+        <td width="8%">Email</td>
         <td width="28%">Viitenumero</td>
         <td width="20%">Lisätiedot</td>    
         <td width="10%">Hinta €</td>
@@ -431,19 +435,28 @@ mpdf-->
         ';
                 for($i = 0; $i < $customercount; $i++)
                 {
-
+                    $name = "";
                     $lname = "";
                     $fname = "";   
                     $price = 0;
                     $usermsg = "";
-                    $refnumber = $arrRefNumbers[$i];            
+                    $refnumber = $arrRefNumbers[$i]; 
+                    $emailExists = "";           
                     
                     if (isset($_POST["lname"][$i]))  {     
                         $lname = checkData($_POST["lname"][$i]);
                     }
                     if (isset($_POST["fname"][$i]))  {     
                         $fname = checkData($_POST["fname"][$i]);
-                    }           
+                    }
+                    $name = $lname . " " . $fname;
+
+                    if (isset($_POST["email"][$i]))  {
+                        $email =  trim(trim($_POST['email'][$i])); 
+                        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {                       
+                            $emailExists = "x";
+                        }                        
+                    }                   
                     
                     if (isset($_POST["price"][$i]))  {     
                         $price =  (double) $_POST["price"][$i];
@@ -468,11 +481,11 @@ mpdf-->
                     $html .= '
                     <tr>
                     <td class="pdftd2">           
-                        '. $lname .'            
+                        '. $name . '            
                     </td>
 
-                    <td class="pdftd2">                
-                        '. $fname . '
+                    <td class="pdftd3">                
+                        '. $emailExists . '
                     </td>
 
                     <td class="pdftd2">                
