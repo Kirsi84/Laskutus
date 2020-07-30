@@ -145,50 +145,53 @@
             <script>
                 
                 function checkFields() {
-                    checkDuedate();
-                    checkAccountnumber();
-                    checkVendorname();                   
+                    if (checkVendorname()) {
+                        if ( checkAccountnumber()) {
+                            if  (checkDuedate()) {
+                            }
+                        }
+                    }              
                 }
 
                 function checkVendorname() {
+                    let ret = true;
                     let errortext = "";
                     let x = ""; 
                     x = document.getElementById("vendorname");                    
                     if (x.value.trim() == "") {
-                        errortext = "Laskun lähettäjä on pakollinen!"; 
+                        errortext = "Laskun lähettäjä on pakollinen!";
+                        ret = false; 
                     }                   
                     document.getElementById("vendorname").value   = x.value.trim();
                     document.getElementById("checkDataErr").value = errortext;
+                    return ret;
                 }
 
                 function checkAccountnumber() {
-
-                    let errortext = "";
-                    let x = "";
-                    let check = true;                    
+                    let ret = true;
+                    let errortext = "";                  
+                    let x = ""; 
                     x = document.getElementById("accountnumber");                    
-                    if (x.value == "") {
-                        errortext = "Tilinumero on pakollinen!";
-                    }
-                    else {
-                     
-                        check = "<?php echo checkIBAN("?>x.value<?php")?>";                      
-                        if (check == false) {                      
-                            errortext = "Virheellinen IBAN-tilinumero!"; 
-                        }
-                    }
-                    document.getElementById("accountnumber").value  = x.value.trim();
+                    if (x.value.trim() == "") {
+                        errortext = "Laskun tilinumero on pakollinen!"; 
+                        ret = false;
+                    }                   
+                    document.getElementById("accountnumber").value   = x.value.trim();
                     document.getElementById("checkDataErr").value = errortext;
+                    return ret;
                 }
 
                 function checkDuedate() {
+                    let ret = true;
                     let errortext = "";
                     let x = "";                    
                     x = document.getElementById("duedate");
                     if (x.value == "") {
                         errortext = "Eräpäivä on pakollinen!";
+                        ret = false;
                     }
                     document.getElementById("checkDataErr").value = errortext;
+                    return ret;
                 }
 
                 function resetForm() {               

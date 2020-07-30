@@ -7,6 +7,7 @@
     'emailServer' => '',
     'emailUserid' => '',
     'emailPassword' => '',
+
     'emailPort' => '587'
     
 );
