@@ -1,13 +1,13 @@
 <?php
   
   return array(
-    'environment' => 'TESTKOE',
-    'defaultPath' => 'c:\\Laskutus\\',
+    'environment' => 'TEST',   //possible values: TEST, PRODUCTION  
     'defaultFile' => 'Asetukset.csv',
     'emailServer' => '',
     'emailUserid' => '',
     'emailPassword' => '',
-    'emailPort' => '587'
+    'emailPort' => '587',
+    'defaultCSVDelimiter' => ','
     
 );
 ?>

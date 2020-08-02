@@ -1,7 +1,4 @@
 
-<?php
-    include 'filePath.php';
-?>
 <!DOCTYPE html>
 <html>
 
@@ -26,22 +23,18 @@
                     <li>Sähköpostien lähetys, jossa liitteenä lasku</li>
                     <li>Sähköpostien lähetys on käytettävissä, mikäli palvelimen sähköpostiasetukset 
                     on määritetty palvelimen konfiguraatiotiedostossa</li>
-
-                    <li>Oletushakemiston luonti työasemaan niin halutessasi (valitse täppä ensimmäisellä kerralla)</li>                    
-                    <li>Asetustietorivin lisääminen ja poisto työaseman
-                    asetustiedostoon</li>
-                    <li>Asetustiedosto tallennetaan työasemaan oletushakemistoon:
-                    <?php
-                        echo " " . getDefaultFilepath() . ".";                       
-                    ?>
+                    <li>Asetukset välilehti:
+                    <br>
+                    - asetustietorivin haku työaseman tiedostojärjestelmästä <br>
+                    - asetustietorivin päivitys, lisääminen ja poisto <br>
+                    - asetustiedoston tallennus työaseman tiedostojärjestelmään <br>
                     </li>
-
                 </ul> 
 
                 <br>
-                Versio 1.8 
+                Versio 1.9 
                 <br>
-                30.7.2020
+                2.8.2020
            
             </fieldset>
 

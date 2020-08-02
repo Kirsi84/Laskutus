@@ -4,8 +4,7 @@
 // jonka eteen on lisätty maakoodi eli kirjaimet FI sekä kaksi tarkistenumeroa XX.
 // Esimerkiksi tilinumero IBAN-muotoisena.  FI49123456789123XX.
 function checkIBAN($iban)
-{
-    //error_log("iban: " . $iban, 0);   
+{    
     if (strlen($iban) == 18) {
 
         if (ctype_alnum($iban)) {

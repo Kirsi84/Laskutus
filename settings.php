@@ -1,22 +1,3 @@
-<?php
-
-    // Start the session
-    session_start();
-
-    // file upload
-    include 'updateSettings.php';
-
-    function resetSession(){
-        // remove all session variables
-       session_unset();
-    }  
-
-    function resetFormData() {
-        resetSession();       
-    }
-   
-?>
-
 <!DOCTYPE html>
 <html>
 
@@ -32,70 +13,152 @@
             ?>  
             <br><br><br>
 
-            <!-- <form id="frm-settings" action="delete.php" method="post"> -->
-            <form id="frm-settings">
+            <form id="frm-get-settings" action="" class="form-create" method="post" 
+                enctype="multipart/form-data">
     
-            <fieldset class="fieldset-create">      
-                              
-                <a href="create.php">Lisää</a>
+                <fieldset class="fieldset-create">  
+                                     
+                    <legend>Asetustiedot - laskun lähettäjän vakiotiedot</legend>      
+                    <br> 
+
+                    <input type="file" class="file-input" id="file-input-settings" name="file-input-settings" onclick="checkFields()"> 
+                    <input type="submit" class="btn-submit" id="upload-settings" name="upload-settings"
+                        value="Asetusten haku">
+
+                     
+                </fieldset>
+            </form> 
+
+            <form id="frm-settings" action="save.php" class="form-create" method="post" 
+                enctype="multipart/form-data">
+    
+                <fieldset class="fieldset-create">      
+                                      
+                    <legend>Asetustietojen päivitys</legend>      
+                    
+                    <fieldset>
+                    <legend id ="sublegend">Asetustiedoston lisäys</legend> 
+                  
+                        <label for  ="new_vendorname" class="label">Laskuttaja:</label>
+                        <input type ="text" id="new_vendorname" name="new_vendorname" class="txtBox"
+                            placeholder="Laskun lähettäjä">                           
+                        <br>  
+                        
+                        <label for  ="new_accountnumber" class="label">Tilinumero:</label>
+                        <input type ="text" id="new_accountnumber" name="new_accountnumber" class="txtBox"                            
+                            placeholder="IBAN tilinro" maxlength="18" minlength=18                            
+                            pattern="^[a-zA-Z0-9]*$">
+
+                        <label for  ="button-clear" class="label"></label>
+                        <input type="button" id="button-clear" onclick="resetForm()"  class="btn-submit" value="Tyhjennä">
                 
-                <legend>Asetustiedot - laskun lähettäjän vakiotiedot</legend>      
-                <br> 
-                <label for  ="filepath" >Asetustiedoston oletustiedostopolku työasemassa:</label>
-                <br> <br>  
-                <input type ="text" id="filepath" name="filepath" class="txtBox-read"  readonly
-                    value="<?php echo getDefaultFilepath(); ?>">
 
-                <br><br>
-   
-                <div class="container" id ="container">
-                <table class="gridtable" id="settingsTable">
-                    <thead>
-                        <tr class="tableheader">      
-                            <th>Parametri</th>
-                            <th>Laskuttajan nimi</th> 
-                            <th>Laskuttajan tilinumero</th> 
-                            <th></th>                                 
-                        </tr>
-                    <thead>
+                    </fieldset>
+                    <br>
+                    <br>
+    
+                    <div class="container" id ="container">
+                    <table class="gridtable" id="settingsTable" name="settingsTable">
+                        <thead>
+                            <tr class="tableheader">      
+                                <th>Parametri</th>
+                                <th>Laskuttajan nimi</th> 
+                                <th>Laskuttajan tilinumero</th> 
+                                <th></th>                                 
+                            </tr>
+                        <thead>
 
-                    <tbody>
+                        <tbody>
 
-                    <?php   
-                        $ind = 0;              
-                        $settings = getAllSettings();
-                        if (count($settings) > 0) {
-                            foreach ($settings as $row) {                               
-                    ?>                         
-                                <tr name="datarow" class="datarow">
-                                            
-                                    <td>                    
-                                        <?php echo $row[0]; ?>                   
-                                    </td>
-                                    <td>
-                                        <?php echo $row[1]; ?>                 
-                                    </td>
-                                    <td>
-                                        <?php echo $row[2]; ?>                
-                                    </td>
-                                    <td>  
-                                        <?php
-                                            echo "<a href=\"delete.php?ind=".$ind."\">Poista</a>";
-                                        ?>                                       
-                                    </td>
+                        <?php                           
+
+                            include 'uploadSettings.php';
+                                                   
+                            if(!empty(isset($_POST["upload-settings"]))) {
+
+                              if ($responseSettings["type"] == "success") {
                             
-                                </tr>
-                    <?php    
-                                $ind = $ind + 1;                            
+                                if (file_exists ( $_FILES["file-input-settings"]["tmp_name"] )) {
+                                    if (($fps = fopen($_FILES["file-input-settings"]["tmp_name"], "r")) !== FALSE) {
+                                   
+                                        $ind = 0;
+                                        while (($row = fgetcsv($fps)) !== false) {                      
+                                        ?>
+                                            <tr name="datarow" class="datarow">                                            
+                                                <td>                    
+                                                    <?php echo $row[0]; ?>                   
+                                                </td>
+                                                <td>
+                                                   
+                                                    <input type="text" name="vendorname[]" class="textinput" readonly value="<?php echo $row[1]; ?>"     
+                                                                 
+                                                </td>
+                                                <td>
+                                                    <input type="text" name="accountnumber[]" class="textinput"
+                                                    maxlength="18" minlength=18 required pattern="^[a-zA-Z0-9]*$"
+                                                    readonly
+                                                    value="<?php echo $row[2]; ?>"     
+                                                                
+                                                </td>
+                                                <td> 
+                                                    <input type="button" value="Delete" onclick="deleteRow(this)">                                      
+                                                </td>                                
+                                            </tr>
+                            <?php
+                                            $ind = $ind + 1;
+                                        }  
+                                        fclose($fps);                            
+                                    }
+                                } 
+                              }                         
                             }
-                        }
-                    ?>
+                        ?>
 
-                    </tbody>
-                </table>
-                </div>
-            </fieldset>
-            </form>   
+                        </tbody>
+                    </table>
+                    <br>
+                  
+                    </div>
+                   
+                    <?php if(!empty($responseSettings)) { ?>
+                        <div class="response <?php echo $responseSettings["type"]; ?>
+                            ">
+                            <?php echo $responseSettings["message"]; ?>
+                        </div>            
+                    <?php }?> 
+
+                    <br>  <br>
+                    <input type="submit" class="btn-submit" id="btn-save" name="btn-save"
+                    value="Tallenna"> 
+
+                         
+                    <p id="message" name="message">                  
+                        <?php                 
+                            if(isset($_GET['Message'])){
+                                echo $_GET['Message'];                                                                
+                            }        
+                        ?>
+                    </p>
+                </fieldset>  
+            </form>           
         </div> 
+
+        <script>
+            function deleteRow(r) {
+                var i = r.parentNode.parentNode.rowIndex;
+                document.getElementById("settingsTable").deleteRow(i);
+            } 
+            
+            function resetForm() { 
+                document.getElementById("new_vendorname").value = "";   
+                document.getElementById("new_accountnumber").value = "";               
+            }
+
+            //todo:
+            function checkFields() {                   
+                document.getElementById("message").value   = "";
+                                   
+            }
+        </script>
     </body>
 </html>

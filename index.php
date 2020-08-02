@@ -51,47 +51,68 @@
                         document.getElementById("accountnumber").value = res[1].trim();    
                     }
                 }
-        </script>     
-   
+        </script>
 
         <div class="main">
             <?php   
                include 'navbar.php';
             ?> 
-            <br><br>
+           
+            <br> <br>
+            <form id="frm-upload-settings" action="" class="form-create" method="post" 
+                enctype="multipart/form-data">
+                <fieldset id="fieldset-zero">
+                    <label for="file-input-settings" >Valitse ja hae asetustiedosto (.csv):</label>
+                    <br><br>
+                    <input type="file" class="file-input" id="file-input-settings" name="file-input-settings" >
+                    <input type="submit" class="btn-submit" id="upload-settings" name="upload-settings"
+                    value="Asetusten haku">
+                              
+                </fieldset>                  
+            </form>
 
             <form id="frm-upload" action="" class="form-create" method="post" 
                 enctype="multipart/form-data">
                         
                 <fieldset id="fieldset-first">
                    
-                        <legend>1. Laskuttajan tiedot</legend>             
-                                       
+                        <legend>1. Laskuttajan tiedot</legend>                                              
+                        <br>
+
                         <label for="vendordata" class="label">Valitse:</label>
                         <select id="vendordata" name="vendordata" onchange="updateVendor();">
                         <option value=0 selected>Valitse laskun lähettäjä ja tilinumero</option>
-                       
-                        <?PHP
-                            include 'updateSettings.php';
-                                        
-                            $settings = getAllSettings();
-                            if (count($settings) > 0) {
-                                foreach ($settings as $row) {   
-                                    $id = $row[0];
-                                    $vendornamesel = $row[1];  
-                                    $accountnumbersel =  $row[2];  
-                                    $vendordata = $vendornamesel . " | " .  $accountnumbersel;
-                        ?>
-                            
-                                    <option value=<?php echo $id ?>><?php echo $vendordata ?></option> 
-                                                              
-                        <?php 
-                                }                               
-                            }                           
-                        ?>
-                        </select>
 
-                        <br>
+                        <?php
+
+                            include 'uploadSettings.php';
+                                                     
+                            if(!empty(isset($_POST["upload-settings"]))) {
+
+                              if ($responseSettings["type"] == "success") {
+                              
+                                if (($fps = fopen($_FILES["file-input-settings"]["tmp_name"], "r")) !== FALSE) {
+                                
+                                    $id = 1;
+                                    while (($row = fgetcsv($fps)) !== false) {
+                                      
+                                        $vendornamesel = $row[1];  
+                                        $accountnumbersel =  $row[2];  
+                                        $vendordata = $vendornamesel . " | " .  $accountnumbersel;
+                                        ?>                                
+                                        <option value=<?php echo $id ?>><?php echo $vendordata ?></option>                                                                
+                                        <?php 
+                                        $id ++;
+                                    }   
+                                    fclose($fps);  ?>
+                                     <script>document.getElementById("fieldset-zero").style.display = "none";</script>
+                                <?php   
+                                }
+                              }                                                     
+                            }                                      
+                        ?>
+                    </select>
+                    <br>
                        
                         <label for  ="vendorname" class="label">Laskuttaja:</label>
                         <input type ="text" id="vendorname" name="vendorname" class="txtBox"
@@ -103,7 +124,7 @@
                         <!-- value of maxlength of iban account is 18 -->
                         <label for  ="accountnumber" class="label">Tilinumero:</label>
                         <input type ="text" id="accountnumber" name="accountnumber" class="txtBox"
-                            onchange="checkAccountnumber()"  
+                            
                             placeholder="IBAN tilinro" maxlength="18" minlength=18 required                            
                             pattern="^[a-zA-Z0-9]*$" value="<?php echo $accountnumber;?>">
                         <br>
@@ -127,6 +148,13 @@
                         <label for  ="checkDataErr" class="label"></label>
                         <input type ="text" id="checkDataErr" name="checkDataErr"  class="txtBox" readonly
                             value="<?php echo $checkDataErr;?>">
+
+                        <?php if(!empty($responseSettings)) { ?>
+                        <div class="response <?php echo $responseSettings["type"]; ?>
+                            ">
+                            <?php echo $responseSettings["message"]; ?>
+                        </div>               
+                        <?php }?>
                    
                 </fieldset>
             
@@ -140,28 +168,32 @@
                              value="Lataa tiedosto">
 
                         <?php if(!empty($response)) { ?>
-                        <div class="response <?php echo $response["type"]; ?>
-                            ">
-                            <?php echo $response["message"]; ?>
-                        </div>
-               
-                    <?php }?>                   
-                
-                </fieldset>               
-            
+                            <div class="response <?php echo $response["type"]; ?>
+                                ">
+                                <?php echo $response["message"]; ?>
+                            </div>               
+                        <?php }?>
+
+                        <?php if(!empty($responseSettings)) { ?>
+                            <div class="response <?php echo $responseSettings["type"]; ?>
+                                ">
+                                <?php echo $responseSettings["message"]; ?>
+                            </div>               
+                        <?php }?>
+
+                </fieldset> 
+                <br>  
             </form>
 
-            <script>
-                
-                function checkFields() {
+            <script> 
+                function checkFields() {                   
                     if (checkVendorname()) {
                         if ( checkAccountnumber()) {
                             if  (checkDuedate()) {
                             }
                         }
-                    }              
+                    }                               
                 }
-
                 function checkVendorname() {
                     let ret = true;
                     let errortext = "";
@@ -217,11 +249,13 @@
                 }
 
                 function hideFieldset() {
+                    document.getElementById("fieldset-zero").style.display = "none"; 
                     document.getElementById("fieldset-first").style.display = "none"; 
                     document.getElementById("fieldset-second").style.display = "none"; 
                 };
 
                 function showFieldset() {
+                    document.getElementById("fieldset-zero").style.display = "block"; 
                     document.getElementById("fieldset-first").style.display = "block"; 
                     document.getElementById("fieldset-second").style.display = "block"; 
                     document.getElementById("fieldset-third").style.display = "none"; 

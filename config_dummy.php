@@ -1,11 +1,13 @@
 <?php
-return array(
-    'environment' => 'PRODUCTION',
-    'defaultPath' => 'c:\\Laskutus\\',
+  
+  return array(
+    'environment' => 'PRODUCTION',   //possible values: TEST, PRODUCTION  
     'defaultFile' => 'Asetukset.csv',
     'emailServer' => '',
     'emailUserid' => '',
     'emailPassword' => '',
-    'emailPort' => ''
+    'emailPort' => '587',
+    'defaultCSVDelimiter' => ','
+    
 );
 ?>

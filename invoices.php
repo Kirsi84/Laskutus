@@ -109,6 +109,10 @@ try {
 catch(\Mpdf\MpdfException $e) {
     error_log($e->getMessage(), 0);  
 }
+// other error messages 
+catch (Exception $e) {   
+    error_log($e->getMessage(), 0);  
+}
 
 function checkData($data) {
     return trim(strip_tags($data));

@@ -96,12 +96,11 @@ legend {
     background-color: gray;
     color: white;
     padding: 5px 10px;
+}
 
-
-    /* font-size: large;
-    margin-left: 28px;
-   
-    color: black; */
+#sublegend {
+    background-color: lightskyblue;
+    color: black;   
 }
 
 .div-create {

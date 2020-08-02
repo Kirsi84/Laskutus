@@ -1,16 +1,15 @@
 <?php
 
-// include "logWriting.php";
 include_once 'iban.php';
 
 // define variables and set to empty values
-//$vendornameErr = $duedateErr = $accountnumberErr = $vendormessageErr = "";
 $vendorname = $duedate = $accountnumber = $vendormessage = $refnumber = "";
 $selectedoption = 0;
 $vendordata = 0;
 $checkDataErr = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  if(isset($_POST['upload'])) { // button name
 
   if (isset($_POST["vendordata"])) {   
       $vendordata = $_POST["vendordata"];        
@@ -48,6 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $vendormessage = test_input($_POST["vendormessage"]);
   }  
 }
+}
  
 function test_input($data) {
   $data = trim($data);
@@ -57,5 +57,6 @@ function test_input($data) {
   $data = htmlspecialchars($data);
   return $data;
 }
+
 
 ?>
