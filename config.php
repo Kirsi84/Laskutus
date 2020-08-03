@@ -7,7 +7,8 @@
     'emailUserid' => '',
     'emailPassword' => '',
     'emailPort' => '587',
-    'defaultCSVDelimiter' => ','
+    'defaultCSVDelimiter' => ',',
+    'defaultCSVSize' => 1000
     
 );
 ?>

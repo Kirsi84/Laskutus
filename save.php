@@ -1,11 +1,13 @@
 <?php
  
 if(!isset($_POST)) {
-    header('location:settings.php');
+   // header('location:settings.php');
+   error_log("test1", 0); 
     exit();
 }
 if(!isset($_POST['btn-save'])) {
-    header('location:settings.php');
+   // header('location:settings.php');
+   error_log("test2", 0); 
     exit();
 }
 

@@ -1,3 +1,13 @@
+<?php
+    $configs = include('config.php');
+    $csvDelimiter =  $configs['defaultCSVDelimiter'];
+    $csvSize =  $configs['defaultCSVSize'];
+
+    if (session_status() == PHP_SESSION_ACTIVE) {       
+        session_unset();   // remove all session variables       
+        session_destroy();      // destroy the session     
+    }
+?>
 <!DOCTYPE html>
 <html>
 
@@ -20,7 +30,8 @@
                                      
                     <legend>Asetustiedot - laskun lähettäjän vakiotiedot</legend>      
                     <br> 
-
+                    Valitse ja hae aiemmin talletettu asetustiedosto:
+                    <br> <br>  
                     <input type="file" class="file-input" id="file-input-settings" name="file-input-settings" onclick="checkFields()"> 
                     <input type="submit" class="btn-submit" id="upload-settings" name="upload-settings"
                         value="Asetusten haku">
@@ -82,7 +93,8 @@
                                     if (($fps = fopen($_FILES["file-input-settings"]["tmp_name"], "r")) !== FALSE) {
                                    
                                         $ind = 0;
-                                        while (($row = fgetcsv($fps)) !== false) {                      
+                                       // while (($row = fgetcsv($fps)) !== false) {    
+                                        while (($row = fgetcsv($fps, $csvSize, $csvDelimiter)) !== false) {                      
                                         ?>
                                             <tr name="datarow" class="datarow">                                            
                                                 <td>                    

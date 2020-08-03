@@ -1,3 +1,12 @@
+<?php   
+    $configs = include('config.php');
+    $csvDelimiter =  $configs['defaultCSVDelimiter'];
+
+    if (session_status() == PHP_SESSION_ACTIVE) {       
+        session_unset();   // remove all session variables       
+        session_destroy();      // destroy the session     
+    }
+?>
 
 <!DOCTYPE html>
 <html>
@@ -26,15 +35,22 @@
                     <li>Asetukset välilehti:
                     <br>
                     - asetustietorivin haku työaseman tiedostojärjestelmästä <br>
-                    - asetustietorivin päivitys, lisääminen ja poisto <br>
+                    - asetustietorivin lisääminen ja poisto <br>
                     - asetustiedoston tallennus työaseman tiedostojärjestelmään <br>
+                    
                     </li>
-                </ul> 
+                    <li>
+                    CSV-tiedostojen erotinmerkki on <?php echo $csvDelimiter ?>
+                    </li>
+                    <li>
+                    CSV-tiedostojen erotinmerkki asetetaan konfiguraatiotiedostossa. 
+                    </li> 
+                </ul>  
 
                 <br>
-                Versio 1.9 
+                Versio 1.10 
                 <br>
-                2.8.2020
+                3.8.2020
            
             </fieldset>
 

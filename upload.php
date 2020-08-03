@@ -4,6 +4,10 @@ header('Content-Type: text/html; charset=UTF-8');
 date_default_timezone_set('Europe/Helsinki');
 
 if (isset($_POST["upload"])) {
+
+    $configs = include('config.php');
+    $csvDelimiter =  $configs['defaultCSVDelimiter'];
+    $csvSize =  $configs['defaultCSVSize'];
   
     // Get file extension
     $file_extension = pathinfo($_FILES["file-input"]["name"], PATHINFO_EXTENSION);
@@ -35,7 +39,8 @@ if (isset($_POST["upload"])) {
         if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {
 
            // utf8_encode(fgets($file));
-           while (($data = fgetcsv($fp, 1000, ",")) !== FALSE) {
+          // while (($data = fgetcsv($fp, 1000, ",")) !== FALSE) {
+            while (($data = fgetcsv($fp, $csvSize, $csvDelimiter)) !== FALSE) {
                 $data = array_map("utf8_encode", $data); //added
                
                 $lengthArray[] = count($data);

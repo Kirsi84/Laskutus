@@ -2,6 +2,10 @@
 //header('Content-Type: text/html; charset=UTF-8');
 
 if (isset($_POST["upload-settings"])) {
+
+    $configs = include('config.php');
+    $csvDelimiter =  $configs['defaultCSVDelimiter'];
+    $csvSize =  $configs['defaultCSVSize'];
   
     // Get file extension
     $file_extension = pathinfo($_FILES["file-input-settings"]["name"], PATHINFO_EXTENSION);
@@ -31,27 +35,45 @@ if (isset($_POST["upload-settings"])) {
     else {
         $lengthArray = array();
         
+       // $valueError = false;
+        $checkLaskuttaja = 0;
+        $checkrows = 0;
+
         $row = 1;
-        if (($fp = fopen($_FILES["file-input-settings"]["tmp_name"], "r")) !== FALSE) {
+        if (($fps = fopen($_FILES["file-input-settings"]["tmp_name"], "r")) !== FALSE) {
 
            // utf8_encode(fgets($file));
-           while (($data = fgetcsv($fp, 1000, ",")) !== FALSE) {
+           
+            while (($data = fgetcsv($fps, $csvSize, $csvDelimiter)) !== FALSE) {
                 $data = array_map("utf8_encode", $data); //added
-               
+                $checkrows = $checkrows + 1;
+                if ($data[0] == "LASKUTTAJA") {
+                    $checkLaskuttaja = $checkLaskuttaja + 1;
+                }
                 $lengthArray[] = count($data);
                 $row ++;
             }
-            fclose($fp);
+            fclose($fps);                
+          
         }            
         
         $lengthArray = array_unique($lengthArray);
         
         // everything is ok
         if (count($lengthArray) == 1) {
-            $responseSettings = array(
-                "type" => "success",
-                "message" => "Asetustiedoston validointi onnistui!"
-            );
+            if ($checkLaskuttaja !=  $checkrows) {            
+                $responseSettings = array(
+                    "type" => "error",
+                    "message" => "Asetustiedostossa virheellinen sisältö!"  
+                );
+            }
+            else {
+
+                $responseSettings = array(
+                    "type" => "success",
+                    "message" => "Asetustiedoston validointi onnistui!"
+                );
+            }
            
 
           

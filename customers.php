@@ -69,7 +69,9 @@
             <tbody>
         <?php
             $i = 0;
-            while (($row = fgetcsv($fp)) !== false) {
+           // while (($row = fgetcsv($fp)) !== false) {
+            while (($row = fgetcsv($fp, $csvSize, $csvDelimiter)) !== false) {    
+                                   
 
                 $class ="";
                 if($i==0) {

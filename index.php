@@ -1,6 +1,8 @@
 <?php
 
     $configs = include('config.php');
+    $csvDelimiter =  $configs['defaultCSVDelimiter'];
+    $csvSize =  $configs['defaultCSVSize'];
     $environment =  $configs['environment'];  
     if ($environment == "TEST")  {
         error_reporting(E_ALL); // in test environment show all the errors   
@@ -8,8 +10,15 @@
     else {
         error_reporting(0); // in production not showing when zero
     }
+
+    if (session_status() == PHP_SESSION_ACTIVE) {       
+        session_unset();   // remove all session variables       
+       // session_destroy();      // destroy the session     
+    }
     // Start the session
-    session_start();
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();              
+    }
 
     $mindate = date("Y-m-d");
     
@@ -79,7 +88,7 @@
                         <legend>1. Laskuttajan tiedot</legend>                                              
                         <br>
 
-                        <label for="vendordata" class="label">Valitse:</label>
+                        <label for="vendordata" class="label">Asetus:</label>
                         <select id="vendordata" name="vendordata" onchange="updateVendor();">
                         <option value=0 selected>Valitse laskun lähettäjä ja tilinumero</option>
 
@@ -94,11 +103,13 @@
                                 if (($fps = fopen($_FILES["file-input-settings"]["tmp_name"], "r")) !== FALSE) {
                                 
                                     $id = 1;
-                                    while (($row = fgetcsv($fps)) !== false) {
-                                      
+                                   // while (($row = fgetcsv($fps)) !== false) {
+                                    while (($row = fgetcsv($fps, $csvSize, $csvDelimiter)) !== false) {    
+                                        
                                         $vendornamesel = $row[1];  
                                         $accountnumbersel =  $row[2];  
                                         $vendordata = $vendornamesel . " | " .  $accountnumbersel;
+                                        
                                         ?>                                
                                         <option value=<?php echo $id ?>><?php echo $vendordata ?></option>                                                                
                                         <?php 
