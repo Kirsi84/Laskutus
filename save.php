@@ -23,8 +23,7 @@ try {
         $new_vendorname =  trim($_POST['new_vendorname']);            
     }
     if (isset($_POST['new_accountnumber']))  {  
-        if (! empty($_POST['new_accountnumber'])) {  
-                    error_log("koe" . $_POST['new_accountnumber'], 0);
+        if (! empty($_POST['new_accountnumber'])) {                 
             $new_accountnumber =  test_input($_POST['new_accountnumber']);      
             $new_accountnumber = str_replace(' ', '', $new_accountnumber);
             $new_accountnumber =  strtoupper($new_accountnumber);

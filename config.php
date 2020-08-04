@@ -2,7 +2,7 @@
   
   return array(
     'environment' => 'TEST',   //possible values: TEST, PRODUCTION  
-    'defaultFile' => 'Asetukset.csv',
+    'defaultFile' => '',
     'emailServer' => '',
     'emailUserid' => '',
     'emailPassword' => '',
