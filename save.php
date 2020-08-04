@@ -22,6 +22,7 @@ try {
     if (isset($_POST['new_vendorname']))  {           
         $new_vendorname =  trim($_POST['new_vendorname']);            
     }
+    
     if (isset($_POST['new_accountnumber']))  {  
         if (! empty($_POST['new_accountnumber'])) {                 
             $new_accountnumber =  test_input($_POST['new_accountnumber']);      
