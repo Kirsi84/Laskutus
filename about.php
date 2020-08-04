@@ -34,13 +34,13 @@
                     on määritetty palvelimen konfiguraatiotiedostossa</li>
                     <li>Asetukset välilehti:
                     <br>
-                    - asetustietorivin haku työaseman tiedostojärjestelmästä <br>
+                    - asetustiedoston haku työaseman tiedostojärjestelmästä <br>
                     - asetustietorivin lisääminen ja poisto <br>
                     - asetustiedoston tallennus työaseman tiedostojärjestelmään <br>
                     
                     </li>
                     <li>
-                    CSV-tiedostojen erotinmerkki on <?php echo $csvDelimiter ?>
+                    CSV-tiedostojen erotinmerkki on: <?php echo $csvDelimiter ?>
                     </li>
                     <li>
                     CSV-tiedostojen erotinmerkki asetetaan konfiguraatiotiedostossa. 
@@ -48,9 +48,9 @@
                 </ul>  
 
                 <br>
-                Versio 1.10 
+                Versio 1.11 
                 <br>
-                3.8.2020
+                4.8.2020
            
             </fieldset>
 

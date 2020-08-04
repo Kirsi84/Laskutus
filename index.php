@@ -183,14 +183,7 @@
                                 ">
                                 <?php echo $response["message"]; ?>
                             </div>               
-                        <?php }?>
-
-                        <?php if(!empty($responseSettings)) { ?>
-                            <div class="response <?php echo $responseSettings["type"]; ?>
-                                ">
-                                <?php echo $responseSettings["message"]; ?>
-                            </div>               
-                        <?php }?>
+                        <?php }?>                       
 
                 </fieldset> 
                 <br>  

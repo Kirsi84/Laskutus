@@ -34,10 +34,10 @@ if (isset($_POST["upload-settings"])) {
         } // Validate if all the records have same number of fields
     else {
         $lengthArray = array();
-        
-       // $valueError = false;
+    
         $checkLaskuttaja = 0;
         $checkrows = 0;
+        $lask = -1;  // count of columns
 
         $row = 1;
         if (($fps = fopen($_FILES["file-input-settings"]["tmp_name"], "r")) !== FALSE) {
@@ -47,11 +47,17 @@ if (isset($_POST["upload-settings"])) {
             while (($data = fgetcsv($fps, $csvSize, $csvDelimiter)) !== FALSE) {
                 $data = array_map("utf8_encode", $data); //added
                 $checkrows = $checkrows + 1;
-                if ($data[0] == "LASKUTTAJA") {
-                    $checkLaskuttaja = $checkLaskuttaja + 1;
+                if (isset($data[0])) {
+                    if ($data[0] == "LASKUTTAJA") {
+                        $checkLaskuttaja = $checkLaskuttaja + 1;
+                    }
                 }
                 $lengthArray[] = count($data);
+                if ($lask == - 1) {
+                    $lask = count($data);
+                }   
                 $row ++;
+                           
             }
             fclose($fps);                
           
@@ -60,7 +66,8 @@ if (isset($_POST["upload-settings"])) {
         $lengthArray = array_unique($lengthArray);
         
         // everything is ok
-        if (count($lengthArray) == 1) {
+        if ((count($lengthArray) == 1)  && ($lask == 3)) {
+         
             if ($checkLaskuttaja !=  $checkrows) {            
                 $responseSettings = array(
                     "type" => "error",
@@ -73,14 +80,12 @@ if (isset($_POST["upload-settings"])) {
                     "type" => "success",
                     "message" => "Asetustiedoston validointi onnistui!"
                 );
-            }
-           
-
+            }   
           
         } else {
             $responseSettings = array(
                 "type" => "error",
-                "message" => "Virheellinen CSV-tiedosto!"   
+                "message" => "Virheellinen CSV-asetustiedosto!"   
             );
          
         }

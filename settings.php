@@ -7,6 +7,10 @@
         session_unset();   // remove all session variables       
         session_destroy();      // destroy the session     
     }
+
+    $new_vendorname = "";
+    $new_accountnumber = "";   
+    
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,11 +36,10 @@
                     <br> 
                     Valitse ja hae aiemmin talletettu asetustiedosto:
                     <br> <br>  
-                    <input type="file" class="file-input" id="file-input-settings" name="file-input-settings" onclick="checkFields()"> 
+                    <input type="file" class="file-input" id="file-input-settings" name="file-input-settings" > 
                     <input type="submit" class="btn-submit" id="upload-settings" name="upload-settings"
-                        value="Asetusten haku">
+                        value="Asetusten haku"> 
 
-                     
                 </fieldset>
             </form> 
 
@@ -52,13 +55,14 @@
                   
                         <label for  ="new_vendorname" class="label">Laskuttaja:</label>
                         <input type ="text" id="new_vendorname" name="new_vendorname" class="txtBox"
-                            placeholder="Laskun lähettäjä">                           
+                            placeholder="Laskun lähettäjä">                                                                
+                                                   
                         <br>  
                         
                         <label for  ="new_accountnumber" class="label">Tilinumero:</label>
                         <input type ="text" id="new_accountnumber" name="new_accountnumber" class="txtBox"                            
                             placeholder="IBAN tilinro" maxlength="18" minlength=18                            
-                            pattern="^[a-zA-Z0-9]*$">
+                            pattern="^[a-zA-Z0-9]*$" >
 
                         <label for  ="button-clear" class="label"></label>
                         <input type="button" id="button-clear" onclick="resetForm()"  class="btn-submit" value="Tyhjennä">
@@ -113,7 +117,7 @@
                                                                 
                                                 </td>
                                                 <td> 
-                                                    <input type="button" value="Delete" onclick="deleteRow(this)">                                      
+                                                    <input type="button" value="Poista" onclick="deleteRow(this)">                                      
                                                 </td>                                
                                             </tr>
                             <?php
@@ -133,7 +137,7 @@
                     </div>
                    
                     <?php if(!empty($responseSettings)) { ?>
-                        <div class="response <?php echo $responseSettings["type"]; ?>
+                        <div id="responseSettings"class="response <?php echo $responseSettings["type"]; ?>
                             ">
                             <?php echo $responseSettings["message"]; ?>
                         </div>            
@@ -141,16 +145,16 @@
 
                     <br>  <br>
                     <input type="submit" class="btn-submit" id="btn-save" name="btn-save"
-                    value="Tallenna"> 
-
-                         
+                    value="Tallenna" onclick="removeErrorMsg()"> 
+                                        
                     <p id="message" name="message">                  
                         <?php                 
                             if(isset($_GET['Message'])){
                                 echo $_GET['Message'];                                                                
                             }        
                         ?>
-                    </p>
+                    </p>                  
+                   
                 </fieldset>  
             </form>           
         </div> 
@@ -163,14 +167,14 @@
             
             function resetForm() { 
                 document.getElementById("new_vendorname").value = "";   
-                document.getElementById("new_accountnumber").value = "";               
+                document.getElementById("new_accountnumber").value = "";                           
+                document.getElementById('message').innerHTML = "";                
             }
-
-            //todo:
-            function checkFields() {                   
-                document.getElementById("message").value   = "";
-                                   
+           
+            function removeErrorMsg() {
+                document.getElementById('message').innerHTML = ""; 
             }
+                      
         </script>
     </body>
 </html>

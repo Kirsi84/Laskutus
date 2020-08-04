@@ -1,14 +1,12 @@
 <?php
  
 if(!isset($_POST)) {
-   // header('location:settings.php');
-   error_log("test1", 0); 
-    exit();
+   // header('location:settings.php');  
+   exit();
 }
 if(!isset($_POST['btn-save'])) {
-   // header('location:settings.php');
-   error_log("test2", 0); 
-    exit();
+   // header('location:settings.php'); 
+   exit();
 }
 
 include_once 'iban.php';
@@ -25,8 +23,8 @@ try {
         $new_vendorname =  trim($_POST['new_vendorname']);            
     }
     if (isset($_POST['new_accountnumber']))  {  
-        if (! empty($_POST['new_accountnumber'])) {   
-          // $new_accountnumber =  trim($_POST['new_accountnumber']);            
+        if (! empty($_POST['new_accountnumber'])) {  
+                    error_log("koe" . $_POST['new_accountnumber'], 0);
             $new_accountnumber =  test_input($_POST['new_accountnumber']);      
             $new_accountnumber = str_replace(' ', '', $new_accountnumber);
             $new_accountnumber =  strtoupper($new_accountnumber);
@@ -60,6 +58,7 @@ try {
         exit();
     }
     
+    $dublicates = false;
     $settings = array();
 
     for ($i = 0; $i < $counter; $i++) { 
@@ -69,15 +68,21 @@ try {
         if (isset($_POST['accountnumber'][$i]))  {           
             $accountnumber =  trim(trim($_POST['accountnumber'][$i]));           
         }
+        // no dublicates
+        if (($vendorname == $new_vendorname) &&  ($accountnumber == $new_accountnumber)) {
+            $dublicates = true;
+        }
        
         $line = array("LASKUTTAJA",  $vendorname, $accountnumber);
         array_push($settings, $line); 
     }
 
-    if ($new_vendorname != "") {
-        if ($new_accountnumber != "") {
-            $line = array("LASKUTTAJA",  $new_vendorname, $new_accountnumber);
-            array_push($settings, $line); 
+    if ($dublicates == false) {
+        if ($new_vendorname != "") {
+            if ($new_accountnumber != "") {
+                $line = array("LASKUTTAJA",  $new_vendorname, $new_accountnumber);
+                array_push($settings, $line); 
+            }
         }
     } 
 
@@ -85,6 +90,7 @@ try {
         $settings, 
         "Asetukset.csv", $csvDelimiter
     ); 
+    $userMessage= "Csv-tiedoston muodostus onnistui!";
 }
 catch (Exception $e) { 
     error_log($e->getMessage(), 0);

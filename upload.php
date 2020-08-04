@@ -36,6 +36,10 @@ if (isset($_POST["upload"])) {
         $lengthArray = array();
         
         $row = 1;
+        $lask = -1;  // count of columns
+        $checkEmail = true;
+        $email = "";
+
         if (($fp = fopen($_FILES["file-input"]["tmp_name"], "r")) !== FALSE) {
 
            // utf8_encode(fgets($file));
@@ -43,8 +47,25 @@ if (isset($_POST["upload"])) {
             while (($data = fgetcsv($fp, $csvSize, $csvDelimiter)) !== FALSE) {
                 $data = array_map("utf8_encode", $data); //added
                
+                // email column must be empty or email
+                if ($checkEmail == true) {
+                   // $email =  $data[5]; 
+                   if (isset($data[5])) {
+                        $email = $data[5];
+                        if ($email != "") {                   
+                            if (filter_var($email, FILTER_VALIDATE_EMAIL) == false) {                     
+                                $checkEmail = false;
+                            }
+                        }
+                    }
+                }               
+
                 $lengthArray[] = count($data);
+                if ($lask == - 1) {
+                    $lask = count($data);
+                }
                 $row ++;
+              
             }
             fclose($fp);
         }            
@@ -52,16 +73,26 @@ if (isset($_POST["upload"])) {
         $lengthArray = array_unique($lengthArray);
         
         // everything is ok
-        if (count($lengthArray) == 1) {
-            $response = array(
-                "type" => "success",
-                "message" => "Asiakastiedoston validointi onnistui!"
-            );
+        if ((count($lengthArray) == 1)  && ($lask == 6)) {
+       
+            if ($checkEmail ==  false) {            
+                $response = array(
+                    "type" => "error",
+                    "message" => "Asiakastiedostossa virheellinen sisältö!"  
+                );
+            }
+            else {
+
+                $response = array(
+                    "type" => "success",
+                    "message" => "Asiakastiedoston validointi onnistui!"
+                );
+            }   
           
         } else {
             $response = array(
                 "type" => "error",
-                "message" => "Virheellinen CSV-tiedosto!"               
+                "message" => "Virheellinen CSV-asiakastiedosto!"               
             );
         }
     }
